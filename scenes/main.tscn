@@ -6,6 +6,3 @@
 
 [node name="Player" parent="." instance=ExtResource("2_0wfyh")]
 position = Vector2(43, 103)
-speed = 20
-size = 1.0
-max_health = 10

@@ -1,0 +1,100 @@
+[gd_scene load_steps=3 format=3 uid="uid://0mmyekdey00n"]
+
+[ext_resource type="Script" uid="uid://cuqvtw5gpc55k" path="res://scenes/setting.gd" id="1_u58eq"]
+[ext_resource type="Texture2D" uid="uid://cyk7oraywdkgj" path="res://resources/images/settingbackground.png" id="2_u58eq"]
+
+[node name="Setting" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u58eq")
+
+[node name="mainscreen" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SettingBackground" type="NinePatchRect" parent="mainscreen"]
+layout_mode = 2
+texture = ExtResource("2_u58eq")
+
+[node name="Buttoncontainer" type="MarginContainer" parent="mainscreen/SettingBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer"]
+layout_mode = 2
+theme_override_constants/separation = -5
+
+[node name="LeaveButton" type="Button" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Leave"
+
+[node name="seperator" type="Control" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MainCategories" type="HBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/separation = 110
+
+[node name="VideoButton" type="Button" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/MainCategories"]
+custom_minimum_size = Vector2(130, 40)
+layout_mode = 2
+text = "Video
+"
+
+[node name="AudioButton" type="Button" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/MainCategories"]
+custom_minimum_size = Vector2(130, 40)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+text = "Audio"
+
+[node name="GraphButton" type="Button" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/MainCategories"]
+custom_minimum_size = Vector2(130, 40)
+layout_mode = 2
+text = "Graph"
+
+[node name="MISCButton" type="Button" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/MainCategories"]
+custom_minimum_size = Vector2(130, 40)
+layout_mode = 2
+text = "MISC"
+
+[node name="VideoSetting" type="VBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AudioSetting" type="VBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Control" type="Control" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting"]
+layout_mode = 2
+
+[node name="Volumesetting" type="HSlider" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting"]
+layout_mode = 2
+
+[node name="Graphsetting" type="VBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MISCsetting" type="VBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer"]
+layout_mode = 2
+
+[connection signal="pressed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/LeaveButton" to="." method="_on_leave_button_pressed"]
+[connection signal="visibility_changed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting" to="." method="_on_audio_setting_visibility_changed"]
