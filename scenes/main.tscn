@@ -1,7 +1,11 @@
 [gd_scene load_steps=2 format=3 uid="uid://clf87pry42tl2"]
 
-[ext_resource type="PackedScene" uid="uid://dftayuf57q3hy" path="res://scenes/map.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://baeupmwvx1kib" path="res://scenes/player.tscn" id="2_0wfyh"]
 
 [node name="Main" type="Node2D"]
 
-[node name="Map" parent="." instance=ExtResource("1_o5qli")]
+[node name="Player" parent="." instance=ExtResource("2_0wfyh")]
+position = Vector2(43, 103)
+speed = 20
+size = 1.0
+max_health = 10

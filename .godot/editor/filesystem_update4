@@ -1,0 +1,8 @@
+res://scenes/player.tscn
+res://scenes/fireball.tscn
+res://scenes/main.tscn
+res://scripts/fireball.gd
+res://scripts/marker.gd
+res://scripts/player.gd
+res://scenes/marker.tscn
+res://scripts/skills.gd
