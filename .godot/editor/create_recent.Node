@@ -1,10 +1,15 @@
+MultiplayerSynchronizer
+Camera2D
+Node2D
+MultiplayerSpawner
+Button
+CanvasLayer
+CanvasGroup
 CollisionShape2D
 Area2D
 Timer
 AnimationPlayer
-Node2D
 Line2D
 Marker2D
 AnimatedSprite2D
 CharacterBody2D
-CollisionPolygon2D

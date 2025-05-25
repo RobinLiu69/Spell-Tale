@@ -1,5 +1,7 @@
 res://scenes/player.tscn
 res://scenes/main.tscn
+res://scripts/main.gd
 res://scenes/fireball.tscn
 res://scenes/marker.tscn
 res://scenes/main_menu.tscn
+res://scripts/player.gd

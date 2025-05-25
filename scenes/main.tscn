@@ -1,8 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://clf87pry42tl2"]
+[gd_scene load_steps=3 format=3 uid="uid://clf87pry42tl2"]
 
+[ext_resource type="Script" uid="uid://cckjos1y1l8pk" path="res://scripts/main.gd" id="1_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://baeupmwvx1kib" path="res://scenes/player.tscn" id="2_0wfyh"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_0wfyh")
+player_scene = ExtResource("2_0wfyh")
 
-[node name="Player" parent="." instance=ExtResource("2_0wfyh")]
-position = Vector2(43, 103)
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Host" type="Button" parent="CanvasLayer"]
+offset_right = 109.0
+offset_bottom = 40.0
+text = "Host"
+
+[node name="Join" type="Button" parent="CanvasLayer"]
+offset_top = 41.0
+offset_right = 109.0
+offset_bottom = 77.0
+text = "Joina"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("uid://baeupmwvx1kib")
+spawn_path = NodePath("..")
+spawn_limit = 1
+
+[connection signal="pressed" from="CanvasLayer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="CanvasLayer/Join" to="." method="_on_join_pressed"]

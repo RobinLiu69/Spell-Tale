@@ -10,7 +10,7 @@ signal health_changed
 @onready var marker: Marker2D = $Marker
 @onready var current_health: int = max_health
 @onready var skills: Node2D = $Skills
-
+@onready var cam: Camera2D = $CamOrigin/Camera2D
 var damage: int = 0
 var physical_defence: int = 0
 var elements_resistance: int = 0
@@ -20,10 +20,15 @@ var water_defence: int = 0
 var poison_defence: int = 0
 var electric_defence: int = 0
 
+
+func _enter_tree():
+	set_multiplayer_authority(name.to_int())
+
+
 func _ready():
-	health_changed.emit()
-	# for weapon in weapons:
-		# print(weapon.current_scene.scene_file_path)
+
+	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	cam.enabled = is_multiplayer_authority()
 
 func take_damage(attacker: CharacterBody2D, value: int) -> bool:
 	value = current_health if current_health - value <= 0 else value
@@ -33,6 +38,7 @@ func take_damage(attacker: CharacterBody2D, value: int) -> bool:
 		queue_free()
 		print(name +" dead")
 	return true
+
 
 
 func get_input() -> Vector2:
@@ -46,10 +52,10 @@ func spells(delta: float) -> bool:
 		skill_instance.rotation = marker.rotation
 		skill_instance.global_position = marker.global_position
 		
-	
+		
 	return true
 	
-func movement(delta: float) -> bool:
+func movement(delta: float):
 	var direction: Vector2 = get_input()
 	if direction:
 		velocity = direction * speed * 10
@@ -59,11 +65,14 @@ func movement(delta: float) -> bool:
 		elif velocity.x > 0:
 			player.flip_h = false
 
-		return true
+		
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed * 150 * delta)
 		velocity.y = move_toward(velocity.y, 0, speed * 150 * delta)
-		return false
+	
+	
+	move_and_slide()
+	
 
 func handle_hit(attacker: CharacterBody2D, damage: int) -> bool:
 	current_health -= damage
@@ -75,7 +84,11 @@ func alive() -> bool:
 	return current_health > 0
 
 
-func _process(delta: float):
+func _physics_process(delta: float):
+	if not is_multiplayer_authority(): return
+	if Input.is_action_just_pressed("quit"):
+		$"../".exit_game(name.to_int())
+		get_tree().quit()
+	
 	movement(delta)
 	spells(delta)
-	move_and_slide()

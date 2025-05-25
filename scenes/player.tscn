@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://baeupmwvx1kib"]
+[gd_scene load_steps=11 format=3 uid="uid://baeupmwvx1kib"]
 
 [ext_resource type="Texture2D" uid="uid://buxqa7rdfotov" path="res://resources/images/player/player.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://biu6ogotikqhp" path="res://scripts/player.gd" id="1_g2els"]
@@ -29,15 +29,22 @@ _data = {
 &"player": SubResource("Animation_u8vuu")
 }
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qlg0r"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(1, 1)
 script = ExtResource("1_g2els")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2, 1)
 sprite_frames = SubResource("SpriteFrames_g2els")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 8)
 shape = SubResource("CapsuleShape2D_g2els")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -50,4 +57,10 @@ script = ExtResource("3_qlg0r")
 skill_1 = ExtResource("3_dqkch")
 
 [node name="Marker" parent="." instance=ExtResource("3_qhqgy")]
-position = Vector2(0, -1)
+
+[node name="CamOrigin" type="Node2D" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="CamOrigin"]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_qlg0r")
