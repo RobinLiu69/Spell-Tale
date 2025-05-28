@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cupap0a77uv4b"]
+[gd_scene load_steps=15 format=3 uid="uid://cupap0a77uv4b"]
 
 [ext_resource type="Script" uid="uid://bgb1d77qceyxp" path="res://scripts/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="Texture2D" uid="uid://bwd3frreglqot" path="res://resources/images/retro-8-bit-pixel-desert-road-landscape-background-vector.jpg" id="1_l6cm7"]
@@ -36,6 +36,11 @@ region_rect = Rect2(900, 133, 304, 73)
 texture = ExtResource("2_ekxnf")
 region_rect = Rect2(555, 301, 303, 76)
 modulate_color = Color(0.620167, 0.620167, 0.620167, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_flqon"]
+texture = ExtResource("2_ekxnf")
+region_rect = Rect2(554, 301, 304, 74)
+modulate_color = Color(0.442911, 0.442911, 0.442911, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wu84c"]
 texture = ExtResource("2_ekxnf")
@@ -97,27 +102,32 @@ theme_override_font_sizes/font_size = 90
 text = "SPELL TALE"
 horizontal_alignment = 1
 
-[node name="ButtonContainer" type="MarginContainer" parent="HomePage/HomePageBackground"]
-layout_mode = 2
-offset_top = 150.0
-offset_right = 1152.0
-offset_bottom = 648.0
-theme_override_constants/margin_top = 90
+[node name="VBoxContainer" type="VBoxContainer" parent="HomePage/HomePageBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 405
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HomePage/HomePageBackground/ButtonContainer"]
-layout_mode = 2
-theme_override_constants/separation = 530
-
-[node name="Control" type="Control" parent="HomePage/HomePageBackground/ButtonContainer/HBoxContainer"]
+[node name="Control" type="Control" parent="HomePage/HomePageBackground/VBoxContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HomePage/HomePageBackground/ButtonContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HomePage/HomePageBackground/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 855
+
+[node name="Control" type="Control" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 25
 
-[node name="PlayButton" type="Button" parent="HomePage/HomePageBackground/ButtonContainer/HBoxContainer/VBoxContainer"]
+[node name="PlayButton" type="Button" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(225, 75)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -126,26 +136,27 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_oa1go")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_5dd4i")
 theme_override_styles/normal = SubResource("StyleBoxTexture_bqqt6")
 
-[node name="SettingButton" type="Button" parent="HomePage/HomePageBackground/ButtonContainer/HBoxContainer/VBoxContainer"]
+[node name="SettingButton" type="Button" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(225, 75)
 layout_mode = 2
 theme_override_styles/hover = SubResource("StyleBoxTexture_tbmy8")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8ln24")
 theme_override_styles/normal = SubResource("StyleBoxTexture_ekxnf")
 
-[node name="StoreButton" type="Button" parent="HomePage/HomePageBackground/ButtonContainer/HBoxContainer/VBoxContainer"]
+[node name="StoreButton" type="Button" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(225, 75)
 layout_mode = 2
 theme_override_styles/hover = SubResource("StyleBoxTexture_jk1qb")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_flqon")
 theme_override_styles/normal = SubResource("StyleBoxTexture_wu84c")
 
-[node name="QuitButton" type="Button" parent="HomePage/HomePageBackground/ButtonContainer/HBoxContainer/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(225, 75)
 layout_mode = 2
 theme_override_styles/hover = SubResource("StyleBoxTexture_lgwnu")
 theme_override_styles/normal = SubResource("StyleBoxTexture_rtw2f")
 
-[connection signal="pressed" from="HomePage/HomePageBackground/ButtonContainer/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="HomePage/HomePageBackground/ButtonContainer/HBoxContainer/VBoxContainer/SettingButton" to="." method="_on_setting_button_pressed"]
-[connection signal="pressed" from="HomePage/HomePageBackground/ButtonContainer/HBoxContainer/VBoxContainer/StoreButton" to="." method="_on_store_button_pressed"]
-[connection signal="pressed" from="HomePage/HomePageBackground/ButtonContainer/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer/SettingButton" to="." method="_on_setting_button_pressed"]
+[connection signal="pressed" from="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer/StoreButton" to="." method="_on_store_button_pressed"]
+[connection signal="pressed" from="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

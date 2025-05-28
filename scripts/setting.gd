@@ -4,13 +4,14 @@ extends Control
 @onready var audio_setting: VBoxContainer = $mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting
 @onready var graph_setting: VBoxContainer = $mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/Graphsetting
 @onready var misc_setting: VBoxContainer = $mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/MISCsetting
-
 @export var audio_bus_name: String
 
 
 
 func _on_leave_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+	get_tree().change_scene_to_file(Global.previous_scene_path)
+	
+
 	
 func _on_video_button_pressed() -> void:
 	video_setting.visible = true
@@ -31,6 +32,13 @@ func _on_graph_button_pressed() -> void:
 	audio_setting.visible = false
 	graph_setting.visible = true
 	misc_setting.visible = false
+	
+func _on_misc_button_pressed() -> void:
+	video_setting.visible = false
+	audio_setting.visible = false
+	graph_setting.visible = false
+	misc_setting.visible = true
+
 
 
 func _on_volumesetting_value_changed(value: float) -> void:
@@ -49,8 +57,6 @@ func _on_resolution_option_item_selected(index: int) -> void:
 
 
 
-
-	
 func _on_screen_mode_2_item_selected(index: int) -> void:
 	match index:
 		0:

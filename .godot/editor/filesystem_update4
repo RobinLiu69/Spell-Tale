@@ -1,1 +1,9 @@
+res://scenes/main.tscn
+res://scenes/player.tscn
+res://scenes/fireball.tscn
+res://scenes/marker.tscn
+res://scenes/main_menu.tscn
 res://scenes/setting.tscn
+res://scenes/achievement.tscn
+res://scenes/modechoice.tscn
+res://scenes/training_room.tscn

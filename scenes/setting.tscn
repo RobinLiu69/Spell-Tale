@@ -58,7 +58,7 @@ theme_override_constants/margin_right = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer"]
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = 15
 
 [node name="LeaveButton" type="Button" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer"]
 custom_minimum_size = Vector2(75, 75)
@@ -74,7 +74,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-theme_override_constants/separation = 110
+theme_override_constants/separation = 150
 
 [node name="VideoButton" type="Button" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/MainCategories"]
 custom_minimum_size = Vector2(130, 40)
@@ -101,14 +101,14 @@ text = "MISC"
 
 [node name="VideoSetting" type="VBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 25
+theme_override_constants/separation = 15
 
 [node name="seperator" type="Control" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/VideoSetting"]
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/VideoSetting"]
 layout_mode = 2
-theme_override_constants/separation = 150
+theme_override_constants/separation = 225
 
 [node name="seperator" type="Control" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/VideoSetting/HBoxContainer"]
 layout_mode = 2
@@ -159,28 +159,28 @@ popup/item_3/id = 3
 [node name="AudioSetting" type="VBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer"]
 visible = false
 layout_mode = 2
-theme_override_constants/separation = 24
+theme_override_constants/separation = 15
 
 [node name="seperator" type="Control" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting"]
 layout_mode = 2
 
 [node name="MainVolumecontainer" type="HBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting"]
 layout_mode = 2
-theme_override_constants/separation = 144
+theme_override_constants/separation = 225
 
 [node name="seperator" type="Control" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting/MainVolumecontainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting/MainVolumecontainer"]
+[node name="VolumeSettingcontainer" type="VBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting/MainVolumecontainer"]
 layout_mode = 2
-theme_override_constants/separation = 5
+theme_override_constants/separation = 10
 
-[node name="MainVolumelaber" type="Label" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting/MainVolumecontainer/VBoxContainer"]
+[node name="MainVolumelaber" type="Label" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting/MainVolumecontainer/VolumeSettingcontainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Main Volume"
 
-[node name="MainVolumeslideer" type="HSlider" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting/MainVolumecontainer/VBoxContainer"]
+[node name="MainVolumeslideer" type="HSlider" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting/MainVolumecontainer/VolumeSettingcontainer"]
 custom_minimum_size = Vector2(300, 10)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -188,12 +188,12 @@ size_flags_vertical = 4
 theme_override_styles/slider = SubResource("StyleBoxLine_u58eq")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_scrng")
 
-[node name="MusicVolumelabel" type="Label" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting/MainVolumecontainer/VBoxContainer"]
+[node name="MusicVolumelabel" type="Label" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting/MainVolumecontainer/VolumeSettingcontainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Music Volume"
 
-[node name="MusicVolumeslider" type="HSlider" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting/MainVolumecontainer/VBoxContainer"]
+[node name="MusicVolumeslider" type="HSlider" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting/MainVolumecontainer/VolumeSettingcontainer"]
 custom_minimum_size = Vector2(300, 10)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -201,9 +201,11 @@ theme_override_styles/slider = SubResource("StyleBoxLine_7k1fe")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_31ui4")
 
 [node name="Graphsetting" type="VBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="MISCsetting" type="VBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [connection signal="draw" from="mainscreen" to="." method="_on_mainscreen_draw"]
@@ -213,10 +215,11 @@ layout_mode = 2
 [connection signal="pressed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/MainCategories/VideoButton" to="." method="_on_video_button_pressed"]
 [connection signal="pressed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/MainCategories/AudioButton" to="." method="_on_audio_button_pressed"]
 [connection signal="pressed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/MainCategories/GraphButton" to="." method="_on_graph_button_pressed"]
+[connection signal="pressed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/MainCategories/MISCButton" to="." method="_on_misc_button_pressed"]
 [connection signal="visibility_changed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/VideoSetting" to="." method="_on_video_setting_visibility_changed"]
 [connection signal="item_selected" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/VideoSetting/HBoxContainer/ButtonContainer/ResolutionOption" to="." method="_on_resolution_option_item_selected"]
 [connection signal="item_selected" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/VideoSetting/HBoxContainer/ButtonContainer/ScreenModeSelector" to="." method="_on_screen_mode_2_item_selected"]
 [connection signal="visibility_changed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting" to="." method="_on_audio_setting_visibility_changed"]
-[connection signal="value_changed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting/MainVolumecontainer/VBoxContainer/MainVolumeslideer" to="." method="_on_volumesetting_value_changed"]
+[connection signal="value_changed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting/MainVolumecontainer/VolumeSettingcontainer/MainVolumeslideer" to="." method="_on_volumesetting_value_changed"]
 [connection signal="visibility_changed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/Graphsetting" to="." method="_on_graphsetting_visibility_changed"]
 [connection signal="visibility_changed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/MISCsetting" to="." method="_on_mis_csetting_visibility_changed"]
