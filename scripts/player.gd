@@ -1,94 +1,87 @@
+class_name Player
 extends CharacterBody2D
 
-signal health_changed
-
-@export var speed: int = 20
-@export var size: float = 1.0
-@export var max_health: int = 10
-@onready var player: AnimatedSprite2D = $AnimatedSprite2D
-@onready var anim: AnimationPlayer = $AnimationPlayer
-@onready var marker: Marker2D = $Marker
-@onready var current_health: int = max_health
-@onready var skills: Node2D = $Skills
-@onready var cam: Camera2D = $CamOrigin/Camera2D
-var damage: int = 0
-var physical_defence: int = 0
-var elements_resistance: int = 0
-var grass_defence: int = 0
-var fire_defence: int = 0
-var water_defence: int = 0
-var poison_defence: int = 0
-var electric_defence: int = 0
-
-
-func _enter_tree():
-	set_multiplayer_authority(name.to_int())
-
-
-func _ready():
-
-	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	cam.enabled = is_multiplayer_authority()
-
-func take_damage(attacker: CharacterBody2D, value: int) -> bool:
-	value = current_health if current_health - value <= 0 else value
-	current_health -= value
-	health_changed.emit()
-	if not alive():
-		queue_free()
-		print(name +" dead")
-	return true
+@onready var marker: Marker2D = $SpellCon/Marker2D
 
 
 
-func get_input() -> Vector2:
-	return Input.get_vector("left", "right", "up", "down")
+const SPEED = 300.0
+const JUMP_VELOCITY = -500.0
 
-func spells(delta: float) -> bool:
+var acceleration = 0.0
+
+var spell_1: String
+var spell_2: String
+
+func _enter_tree() -> void:
+	set_multiplayer_authority(int(str(name)))
+
+func _ready() -> void:
+	spell_1 = "fireball"
+	spell_2 = "fire_aura"
+	
+	
+	$CamOrigin/Camera2D.enabled = is_multiplayer_authority()
+	
+	if !is_multiplayer_authority():
+		$PlayerSprite.modulate = Color.RED
+
+func _physics_process(delta: float) -> void:
+	if !is_multiplayer_authority():
+		return
+	
+	
+	$SpellCon.look_at(get_global_mouse_position())
+	
+	# Add the gravity.
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+	
 	
 	if Input.is_action_just_pressed("special_1"):
-		var skill_instance: CharacterBody2D = skills.skill_1.instantiate()
-		get_tree().current_scene.add_child(skill_instance)
-		skill_instance.rotation = marker.rotation
-		skill_instance.global_position = marker.global_position
-		
-		
-	return true
+		cast.rpc(multiplayer.get_unique_id(), spell_1)
+	elif Input.is_action_just_pressed("special_2"):
+		cast.rpc(multiplayer.get_unique_id(), spell_2)
+	#elif Input.is_action_just_pressed("special_3") and spell_dict[3] != null:
+		#cast.rpc(spell_dict[3])
 	
-func movement(delta: float):
-	var direction: Vector2 = get_input()
-	if direction:
-		velocity = direction * speed * 10
-		
-		if velocity.x < 0:
-			player.flip_h = true
-		elif velocity.x > 0:
-			player.flip_h = false
+	# Handle jump.
 
-		
-	else:
-		velocity.x = move_toward(velocity.x, 0, speed * 150 * delta)
-		velocity.y = move_toward(velocity.y, 0, speed * 150 * delta)
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var direction := Input.get_axis("left", "right")
 	
-	
+	if is_on_floor():
+		if direction:
+			acceleration = direction * SPEED
+		else:
+			acceleration = move_toward(acceleration, 0, SPEED)
+
+	velocity.x = acceleration
+
+	if velocity.x < 0:
+		$PlayerSprite.flip_h = true
+	elif velocity.x > 0:
+		$PlayerSprite.flip_h = false
+
+
 	move_and_slide()
+
 	
+@rpc("call_local")
+func cast(caster_pid: int, spell_name: String):
+	if not SpellRegistry.SPELLS.has(spell_name):
+		push_error("spell %s not found in registry" % spell_name)
+		return
+	var spell: Spell = SpellRegistry.get_spell(spell_name).instantiate()
+	spell.source = self
+	spell.set_multiplayer_authority(caster_pid)
+	get_parent().add_child(spell)
+	spell.transform = marker.global_transform
 
-func handle_hit(attacker: CharacterBody2D, damage: int) -> bool:
-	current_health -= damage
-	health_changed.emit()
-	return true
-
-
-func alive() -> bool:
-	return current_health > 0
-
-
-func _physics_process(delta: float):
-	if not is_multiplayer_authority(): return
-	if Input.is_action_just_pressed("quit"):
-		$"../".exit_game(name.to_int())
-		get_tree().quit()
-	
-	movement(delta)
-	spells(delta)
+@rpc("any_peer")
+func take_damage(damage: int, source: Player):
+	pass

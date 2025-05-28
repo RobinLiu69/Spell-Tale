@@ -1,7 +1,9 @@
 res://scenes/player.tscn
-res://scenes/main.tscn
-res://scripts/main.gd
-res://scenes/fireball.tscn
-res://scenes/marker.tscn
-res://scenes/main_menu.tscn
+res://scripts/game.gd
 res://scripts/player.gd
+res://scenes/fireball.tscn
+res://scenes/game.tscn
+res://scripts/spells/SpellRegistry.gd
+res://scripts/spells/fire/fireball.gd
+res://scenes/fire_aura.tscn
+res://scripts/spells/fire_aura.gd

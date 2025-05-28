@@ -1,25 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://baeupmwvx1kib"]
+[gd_scene load_steps=7 format=3 uid="uid://baeupmwvx1kib"]
 
 [ext_resource type="Texture2D" uid="uid://buxqa7rdfotov" path="res://resources/images/player/player.png" id="1_3vyb7"]
-[ext_resource type="Script" uid="uid://biu6ogotikqhp" path="res://scripts/player.gd" id="1_g2els"]
-[ext_resource type="PackedScene" uid="uid://7mfn3sv2twq5" path="res://scenes/fireball.tscn" id="3_dqkch"]
-[ext_resource type="PackedScene" uid="uid://dy2c3dufu5dc8" path="res://scenes/marker.tscn" id="3_qhqgy"]
-[ext_resource type="Script" uid="uid://bk01yd4s827bh" path="res://scripts/skills.gd" id="3_qlg0r"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_g2els"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_3vyb7")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+[ext_resource type="Script" uid="uid://dlvhwpsrbw6mc" path="res://scripts/player.gd" id="1_g2els"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 16.0
-height = 94.0
+height = 108.0
 
 [sub_resource type="Animation" id="Animation_u8vuu"]
 resource_name = "player"
@@ -36,15 +22,22 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath("SpellCon:rotation")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("PlayerSprite:flip_h")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_g2els")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-2, 1)
-sprite_frames = SubResource("SpriteFrames_g2els")
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_3vyb7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 11)
+rotation = -0.00507956
 shape = SubResource("CapsuleShape2D_g2els")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -52,11 +45,15 @@ libraries = {
 &"": SubResource("AnimationLibrary_3vyb7")
 }
 
-[node name="Skills" type="Node2D" parent="."]
-script = ExtResource("3_qlg0r")
-skill_1 = ExtResource("3_dqkch")
+[node name="SpellCon" type="Node2D" parent="."]
+position = Vector2(1, 0)
 
-[node name="Marker" parent="." instance=ExtResource("3_qhqgy")]
+[node name="Marker2D" type="Marker2D" parent="SpellCon"]
+position = Vector2(40, 0)
+
+[node name="Line2D" type="Line2D" parent="SpellCon/Marker2D"]
+points = PackedVector2Array(0, 0, 25, 0)
+width = 3.0
 
 [node name="CamOrigin" type="Node2D" parent="."]
 
