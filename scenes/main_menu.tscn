@@ -1,0 +1,162 @@
+[gd_scene load_steps=15 format=3 uid="uid://bt2vdvk6lle2x"]
+
+[ext_resource type="Script" uid="uid://bgb1d77qceyxp" path="res://scripts/UI/main_menu.gd" id="1_bqqt6"]
+[ext_resource type="Texture2D" uid="uid://bwd3frreglqot" path="res://resources/images/retro-8-bit-pixel-desert-road-landscape-background-vector.jpg" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://qicioyu8sq4k" path="res://resources/images/stock-vector-interface-menu-buttons-pixel-art-set-menu-panel-collection-play-pause-store-settings-options-2185918411-Photoroom.png" id="2_ekxnf"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oa1go"]
+texture = ExtResource("2_ekxnf")
+region_rect = Rect2(555, 133, 303, 73)
+modulate_color = Color(0.724643, 0.724643, 0.724643, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5dd4i"]
+texture = ExtResource("2_ekxnf")
+region_rect = Rect2(554, 133, 304, 73)
+modulate_color = Color(0.76662, 0.76662, 0.76662, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bqqt6"]
+texture = ExtResource("2_ekxnf")
+region_rect = Rect2(554, 133, 304, 73)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tbmy8"]
+texture = ExtResource("2_ekxnf")
+region_rect = Rect2(903, 133, 302, 74)
+modulate_color = Color(0.672064, 0.672064, 0.672064, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8ln24"]
+texture = ExtResource("2_ekxnf")
+region_rect = Rect2(900, 132, 304.667, 75)
+modulate_color = Color(0.542318, 0.542318, 0.542318, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ekxnf"]
+texture = ExtResource("2_ekxnf")
+region_rect = Rect2(900, 133, 304, 73)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jk1qb"]
+texture = ExtResource("2_ekxnf")
+region_rect = Rect2(555, 301, 303, 76)
+modulate_color = Color(0.620167, 0.620167, 0.620167, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_flqon"]
+texture = ExtResource("2_ekxnf")
+region_rect = Rect2(554, 301, 304, 74)
+modulate_color = Color(0.442911, 0.442911, 0.442911, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wu84c"]
+texture = ExtResource("2_ekxnf")
+region_rect = Rect2(553, 302, 304, 73)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lgwnu"]
+texture = ExtResource("2_ekxnf")
+region_rect = Rect2(897, 471, 304, 73)
+modulate_color = Color(0.666569, 0.666569, 0.666569, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rtw2f"]
+texture = ExtResource("2_ekxnf")
+region_rect = Rect2(897, 470, 304, 76)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bqqt6")
+
+[node name="HomePage" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HomePageBackground" type="NinePatchRect" parent="HomePage"]
+layout_mode = 2
+texture = ExtResource("1_l6cm7")
+
+[node name="TopicContainer" type="MarginContainer" parent="HomePage/HomePageBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 480
+
+[node name="NinePatchRect" type="NinePatchRect" parent="HomePage/HomePageBackground/TopicContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="HomePage/HomePageBackground/TopicContainer/NinePatchRect"]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 90
+text = "SPELL TALE"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HomePage/HomePageBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 405
+
+[node name="Control" type="Control" parent="HomePage/HomePageBackground/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HomePage/HomePageBackground/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 855
+
+[node name="Control" type="Control" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 25
+
+[node name="PlayButton" type="Button" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(225, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/hover = SubResource("StyleBoxTexture_oa1go")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_5dd4i")
+theme_override_styles/normal = SubResource("StyleBoxTexture_bqqt6")
+
+[node name="SettingButton" type="Button" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(225, 75)
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_tbmy8")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_8ln24")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ekxnf")
+
+[node name="StoreButton" type="Button" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(225, 75)
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_jk1qb")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_flqon")
+theme_override_styles/normal = SubResource("StyleBoxTexture_wu84c")
+
+[node name="QuitButton" type="Button" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(225, 75)
+layout_mode = 2
+theme_override_styles/hover = SubResource("StyleBoxTexture_lgwnu")
+theme_override_styles/normal = SubResource("StyleBoxTexture_rtw2f")
+
+[connection signal="pressed" from="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer/SettingButton" to="." method="_on_setting_button_pressed"]
+[connection signal="pressed" from="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer/StoreButton" to="." method="_on_store_button_pressed"]
+[connection signal="pressed" from="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

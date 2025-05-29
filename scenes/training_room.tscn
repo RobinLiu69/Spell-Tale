@@ -1,0 +1,211 @@
+[gd_scene load_steps=4 format=3 uid="uid://dy1ru48p06lmr"]
+
+[ext_resource type="PackedScene" uid="uid://baeupmwvx1kib" path="res://scenes/player.tscn" id="1_3chlo"]
+[ext_resource type="Script" path="res://scripts/UI/training_room.gd" id="1_r1ea3"]
+[ext_resource type="Texture2D" uid="uid://cyk7oraywdkgj" path="res://resources/images/settingbackground.png" id="3_k5emf"]
+
+[node name="TrainingRoom" type="Node2D"]
+script = ExtResource("1_r1ea3")
+
+[node name="MainScreen" type="MarginContainer" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Buttoncontainer" type="MarginContainer" parent="MainScreen"]
+layout_mode = 2
+
+[node name="Setting" type="Button" parent="MainScreen/Buttoncontainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "⚙️"
+
+[node name="Player" parent="MainScreen" instance=ExtResource("1_3chlo")]
+position = Vector2(174, 548)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SettingScreen" type="MarginContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SettingBackgroundTexture" type="NinePatchRect" parent="CanvasLayer/SettingScreen"]
+layout_mode = 2
+texture = ExtResource("3_k5emf")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="LeaveSettingButton" type="Button" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Leave
+"
+
+[node name="seperator" type="Control" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Maincategories" type="HBoxContainer" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 150
+
+[node name="VideoButton" type="Button" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/Maincategories"]
+custom_minimum_size = Vector2(130, 40)
+layout_mode = 2
+text = "Video"
+
+[node name="AudioButton" type="Button" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/Maincategories"]
+custom_minimum_size = Vector2(130, 40)
+layout_mode = 2
+text = "Audio"
+
+[node name="GraphButton" type="Button" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/Maincategories"]
+custom_minimum_size = Vector2(130, 40)
+layout_mode = 2
+text = "Graph"
+
+[node name="MISCButton" type="Button" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/Maincategories"]
+custom_minimum_size = Vector2(130, 40)
+layout_mode = 2
+text = "MISC"
+
+[node name="VideoSetting" type="VBoxContainer" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="seperator" type="Control" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/VideoSetting"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/VideoSetting/seperator"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 225
+
+[node name="seperator" type="Control" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/VideoSetting/seperator/HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/VideoSetting/seperator/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Resolution" type="Label" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/VideoSetting/seperator/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Resolution"
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/VideoSetting/seperator/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 10)
+layout_mode = 2
+item_count = 3
+popup/item_0/text = "1920*1080"
+popup/item_0/id = 0
+popup/item_1/text = "1600*900"
+popup/item_1/id = 1
+popup/item_2/text = "1280*720"
+popup/item_2/id = 2
+
+[node name="sperator" type="Control" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/VideoSetting/seperator/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScreenMode" type="Label" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/VideoSetting/seperator/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "ScreenMode"
+
+[node name="OptionButton2" type="OptionButton" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/VideoSetting/seperator/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(300, 10)
+layout_mode = 2
+
+[node name="AudioSetting" type="VBoxContainer" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GraphSetting" type="VBoxContainer" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MISCSetting" type="VBoxContainer" parent="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Menucontainer" type="MarginContainer" parent="CanvasLayer"]
+process_mode = 2
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Menucontainer"]
+custom_minimum_size = Vector2(300, 500)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Menucontainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 33
+
+[node name="Control" type="Control" parent="CanvasLayer/Menucontainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Menucontainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContinueButton" type="Button" parent="CanvasLayer/Menucontainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Continue"
+
+[node name="seperator" type="Control" parent="CanvasLayer/Menucontainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SettingButton" type="Button" parent="CanvasLayer/Menucontainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Setting"
+
+[node name="Control2" type="Control" parent="CanvasLayer/Menucontainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LeaveButton" type="Button" parent="CanvasLayer/Menucontainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Leave"
+
+[connection signal="pressed" from="MainScreen/Buttoncontainer/Setting" to="." method="_on_setting_pressed"]
+[connection signal="pressed" from="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/LeaveSettingButton" to="." method="_on_leave_setting_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/Maincategories/VideoButton" to="." method="_on_video_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/Maincategories/AudioButton" to="." method="_on_audio_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/Maincategories/GraphButton" to="." method="_on_graph_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/Maincategories/MISCButton" to="." method="_on_misc_button_pressed"]
+[connection signal="item_selected" from="CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/VideoSetting/seperator/HBoxContainer/VBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="CanvasLayer/Menucontainer/PanelContainer/VBoxContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menucontainer/PanelContainer/VBoxContainer/SettingButton" to="." method="_on_setting_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Menucontainer/PanelContainer/VBoxContainer/LeaveButton" to="." method="_on_leave_button_pressed"]

@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Spell & Tale"
-run/main_scene="uid://bp1th31aar6d4"
+run/main_scene="uid://clf87pry42tl2"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 SpellRegistry="*res://scripts/spells/SpellRegistry.gd"
+Global="*res://scripts/UI/global.gd"
 
 [display]
 
