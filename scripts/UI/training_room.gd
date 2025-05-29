@@ -14,7 +14,6 @@ func _ready() -> void:
 	if Global.pause_status:
 		Global.pause_status = ! Global.pause_status
 		toggle_pause_menu()
-		print(Global.pause_status)
 	else:
 		pass
 
@@ -58,7 +57,8 @@ func _on_setting_button_pressed() -> void:
 	main_screen.visible = false
 	
 	
-#Setting Menu
+#======================================= Setting Menu ==============================================
+
 func _on_leave_setting_button_pressed() -> void:
 	setting_screen.visible = false
 	menucontainer.visible = true

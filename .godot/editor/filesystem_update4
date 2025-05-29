@@ -1,10 +1,13 @@
-res://scenes/player.tscn
+res://scenes/training_room.tscn
 res://scripts/game.gd
+res://scenes/player.tscn
 res://scenes/fireball.tscn
 res://scenes/game.tscn
 res://scenes/fire_aura.tscn
 res://scenes/modechoice.tscn
 res://scenes/main_menu.tscn
 res://scenes/main.tscn
-res://scenes/training_room.tscn
 res://scenes/setting.tscn
+res://scenes/esc_menu.gd
+res://scripts/spells/fire/fireball.gd
+res://scripts/UI/global.gd

@@ -18,7 +18,7 @@ func _on_button_pressed() -> void:
 	show_achievement(
 		"First Combat",
 		"You finished your first combat with other",
-		true
+		Global.achivement1_status
 	)
 	buttonseperator.visible = true
 

@@ -2,7 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 @onready var marker: Marker2D = $SpellCon/Marker2D
-
+var is_multiplayer_mode: bool = true
 
 
 const SPEED = 300.0
@@ -14,23 +14,23 @@ var spell_1: String
 var spell_2: String
 
 func _enter_tree() -> void:
-	set_multiplayer_authority(int(str(name)))
+	if is_multiplayer_mode:
+		set_multiplayer_authority(int(str(name)))
 
 func _ready() -> void:
 	spell_1 = "fireball"
 	spell_2 = "fire_aura"
 	
-	
-	$CamOrigin/Camera2D.enabled = is_multiplayer_authority()
-	
-	if !is_multiplayer_authority():
-		$PlayerSprite.modulate = Color.RED
-
+	if is_multiplayer_mode:
+		$CamOrigin/Camera2D.enabled = is_multiplayer_authority()
+		if !is_multiplayer_authority():
+			$PlayerSprite.modulate = Color.RED
+	else:
+		$CamOrigin/Camera2D.enabled = true
+		$PlayerSprite.modulate = Color(1,1,1,1)
 func _physics_process(delta: float) -> void:
-	if !is_multiplayer_authority():
+	if is_multiplayer_mode && !is_multiplayer_authority():
 		return
-	
-	
 	$SpellCon.look_at(get_global_mouse_position())
 	
 	# Add the gravity.

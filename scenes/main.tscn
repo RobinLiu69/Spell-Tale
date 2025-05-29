@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://bt2vdvk6lle2x" path="res://scenes/main_menu.tscn" id="2_sugp2"]
 
 [node name="MainMenu" type="Node2D"]
-position = Vector2(1, 0)
 script = ExtResource("1_0wfyh")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
