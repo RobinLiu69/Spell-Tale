@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://dbthbwirn2glv"]
+
+[ext_resource type="Script" uid="uid://ku5h3ag1125o" path="res://scripts/health_bar.gd" id="1_n1xf7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2b6dy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n1xf7"]
+bg_color = Color(0, 0.714327, 0.424045, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5g1vt"]
+bg_color = Color(0, 0, 0, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+shadow_color = Color(0, 0, 0, 0.27451)
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ycjss"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_n1xf7"]
+properties/0/path = NodePath("DamageBar:max_value")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("DamageBar:value")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="HealthBar" type="ProgressBar"]
+offset_right = 100.0
+offset_bottom = 15.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_2b6dy")
+theme_override_styles/fill = SubResource("StyleBoxFlat_n1xf7")
+value = 60.0
+show_percentage = false
+script = ExtResource("1_n1xf7")
+
+[node name="DamageBar" type="ProgressBar" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_5g1vt")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ycjss")
+value = 80.0
+show_percentage = false
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_n1xf7")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

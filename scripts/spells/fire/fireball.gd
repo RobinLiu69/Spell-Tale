@@ -24,12 +24,13 @@ func _process(delta):
 	position += transform.x * speed * delta
 
 
-func _on_fireball_body_entered(body: Node2D) -> void:
+
+func _on_body_entered(body: Node2D) -> void:
 	if !is_multiplayer_authority() or body == source:
 		return
 	
 	if body is Player:
-		body.take_damage.rpc_id(body.get_multiplayer_authority(), damage, source)
+		body.take_damage.rpc_id(body.get_multiplayer_authority(), damage, source_path)
 	
 	remove_self.rpc()
 

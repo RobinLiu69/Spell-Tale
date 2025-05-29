@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpt6guk6ikt13"
-path="res://.godot/imported/fire_aura.png-7d5869711089c8ad263727e3192197bf.ctex"
+uid="uid://drmrnngt8d6rp"
+path="res://.godot/imported/fire_aura2.png-2a1970d03edb8814248ff5998b43721e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/images/spell/fire_aura.png"
-dest_files=["res://.godot/imported/fire_aura.png-7d5869711089c8ad263727e3192197bf.ctex"]
+source_file="res://resources/images/spell/fire/fire_aura2.png"
+dest_files=["res://.godot/imported/fire_aura2.png-2a1970d03edb8814248ff5998b43721e.ctex"]
 
 [params]
 

@@ -62,7 +62,6 @@ func add_player(pid) -> Node2D:
 	var player: Player = player_scene.instantiate()
 	player.name = str(pid)
 	player.global_position = $Level.get_child(players.size()).global_position
-	player.is_multiplayer_mode = Global.is_multiplayer_mode
 	players.append(player)
 	
 	
