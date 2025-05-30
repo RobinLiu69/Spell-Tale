@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://ltks2sig3wmy"]
+[gd_scene load_steps=10 format=3 uid="uid://ltks2sig3wmy"]
 
 [ext_resource type="Texture2D" uid="uid://cpt6guk6ikt13" path="res://resources/images/spell/fire/fire_aura.png" id="1_3ukeo"]
 [ext_resource type="Script" uid="uid://cydob85elqbio" path="res://scripts/spells/fire/fire_aura.gd" id="1_ujoy2"]
 [ext_resource type="Texture2D" uid="uid://drmrnngt8d6rp" path="res://resources/images/spell/fire/fire_aura2.png" id="2_ujoy2"]
 [ext_resource type="Texture2D" uid="uid://c7kp6bb3cfbwm" path="res://resources/images/spell/fire/fire_aura3.png" id="3_ijlpm"]
+[ext_resource type="Texture2D" uid="uid://4h63dotiyj1g" path="res://resources/images/spell/fire/fire_back.png" id="5_rdaby"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0tp4o"]
-radius = 61.2046
+radius = 118.038
 
 [sub_resource type="Animation" id="Animation_mejad"]
 length = 0.001
@@ -25,20 +26,20 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape2D:shape:radius")
+tracks/1/path = NodePath("Sprite2D:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [61.2046]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_2hxkl"]
 resource_name = "fire_aura_playing"
-length = 5.0
-step = 1.0
+loop_mode = 1
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -46,7 +47,7 @@ tracks/0/path = NodePath("Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 2, 5),
+"times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [ExtResource("1_3ukeo"), ExtResource("2_ujoy2"), ExtResource("3_ijlpm")]
@@ -54,14 +55,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape2D:shape:radius")
+tracks/1/path = NodePath("Sprite2D:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 2, 5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [61.2046, 93.0054, 118.038]
+"times": PackedFloat32Array(0, 0.2, 0.507627, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_10tjx"]
@@ -71,12 +72,18 @@ _data = {
 }
 
 [node name="FireAura" type="Area2D"]
+scale = Vector2(3, 3)
 script = ExtResource("1_ujoy2")
+
+[node name="FireBack" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.25098)
+texture = ExtResource("5_rdaby")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_3ukeo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_0tp4o")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -88,5 +95,6 @@ libraries = {
 
 [node name="DamageTimer" type="Timer" parent="."]
 
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="LifeTimer" to="." method="_on_life_timer_timeout"]
 [connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]

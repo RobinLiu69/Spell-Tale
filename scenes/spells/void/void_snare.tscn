@@ -143,6 +143,7 @@ _data = {
 }
 
 [node name="VoidSnare" type="Area2D"]
+scale = Vector2(1.5, 1.5)
 script = ExtResource("1_4bnks")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

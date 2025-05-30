@@ -13,6 +13,7 @@ var health = 10.0
 
 var spell_1: String
 var spell_2: String
+var spell_3: String
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(int(str(name)))
@@ -22,6 +23,7 @@ func _ready() -> void:
 	
 	spell_1 = "fireball"
 	spell_2 = "void_snare"
+	spell_3= "fire_aura"
 	
 	$CamOrigin/Camera2D.enabled = is_multiplayer_authority()
 	if !is_multiplayer_authority():
@@ -44,8 +46,8 @@ func _physics_process(delta: float) -> void:
 		cast.rpc(multiplayer.get_unique_id(), spell_1, pos)
 	elif Input.is_action_just_pressed("special_2"):
 		cast.rpc(multiplayer.get_unique_id(), spell_2, pos)
-	#elif Input.is_action_just_pressed("special_3") and spell_dict[3] != null:
-		#cast.rpc(spell_dict[3])
+	elif Input.is_action_just_pressed("special_3"):
+		cast.rpc(multiplayer.get_unique_id(), spell_3, pos)
 	
 	# Handle jump.
 

@@ -17,8 +17,8 @@ func _ready():
 	timer.start()
 
 	# 播動畫（如果你有設定）
-	#if anim:
-		#anim.play("idle")
+	if anim:
+		anim.play("fire_aura_playing")
 
 	# 設定自動銷毀
 	$LifeTimer.start(duration)
@@ -47,3 +47,7 @@ func remove_self():
 
 func _on_life_timer_timeout() -> void:
 	remove_self()
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	anim.play("fire_aura_playing")
