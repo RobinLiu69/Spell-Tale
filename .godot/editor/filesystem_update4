@@ -1,9 +1,9 @@
-res://scenes/game.tscn
+res://scenes/spells/fire/fire_aura.tscn
 res://scripts/game.gd
+res://scripts/UI/training_room.gd
+res://scenes/game.tscn
 res://scenes/player/player.tscn
 res://scenes/spells/fire/fireball.tscn
 res://scenes/modechoice.tscn
 res://scenes/spells/void/void_snare.tscn
-res://scenes/spells/fire/fire_aura.tscn
-res://scripts/spells/fire/fire_aura.gd
-res://scripts/player.gd
+res://scripts/UI/esc_menu.gd

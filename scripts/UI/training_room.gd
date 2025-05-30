@@ -18,7 +18,7 @@ func _ready() -> void:
 		pass
 
 func _input(event) -> void: 
-	if event.is_action_pressed("ui_cancel"):  
+	if event.is_action_pressed("ui_cancel") && get_tree().current_scene.name == "TrainingRoom":  
 		toggle_pause_menu()
 
 func toggle_pause_menu():

@@ -21,8 +21,9 @@ func _ready() -> void:
 		multiplayer_ui.hide()
 
 func _input(event) -> void: 
-	if event.is_action_pressed("ui_cancel"):  
+	if event.is_action_pressed("ui_cancel") && get_tree().current_scene.name == "Game":  
 		toggle_pause_menu()
+		print(1)
 		
 func toggle_pause_menu():
 	esc_menu.visible = ! Global.menu_status
@@ -57,12 +58,22 @@ func _on_join_pressed() -> void:
 	multiplayer_ui.hide()
 	Global.multiplayer_ui_status = false
 
+func exit_game(pid):
+	multiplayer.peer_disconnected.connect(del_player)
+	del_player(pid)	
 
 func add_player(pid) -> Node2D:
 	var player: Player = player_scene.instantiate()
 	player.name = str(pid)
 	player.global_position = $Level.get_child(players.size()).global_position
 	players.append(player)
-	
-	
 	return player
+
+func del_player(pid):
+	rpc("_del_player", pid)
+	
+@rpc("any_peer","call_local")	
+func _del_player(pid):
+	get_node(str(pid)).queue_free()
+	
+	
