@@ -1,3 +1,4 @@
+class_name Setting
 extends Control
 
 @onready var video_setting: VBoxContainer = $mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/VideoSetting
@@ -9,7 +10,8 @@ extends Control
 
 
 func _on_leave_button_pressed() -> void:
-	get_tree().change_scene_to_file(Global.previous_scene_path)
+	queue_free()
+	get_tree().paused = Global.pause_status
 	
 
 	

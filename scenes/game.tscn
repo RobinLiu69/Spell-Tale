@@ -134,6 +134,9 @@ position = Vector2(649, -228)
 [node name="SpwnPoint2" type="Marker2D" parent="Level"]
 position = Vector2(-584, -217)
 
+[node name="SpwnPoint3" type="Marker2D" parent="Level"]
+position = Vector2(-52, -379)
+
 [node name="Map1" type="Sprite2D" parent="."]
 position = Vector2(818, -205)
 scale = Vector2(1.6, 1.6)

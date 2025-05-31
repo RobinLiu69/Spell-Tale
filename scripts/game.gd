@@ -15,15 +15,24 @@ var players: Array[Player] = []
 func _ready() -> void:
 	if Global.is_multiplayer_mode:
 		$MultiplayerSpawner.spawn_function = add_player
+		setup_menu_player_reference()
 	else:
-		var player = add_player(1)
-		add_child(player)
+		peer.create_server(21325)
+		multiplayer.multiplayer_peer = peer
+		$MultiplayerSpawner.spawn_function = add_player
+		$MultiplayerSpawner.spawn(multiplayer.get_unique_id())
 		multiplayer_ui.hide()
+		Global.multiplayer_ui_status = false
+
+func setup_menu_player_reference():
+	var esc_menu = $UI/ESCMenu
+	var player = $Player  
+	esc_menu.player = player
+
 
 func _input(event) -> void: 
 	if event.is_action_pressed("ui_cancel") && get_tree().current_scene.name == "Game":  
 		toggle_pause_menu()
-		print(1)
 		
 func toggle_pause_menu():
 	esc_menu.visible = ! Global.menu_status
@@ -62,18 +71,37 @@ func exit_game(pid):
 	multiplayer.peer_disconnected.connect(del_player)
 	del_player(pid)	
 
+
 func add_player(pid) -> Node2D:
 	var player: Player = player_scene.instantiate()
 	player.name = str(pid)
 	player.global_position = $Level.get_child(players.size()).global_position
-	players.append(player)
+	#players.append(player)
+	if pid == multiplayer.get_unique_id():
+		$UI/ESCMenu.player = player
 	return player
 
 func del_player(pid):
 	rpc("_del_player", pid)
 	
+	
 @rpc("any_peer","call_local")	
 func _del_player(pid):
-	get_node(str(pid)).queue_free()
+	var player_node := get_node_or_null(str(pid))
+	if player_node:
+		if players.has(player_node):
+			players.erase(player_node)
+		player_node.queue_free()
+	else:
+		print("Player node", pid, "不存在或已被釋放")
+	
+	for i in range(players.size()):
+		if players[i].multiplayer.get_unique_id() == int(pid):
+			players[i].queue_free()
+			players.pop_at(i)
+			return
+			
+	if esc_menu.player and str(esc_menu.player.name) == str(pid):
+		esc_menu.player = null
 	
 	

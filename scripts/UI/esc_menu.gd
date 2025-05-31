@@ -1,12 +1,15 @@
 extends PanelContainer
 
 
+var player: Player
 @onready var esc_menu: PanelContainer = $"."
 @onready var multiplayer_ui: Control = $"../Multiplayer"
 
+
 func _on_leave_button_pressed() -> void:
+	owner.exit_game(player.name)
 	get_tree().change_scene_to_file("res://scenes/modechoice.tscn")
-	owner.exit_game()
+	
 
 
 func _on_continue_button_pressed() -> void:

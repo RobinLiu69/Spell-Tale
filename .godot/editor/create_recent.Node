@@ -1,3 +1,4 @@
+Marker2D
 MultiplayerSynchronizer
 MultiplayerSpawner
 Timer
@@ -12,4 +13,3 @@ Label
 VBoxContainer
 PanelContainer
 Container
-Node2D
