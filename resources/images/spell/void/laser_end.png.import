@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hhi8tbhpjopj"
-path="res://.godot/imported/void_snare_3.png-88eb2334cbd6460a4c9e0e96930d3354.ctex"
+uid="uid://canelyoqxt7cr"
+path="res://.godot/imported/laser_end.png-ff8d185bdeb229b4a77fe5bfd2cdecf5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/images/spell/void/void_snare_3.png"
-dest_files=["res://.godot/imported/void_snare_3.png-88eb2334cbd6460a4c9e0e96930d3354.ctex"]
+source_file="res://resources/images/spell/void/laser_end.png"
+dest_files=["res://.godot/imported/laser_end.png-ff8d185bdeb229b4a77fe5bfd2cdecf5.ctex"]
 
 [params]
 

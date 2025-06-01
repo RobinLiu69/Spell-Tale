@@ -3,11 +3,13 @@ extends CharacterBody2D
 
 @onready var marker := $SpellCon/Marker2D
 @onready var health_bar := $HealthBar
+@onready var status_effect_manager: Node2D = $StatusEffectManager
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -500.0
 
 var acceleration = 0.0
+var speed_multiplier := 1.0
 var health = 10.0
 
 
@@ -23,7 +25,7 @@ func _ready() -> void:
 	
 	spell_1 = "fireball"
 	spell_2 = "void_snare"
-	spell_3= "fire_aura"
+	spell_3= "void_laser"
 	
 	$CamOrigin/Camera2D.enabled = is_multiplayer_authority()
 	if !is_multiplayer_authority():
@@ -60,7 +62,7 @@ func _physics_process(delta: float) -> void:
 	
 	if is_on_floor():
 		if direction:
-			acceleration = direction * SPEED
+			acceleration = direction * SPEED * speed_multiplier
 		else:
 			acceleration = move_toward(acceleration, 0, SPEED)
 
@@ -77,7 +79,6 @@ func _physics_process(delta: float) -> void:
 	
 @rpc("call_local")
 func cast(caster_pid: int, spell_name: String, target_pos: Vector2 = Vector2.ZERO):
-	print(str(caster_pid)+"spawn")
 	if not SpellRegistry.SPELLS.has(spell_name):
 		push_error("spell %s not found in registry" % spell_name)
 		return
@@ -90,12 +91,13 @@ func cast(caster_pid: int, spell_name: String, target_pos: Vector2 = Vector2.ZER
 	get_parent().add_child(spell)
 	
 	if cast_at == "marker":
-		spell.transform = marker.global_transform
+		spell.position = marker.global_position
+		spell.rotation = marker.global_rotation
 	elif cast_at == "target_pos":
 		spell.position = target_pos
 	elif cast_at == "self":
 		pass
-
+	spell.cast()
 
 @rpc("any_peer", "call_local")
 func take_damage(damage: float, source_path: String):

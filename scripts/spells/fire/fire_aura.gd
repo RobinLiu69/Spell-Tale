@@ -1,9 +1,10 @@
 class_name FireAura
 extends Spell
 
-@onready var timer: Timer = $DamageTimer
-@onready var anim: AnimationPlayer = $AnimationPlayer
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var timer := $DamageTimer
+@onready var anim := $AnimationPlayer
+@onready var sprite := $Sprite2D
+@onready var area2d := $Arae2D
 
 var damage_per_second := 1.0
 var ticks_per_second := 2
@@ -16,17 +17,14 @@ func _ready():
 	timer.wait_time = 1.0 / ticks_per_second
 	timer.start()
 
-	# 播動畫（如果你有設定）
 	if anim:
 		anim.play("fire_aura_playing")
 
-	# 設定自動銷毀
 	$LifeTimer.start(duration)
 
 
 
 func _process(delta):
-	# 持續跟隨 source
 	if source:
 		global_position = source.global_position
 
@@ -35,7 +33,7 @@ func _on_damage_timer_timeout() -> void:
 	if !is_multiplayer_authority():
 		return
 
-	for body in get_overlapping_bodies():
+	for body in area2d.get_overlapping_bodies():
 		if body is Player:
 			body.take_damage.rpc_id(body.get_multiplayer_authority(), damage, source_path)
 

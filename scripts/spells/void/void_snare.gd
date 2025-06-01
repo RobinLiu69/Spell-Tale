@@ -18,7 +18,7 @@ func _ready():
 func remove_self():
 	queue_free()
 
-func _on_body_entered(body: Node2D) -> void:
+func _on_area_2d_body_entered(body: Node2D) -> void:
 	if !is_multiplayer_authority() or body == source:
 		return
 	
