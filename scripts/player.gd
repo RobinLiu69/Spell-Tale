@@ -4,6 +4,8 @@ extends CharacterBody2D
 @onready var marker := $SpellCon/Marker2D
 @onready var health_bar := $HealthBar
 @onready var status_effect_manager: Node2D = $StatusEffectManager
+@onready var camera_2d := $Camera2D
+
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -500.0
@@ -25,9 +27,10 @@ func _ready() -> void:
 	
 	spell_1 = "fireball"
 	spell_2 = "void_snare"
-	spell_3= "void_laser"
+	spell_3= "fire_aura"
 	
-	$CamOrigin/Camera2D.enabled = is_multiplayer_authority()
+	camera_2d.enabled = is_multiplayer_authority()
+	
 	if !is_multiplayer_authority():
 		$PlayerSprite.modulate = Color.RED
 	
@@ -37,7 +40,14 @@ func _physics_process(delta: float) -> void:
 	
 	var pos := get_global_mouse_position()
 	
+	
 	$SpellCon.look_at(pos)
+	
+	var offset_x = (pos.x - global_position.x) / (1920.0 / 100.0)
+	var offset_y = (pos.y - global_position.y) / (1080.0 / 100.0)
+	
+	camera_2d.offset.lerp(Vector2(offset_x, offset_y), 0.1)
+	camera_2d.offset = Vector2(offset_x, offset_y)
 	
 	# Add the gravity.
 	if not is_on_floor():

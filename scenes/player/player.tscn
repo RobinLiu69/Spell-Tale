@@ -63,9 +63,8 @@ position = Vector2(40, 0)
 points = PackedVector2Array(0, 0, 25, 0)
 width = 3.0
 
-[node name="CamOrigin" type="Node2D" parent="."]
-
-[node name="Camera2D" type="Camera2D" parent="CamOrigin"]
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
 
 [node name="HealthBar" parent="." instance=ExtResource("3_gmlin")]
 offset_left = -55.0
