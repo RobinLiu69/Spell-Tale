@@ -2,8 +2,8 @@ class_name Game
 extends Node2D
 
 @export var player_scene: PackedScene
-@onready var multiplayer_ui = $UI/Multiplayer
 @onready var esc_menu: PanelContainer = $UI/ESCMenu
+@onready var multiplayer_scene = preload("res://scenes/multiplayer.tscn")
 
 
 
@@ -13,15 +13,21 @@ var players: Array[Player] = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	randomize()
 	if Global.is_multiplayer_mode:
+		if $UI.has_node("Multiplayer"):
+			return
+		var multiplayer_screen = multiplayer_scene.instantiate()
+		multiplayer_screen.game_scene_ref = self
+		$UI.add_child(multiplayer_screen)
 		$MultiplayerSpawner.spawn_function = add_player
 		setup_menu_player_reference()
 	else:
-		peer.create_server(21325)
+		
+		peer.create_server(randi_range(1,9999))
 		multiplayer.multiplayer_peer = peer
 		$MultiplayerSpawner.spawn_function = add_player
 		$MultiplayerSpawner.spawn(multiplayer.get_unique_id())
-		multiplayer_ui.hide()
 		Global.multiplayer_ui_status = false
 
 func setup_menu_player_reference():
@@ -36,8 +42,6 @@ func _input(event) -> void:
 		
 func toggle_pause_menu():
 	esc_menu.visible = ! Global.menu_status
-	if Global.multiplayer_ui_status:
-		multiplayer_ui.visible = Global.menu_status
 	Global.menu_status = ! Global.menu_status
 		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -45,27 +49,26 @@ func _process(delta: float) -> void:
 	pass
 	
 
-func _on_host_pressed() -> void:
+func host_room() -> void:
 	peer.create_server(25565)
 	multiplayer.multiplayer_peer = peer
 	$MultiplayerSpawner.spawn_function = add_player
-	
 	multiplayer.peer_connected.connect(
 		func(pid):
 			print("peer " + str(pid) + " joined")
 			$MultiplayerSpawner.spawn(pid)
+			Global.achivement1_status = true
 	)
 	
 	$MultiplayerSpawner.spawn(multiplayer.get_unique_id())
-	multiplayer_ui.hide()
 	Global.multiplayer_ui_status = false
 
 
-func _on_join_pressed() -> void:
-	peer.create_client("localhost", 25565)
+func join_room() -> void:
+	peer.create_client(str(Global.multiplayer_IP), 25565)
 	multiplayer.multiplayer_peer = peer
-	multiplayer_ui.hide()
 	Global.multiplayer_ui_status = false
+	Global.achivement1_status = true
 
 func exit_game(pid):
 	multiplayer.peer_disconnected.connect(del_player)

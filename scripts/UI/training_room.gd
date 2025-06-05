@@ -6,6 +6,7 @@ extends Node2D
 
 
 func _ready() -> void:
+	Global.previous_scene_path = "res://scenes/training_room.tscn"
 	if Global.pause_status:
 		Global.pause_status = ! Global.pause_status
 		toggle_pause_menu()

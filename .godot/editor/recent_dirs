@@ -1,7 +1,8 @@
-res://scenes
-res://scenes/player
+res://scenes/UI
 res://scripts/UI
 res://scripts/spells
+res://scenes
+res://scenes/player
 res://scripts
 res://resources/maps
 res://

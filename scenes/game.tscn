@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=4 uid="uid://bp1th31aar6d4"]
+[gd_scene load_steps=9 format=4 uid="uid://bp1th31aar6d4"]
 
 [ext_resource type="Script" uid="uid://bsnb8032mibp5" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://baeupmwvx1kib" path="res://scenes/player/player.tscn" id="2_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://bb5uogctpos7y" path="res://resources/maps/icon.png" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://cpv6d2vojbwjl" path="res://scripts/UI/esc_menu.gd" id="3_iywne"]
 [ext_resource type="Texture2D" uid="uid://bj7l18fpqbdkv" path="res://resources/maps/map1.png" id="3_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://buafe3kxce2c2" path="res://scenes/multiplayer.tscn" id="4_p57ef"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("2_yqjtg")
@@ -84,40 +85,8 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Leave"
 
-[node name="Multiplayer" type="Control" parent="UI"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Multiplayer"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -134.5
-offset_top = -46.5
-offset_right = 134.5
-offset_bottom = 46.5
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Title" type="Label" parent="UI/Multiplayer/VBoxContainer"]
-layout_mode = 2
-text = "Testing"
-horizontal_alignment = 1
-
-[node name="Host" type="Button" parent="UI/Multiplayer/VBoxContainer"]
-layout_mode = 2
-text = "Host"
-
-[node name="Join" type="Button" parent="UI/Multiplayer/VBoxContainer"]
-layout_mode = 2
-text = "Join"
+[node name="multiplayer" parent="UI" instance=ExtResource("4_p57ef")]
+visible = false
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://baeupmwvx1kib")
@@ -153,5 +122,3 @@ position = Vector2(-715, -185)
 
 [connection signal="pressed" from="UI/ESCMenu/VBoxContainer/ContinueButton" to="UI/ESCMenu" method="_on_continue_button_pressed"]
 [connection signal="pressed" from="UI/ESCMenu/VBoxContainer/LeaveButton" to="UI/ESCMenu" method="_on_leave_button_pressed"]
-[connection signal="pressed" from="UI/Multiplayer/VBoxContainer/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="UI/Multiplayer/VBoxContainer/Join" to="." method="_on_join_pressed"]
