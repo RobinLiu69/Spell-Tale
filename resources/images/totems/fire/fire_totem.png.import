@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hhi8tbhpjopj"
-path="res://.godot/imported/void_snare_2.png-e7e9c73c4ed71fe0c329c0fc328acd29.ctex"
+uid="uid://din643sy6lmqw"
+path="res://.godot/imported/fire_totem.png-e08f17c4ad284e87c2e94c87984e4bc8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/images/spell/void/void_snare_2.png"
-dest_files=["res://.godot/imported/void_snare_2.png-e7e9c73c4ed71fe0c329c0fc328acd29.ctex"]
+source_file="res://resources/images/totems/fire/fire_totem.png"
+dest_files=["res://.godot/imported/fire_totem.png-e08f17c4ad284e87c2e94c87984e4bc8.ctex"]
 
 [params]
 

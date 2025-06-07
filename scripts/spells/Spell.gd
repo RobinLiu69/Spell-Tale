@@ -1,5 +1,5 @@
 class_name Spell
-extends Area2D
+extends Node2D
 
 var spell_name: String = "Unnamed Spell"
 var source: Player = null

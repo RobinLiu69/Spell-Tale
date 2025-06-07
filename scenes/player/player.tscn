@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://baeupmwvx1kib"]
+[gd_scene load_steps=9 format=3 uid="uid://baeupmwvx1kib"]
 
 [ext_resource type="Texture2D" uid="uid://buxqa7rdfotov" path="res://resources/images/player/player.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dlvhwpsrbw6mc" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="PackedScene" uid="uid://dbthbwirn2glv" path="res://scenes/player/health_bar.tscn" id="3_gmlin"]
+[ext_resource type="Script" uid="uid://bqqufaikvwb6f" path="res://scripts/effects/status_effect_manager.gd" id="4_lvxji"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 16.0
@@ -62,9 +63,8 @@ position = Vector2(40, 0)
 points = PackedVector2Array(0, 0, 25, 0)
 width = 3.0
 
-[node name="CamOrigin" type="Node2D" parent="."]
-
-[node name="Camera2D" type="Camera2D" parent="CamOrigin"]
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
 
 [node name="HealthBar" parent="." instance=ExtResource("3_gmlin")]
 offset_left = -55.0
@@ -74,3 +74,6 @@ offset_bottom = -67.0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_qlg0r")
+
+[node name="StatusEffectManager" type="Node2D" parent="."]
+script = ExtResource("4_lvxji")

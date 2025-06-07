@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://ckq7vkd1x3ll"]
+
+[ext_resource type="Script" uid="uid://cpyf6xbjn1ref" path="res://scripts/spells/void/void_laser.gd" id="1_t3qf7"]
+[ext_resource type="Texture2D" uid="uid://cvh6gkg8dj42a" path="res://resources/images/spell/void/laser_mid.png" id="2_u6pe0"]
+[ext_resource type="Texture2D" uid="uid://canelyoqxt7cr" path="res://resources/images/spell/void/laser_end.png" id="3_cfhsi"]
+[ext_resource type="Texture2D" uid="uid://cturmxpont854" path="res://resources/images/spell/void/laser_haed.png" id="4_hsm0m"]
+
+[node name="VoidLaser" type="Node2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_t3qf7")
+
+[node name="LaserHaed" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("4_hsm0m")
+
+[node name="Beam" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 80, 0)
+width = 12.0
+texture = ExtResource("2_u6pe0")
+texture_mode = 2
+
+[node name="RayCast" type="RayCast2D" parent="."]
+target_position = Vector2(100, 0)
+collide_with_areas = true
+
+[node name="LaserEnd" type="Sprite2D" parent="."]
+position = Vector2(81, 0)
+scale = Vector2(2, 2)
+texture = ExtResource("3_cfhsi")
+offset = Vector2(-4, -1.5)
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
