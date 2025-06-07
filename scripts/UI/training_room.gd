@@ -2,15 +2,11 @@ extends Node2D
 
 @onready var menucontainer: MarginContainer = $CanvasLayer/Menucontainer
 @onready var main_screen: MarginContainer = $MainScreen
-@onready var video_setting: VBoxContainer = $CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/VideoSetting
-@onready var audio_setting: VBoxContainer = $CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/AudioSetting
-@onready var graph_setting: VBoxContainer = $CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/GraphSetting
-@onready var misc_setting: VBoxContainer = $CanvasLayer/SettingScreen/SettingBackgroundTexture/MarginContainer/VBoxContainer/MISCSetting
-@onready var setting_screen: MarginContainer = $CanvasLayer/SettingScreen
-
+@export var setting_scene: PackedScene
 
 
 func _ready() -> void:
+	Global.previous_scene_path = "res://scenes/training_room.tscn"
 	if Global.pause_status:
 		Global.pause_status = ! Global.pause_status
 		toggle_pause_menu()
@@ -34,12 +30,6 @@ func _on_leave_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/modechoice.tscn")
 
 
-func _on_setting_pressed() -> void:
-	menucontainer.visible = true
-	main_screen.visible = false
-	Global.pause_status = true
-	get_tree().paused = Global.pause_status
-
 
 func _on_continue_button_pressed() -> void:
 	menucontainer.visible = false
@@ -49,55 +39,10 @@ func _on_continue_button_pressed() -> void:
 
 
 func _on_setting_button_pressed() -> void:
-	Global.previous_scene_path = get_tree().current_scene.scene_file_path
+	if $CanvasLayer.has_node("Setting"):
+		return
+	var setting = setting_scene.instantiate()
+	$CanvasLayer.add_child(setting)
 	Global.pause_status = true
 	get_tree().paused = ! Global.pause_status
-	setting_screen.visible = true
-	menucontainer.visible = false
-	main_screen.visible = false
 	
-	
-#======================================= Setting Menu ==============================================
-
-func _on_leave_setting_button_pressed() -> void:
-	setting_screen.visible = false
-	menucontainer.visible = true
-	main_screen.visible = false
-	get_tree().paused = Global.pause_status
-
-func _on_video_button_pressed() -> void:
-	video_setting.visible = true
-	audio_setting.visible = false
-	graph_setting.visible = false
-	misc_setting.visible = false
-
-
-func _on_audio_button_pressed() -> void:
-	video_setting.visible = false
-	audio_setting.visible = true
-	graph_setting.visible = false
-	misc_setting.visible = false
-	
-
-func _on_graph_button_pressed() -> void:
-	video_setting.visible = false
-	audio_setting.visible = false
-	graph_setting.visible = true
-	misc_setting.visible = false
-
-
-func _on_misc_button_pressed() -> void:
-	video_setting.visible = false
-	audio_setting.visible = false
-	graph_setting.visible = false
-	misc_setting.visible = true
-
-
-func _on_option_button_item_selected(index: int) -> void:
-	match index:
-		0: 
-			DisplayServer.window_set_size(Vector2i(1920,1080))
-		1:
-			DisplayServer.window_set_size(Vector2i(1600,900))
-		2: 
-			DisplayServer.window_set_size(Vector2i(1280,720))

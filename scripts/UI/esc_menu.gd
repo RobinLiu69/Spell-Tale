@@ -1,20 +1,27 @@
 extends PanelContainer
 
 
+var player: Player
 @onready var esc_menu: PanelContainer = $"."
-@onready var multiplayer_ui: Control = $"../Multiplayer"
+@onready var setting_scene = preload("res://scenes/setting.tscn")
+
 
 func _on_leave_button_pressed() -> void:
+	owner.exit_game(player.name)
 	get_tree().change_scene_to_file("res://scenes/modechoice.tscn")
-	owner.exit_game()
-
+	
 
 func _on_continue_button_pressed() -> void:
 	toggle_pause_menu()
+	
+
+func _on_setting_button_pressed() -> void:
+	esc_menu.visible = false
+	var setting_screen = setting_scene.instantiate()
+	owner.get_node("UI").add_child(setting_screen)
+	
 
 
 func toggle_pause_menu():
 	esc_menu.visible = ! Global.menu_status
-	if Global.multiplayer_ui_status:
-		multiplayer_ui.visible = Global.menu_status
 	Global.menu_status = ! Global.menu_status

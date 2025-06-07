@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://68rmjri78bm2"]
 
-[ext_resource type="Script" uid="uid://dvneuiu2yp1wb" path="res://scripts/achievement.gd" id="1_4cbr5"]
+[ext_resource type="Script" uid="uid://dvneuiu2yp1wb" path="res://scripts/UI/achievement.gd" id="1_4cbr5"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4cbr5"]
 
@@ -63,6 +63,7 @@ visible = false
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxTexture_4cbr5")
+button_mask = 0
 
 [node name="seperator" type="Control" parent="MainScrren/ScreenTexture/Maincontainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
