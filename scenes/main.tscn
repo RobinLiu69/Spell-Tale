@@ -6,8 +6,6 @@
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_0wfyh")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
 [node name="MarginContainer" type="MarginContainer" parent="."]
 offset_right = 1920.0
 offset_bottom = 1080.0

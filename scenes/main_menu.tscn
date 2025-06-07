@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://bt2vdvk6lle2x"]
+[gd_scene load_steps=17 format=3 uid="uid://bt2vdvk6lle2x"]
 
 [ext_resource type="Script" uid="uid://bgb1d77qceyxp" path="res://scripts/UI/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="Texture2D" uid="uid://bwd3frreglqot" path="res://resources/images/retro-8-bit-pixel-desert-road-landscape-background-vector.jpg" id="1_l6cm7"]
 [ext_resource type="Texture2D" uid="uid://qicioyu8sq4k" path="res://resources/images/stock-vector-interface-menu-buttons-pixel-art-set-menu-panel-collection-play-pause-store-settings-options-2185918411-Photoroom.png" id="2_ekxnf"]
+[ext_resource type="Script" uid="uid://cbf6htw2eeyk2" path="res://scripts/UI/ButtonAction.gd" id="4_wu84c"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oa1go"]
 texture = ExtResource("2_ekxnf")
@@ -50,6 +51,11 @@ region_rect = Rect2(553, 302, 304, 73)
 texture = ExtResource("2_ekxnf")
 region_rect = Rect2(897, 471, 304, 73)
 modulate_color = Color(0.666569, 0.666569, 0.666569, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rcqid"]
+texture = ExtResource("2_ekxnf")
+region_rect = Rect2(896, 469, 306, 74)
+modulate_color = Color(0.356565, 0.356565, 0.356565, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rtw2f"]
 texture = ExtResource("2_ekxnf")
@@ -109,7 +115,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 405
+theme_override_constants/separation = 490
 
 [node name="Control" type="Control" parent="HomePage/HomePageBackground/VBoxContainer"]
 layout_mode = 2
@@ -154,7 +160,24 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_wu84c")
 custom_minimum_size = Vector2(225, 75)
 layout_mode = 2
 theme_override_styles/hover = SubResource("StyleBoxTexture_lgwnu")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rcqid")
 theme_override_styles/normal = SubResource("StyleBoxTexture_rtw2f")
+
+[node name="PlayAction" type="Node" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
+script = ExtResource("4_wu84c")
+button_path = NodePath("../PlayButton")
+
+[node name="SettingAction" type="Node" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
+script = ExtResource("4_wu84c")
+button_path = NodePath("../SettingButton")
+
+[node name="StoreAction" type="Node" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
+script = ExtResource("4_wu84c")
+button_path = NodePath("../StoreButton")
+
+[node name="QuitAction" type="Node" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
+script = ExtResource("4_wu84c")
+button_path = NodePath("../QuitButton")
 
 [connection signal="pressed" from="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer/SettingButton" to="." method="_on_setting_button_pressed"]

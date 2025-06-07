@@ -1,7 +1,8 @@
+Node
+Control
 Label
 Button
 LineEdit
-Control
 VBoxContainer
 PanelContainer
 HBoxContainer
@@ -11,4 +12,3 @@ NinePatchRect
 Marker2D
 MultiplayerSynchronizer
 MultiplayerSpawner
-Timer

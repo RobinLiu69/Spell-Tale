@@ -7,3 +7,10 @@ res://scenes/multiplayer.tscn
 res://scenes/achievement.tscn
 res://scenes/main.tscn
 res://scenes/main_menu.tscn
+res://scripts/UI/modechoice.gd
+res://scripts/UI/multiplayer.gd
+res://scripts/UI/setting.gd
+res://scripts/UI/esc_menu.gd
+res://scripts/UI/main.gd
+res://scripts/UI/ButtonAction.gd
+res://scripts/UI/main_menu.gd

@@ -3,6 +3,7 @@ extends PanelContainer
 
 var player: Player
 @onready var esc_menu: PanelContainer = $"."
+@onready var setting_scene = preload("res://scenes/setting.tscn")
 
 
 func _on_leave_button_pressed() -> void:
@@ -10,9 +11,15 @@ func _on_leave_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://scenes/modechoice.tscn")
 	
 
-
 func _on_continue_button_pressed() -> void:
 	toggle_pause_menu()
+	
+
+func _on_setting_button_pressed() -> void:
+	esc_menu.visible = false
+	var setting_screen = setting_scene.instantiate()
+	owner.get_node("UI").add_child(setting_screen)
+	
 
 
 func toggle_pause_menu():

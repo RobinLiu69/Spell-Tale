@@ -11,11 +11,13 @@ extends Control
 
 func _on_leave_button_pressed() -> void:
 	if Global.previous_scene_path == "res://scenes/main.tscn":
-		print(Global.previous_scene_path)
 		get_tree().change_scene_to_file("res://scenes/main.tscn")
 		return
 	queue_free()
-	get_tree().paused = Global.pause_status
+	if Global.previous_scene_path == "res://scenes/training_room.tscn":
+		get_tree().paused = Global.pause_status
+
+	
 	
 
 	

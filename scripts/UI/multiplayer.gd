@@ -9,7 +9,8 @@ class_name Multiplayer
 @onready var seperate_button: Button = $MainScreen/BackgroundTexture/VBoxContainer/HBoxContainer/SeperateButton
 var game_scene_ref
 
-
+func _ready() -> void:
+	print("Multiplayer mode ", Global.is_multiplayer_mode)
 
 func _on_host_button_pressed() -> void:
 	if game_scene_ref:

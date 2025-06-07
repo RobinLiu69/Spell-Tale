@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://bp1th31aar6d4"]
+[gd_scene load_steps=10 format=4 uid="uid://bp1th31aar6d4"]
 
 [ext_resource type="Script" uid="uid://bsnb8032mibp5" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://baeupmwvx1kib" path="res://scenes/player/player.tscn" id="2_lnu2h"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cpv6d2vojbwjl" path="res://scripts/UI/esc_menu.gd" id="3_iywne"]
 [ext_resource type="Texture2D" uid="uid://bj7l18fpqbdkv" path="res://resources/maps/map1.png" id="3_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://buafe3kxce2c2" path="res://scenes/multiplayer.tscn" id="4_p57ef"]
+[ext_resource type="PackedScene" uid="uid://1ry85xqrtjd3" path="res://scenes/setting.tscn" id="4_u5sy4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("2_yqjtg")
@@ -85,6 +86,9 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 20
 text = "Leave"
 
+[node name="Setting" parent="UI" instance=ExtResource("4_u5sy4")]
+visible = false
+
 [node name="multiplayer" parent="UI" instance=ExtResource("4_p57ef")]
 visible = false
 
@@ -121,4 +125,5 @@ flip_h = true
 position = Vector2(-715, -185)
 
 [connection signal="pressed" from="UI/ESCMenu/VBoxContainer/ContinueButton" to="UI/ESCMenu" method="_on_continue_button_pressed"]
+[connection signal="pressed" from="UI/ESCMenu/VBoxContainer/SettingButton" to="UI/ESCMenu" method="_on_setting_button_pressed"]
 [connection signal="pressed" from="UI/ESCMenu/VBoxContainer/LeaveButton" to="UI/ESCMenu" method="_on_leave_button_pressed"]
