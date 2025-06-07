@@ -1,9 +1,0 @@
-res://scenes/game.tscn
-res://scripts/game.gd
-res://scenes/player/player.tscn
-res://scenes/spells/void/void_laser.tscn
-res://scenes/spells/fire/fire_totem.tscn
-res://scripts/spells/totems/fire_totem.gd
-res://scripts/totems/fire_totem.gd
-res://scripts/totems/Totem.gd
-res://scripts/player.gd

@@ -11,7 +11,7 @@ var ticks_per_second := 2
 var duration := 5.0
 
 
-func _ready():
+func _ready() -> void:
 	print(6)
 	damage = damage_per_second / ticks_per_second
 	timer.wait_time = 1.0 / ticks_per_second
@@ -24,7 +24,7 @@ func _ready():
 
 
 
-func _process(delta):
+func _process(delta) -> void:
 	if source:
 		global_position = source.global_position
 
@@ -39,7 +39,7 @@ func _on_damage_timer_timeout() -> void:
 
 
 @rpc("call_local")
-func remove_self():
+func remove_self() -> void:
 	queue_free()
 
 

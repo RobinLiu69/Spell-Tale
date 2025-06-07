@@ -19,7 +19,7 @@ func _on_fire_timer_timeout():
 	flame_area.monitoring = true
 	flame_duration.start()
 
-func 
+func _on_flame_duration_timeout() -> void:
 	flame_area.monitoring = false
 
 func _on_flame_area_body_entered(body):
