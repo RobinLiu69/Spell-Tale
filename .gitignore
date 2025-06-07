@@ -5,6 +5,7 @@ export.cfg
 export_presets.cfg
 .godot/editor/
 .godot/uid_cache.bin
+.godot/
 
 
 # Mono-specific ignores
