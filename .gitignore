@@ -13,3 +13,5 @@ export_presets.cfg
 data_*/
 
 
+# Addons
+addons/auto_saver

@@ -83,6 +83,7 @@ func exit_game(pid):
 	rpc("notify_clients_game_ending")
 	del_player(pid)
 	
+	
 func cleanup_multiplayer():
 	if multiplayer.multiplayer_peer:
 		multiplayer.multiplayer_peer.close()

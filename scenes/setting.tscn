@@ -1,29 +1,22 @@
-[gd_scene load_steps=7 format=3 uid="uid://1ry85xqrtjd3"]
+[gd_scene load_steps=8 format=3 uid="uid://1ry85xqrtjd3"]
 
 [ext_resource type="Script" uid="uid://cuqvtw5gpc55k" path="res://scripts/UI/setting.gd" id="1_u58eq"]
 [ext_resource type="Texture2D" uid="uid://cyk7oraywdkgj" path="res://resources/images/settingbackground.png" id="2_u58eq"]
-
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_u58eq"]
-color = Color(1, 1, 1, 1)
-grow_begin = -10.0
-grow_end = -5.0
-thickness = 6
-
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_scrng"]
-color = Color(0.279083, 0.28684, 1, 1)
-grow_begin = -10.0
-thickness = 6
-
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_7k1fe"]
-color = Color(1, 1, 1, 1)
-grow_begin = -10.0
-grow_end = -5.0
-thickness = 6
+[ext_resource type="Script" uid="uid://cvpo88lsv4uxc" path="res://scripts/UI/setting/ButtonAction.gd" id="3_7k1fe"]
+[ext_resource type="Script" uid="uid://b4wukebhqcyfu" path="res://scripts/UI/setting/video_setting.gd" id="4_scrng"]
+[ext_resource type="Script" uid="uid://sdjcnxccvfe" path="res://scripts/UI/setting/audio_setting.gd" id="5_31ui4"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_31ui4"]
-color = Color(0.278431, 0.286275, 1, 1)
-grow_begin = -10.0
-thickness = 6
+color = Color(1, 1, 1, 1)
+grow_begin = -5.0
+grow_end = -5.0
+thickness = 5
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_scrng"]
+color = Color(0.0555849, 0.539981, 1, 1)
+grow_begin = -2.0
+grow_end = 5.0
+thickness = 10
 
 [node name="Setting" type="Control"]
 layout_mode = 3
@@ -34,192 +27,160 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_u58eq")
 
-[node name="mainscreen" type="MarginContainer" parent="."]
+[node name="SettingBackground" type="NinePatchRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="SettingBackground" type="NinePatchRect" parent="mainscreen"]
-layout_mode = 2
 texture = ExtResource("2_u58eq")
 
-[node name="Buttoncontainer" type="MarginContainer" parent="mainscreen/SettingBackground"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingBackground"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
+theme_override_constants/separation = 38
 
-[node name="VBoxContainer" type="VBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer"]
-layout_mode = 2
-theme_override_constants/separation = 15
-
-[node name="LeaveButton" type="Button" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer"]
+[node name="LeaveButton" type="Button" parent="SettingBackground/VBoxContainer"]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 size_flags_horizontal = 8
-size_flags_vertical = 0
 text = "Leave"
 
-[node name="seperator" type="Control" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer"]
+[node name="LeaveAction" type="Node" parent="SettingBackground/VBoxContainer"]
+script = ExtResource("3_7k1fe")
+button_path = NodePath("../LeaveButton")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingBackground/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 450
+
+[node name="seperator" type="Control" parent="SettingBackground/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="MainCategories" type="HBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingBackground/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
 theme_override_constants/separation = 150
 
-[node name="VideoButton" type="Button" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/MainCategories"]
-custom_minimum_size = Vector2(130, 40)
+[node name="VideoButton" type="Button" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
-text = "Video
-"
+theme_override_font_sizes/font_size = 25
+text = "Video"
 
-[node name="AudioButton" type="Button" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/MainCategories"]
-custom_minimum_size = Vector2(130, 40)
+[node name="AudioButton" type="Button" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
 text = "Audio"
 
-[node name="GraphButton" type="Button" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/MainCategories"]
-custom_minimum_size = Vector2(130, 40)
+[node name="GraphButton" type="Button" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "Graph"
 
-[node name="MISCButton" type="Button" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/MainCategories"]
-custom_minimum_size = Vector2(130, 40)
+[node name="MISCButton" type="Button" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "MISC"
 
-[node name="VideoSetting" type="VBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer"]
+[node name="VideoAction" type="Node" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
+script = ExtResource("3_7k1fe")
+button_path = NodePath("../VideoButton")
+
+[node name="AudioAction" type="Node" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
+script = ExtResource("3_7k1fe")
+button_path = NodePath("../AudioButton")
+
+[node name="GraphAction" type="Node" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
+script = ExtResource("3_7k1fe")
+button_path = NodePath("../GraphButton")
+
+[node name="MISCAction" type="Node" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
+script = ExtResource("3_7k1fe")
+button_path = NodePath("../MISCButton")
+
+[node name="VideoSetting" type="HBoxContainer" parent="SettingBackground/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 220
+script = ExtResource("4_scrng")
+
+[node name="Control" type="Control" parent="SettingBackground/VBoxContainer/VideoSetting"]
+layout_mode = 2
+
+[node name="Container" type="VBoxContainer" parent="SettingBackground/VBoxContainer/VideoSetting"]
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="seperator" type="Control" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/VideoSetting"]
+[node name="Resolution" type="Label" parent="SettingBackground/VBoxContainer/VideoSetting/Container"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Resolution"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/VideoSetting"]
+[node name="ResolutionOption" type="OptionButton" parent="SettingBackground/VBoxContainer/VideoSetting/Container"]
+custom_minimum_size = Vector2(500, 40)
 layout_mode = 2
-theme_override_constants/separation = 225
-
-[node name="seperator" type="Control" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/VideoSetting/HBoxContainer"]
-layout_mode = 2
-
-[node name="ButtonContainer" type="VBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/VideoSetting/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="Resolution" type="Label" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/VideoSetting/HBoxContainer/ButtonContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Resoution"
-
-[node name="ResolutionOption" type="OptionButton" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/VideoSetting/HBoxContainer/ButtonContainer"]
-custom_minimum_size = Vector2(300, 10)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_horizontal = 0
 item_count = 3
-popup/item_0/text = "1920*1080"
+popup/item_0/text = "1280*720"
 popup/item_0/id = 0
 popup/item_1/text = "1600*900"
 popup/item_1/id = 1
-popup/item_2/text = "1280*720"
+popup/item_2/text = "1920*1080"
 popup/item_2/id = 2
 
-[node name="seperator" type="Control" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/VideoSetting/HBoxContainer/ButtonContainer"]
+[node name="seperator" type="Control" parent="SettingBackground/VBoxContainer/VideoSetting/Container"]
 layout_mode = 2
 
-[node name="ScreenMode" type="Label" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/VideoSetting/HBoxContainer/ButtonContainer"]
+[node name="ScreenMode" type="Label" parent="SettingBackground/VBoxContainer/VideoSetting/Container"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Screen"
+theme_override_font_sizes/font_size = 30
+text = "ScreenMode"
 
-[node name="ScreenModeSelector" type="OptionButton" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/VideoSetting/HBoxContainer/ButtonContainer"]
-custom_minimum_size = Vector2(300, 10)
+[node name="ScreenModeOption" type="OptionButton" parent="SettingBackground/VBoxContainer/VideoSetting/Container"]
+custom_minimum_size = Vector2(500, 40)
 layout_mode = 2
 item_count = 4
-popup/item_0/text = "Full-Screen"
+popup/item_0/text = "FullScreen"
 popup/item_0/id = 0
-popup/item_1/text = "Window-Mode"
+popup/item_1/text = "WindowMode"
 popup/item_1/id = 1
-popup/item_2/text = "Bordless Mode"
+popup/item_2/text = "Bordless-WindowMode"
 popup/item_2/id = 2
-popup/item_3/text = "Bordless Full-Screen"
+popup/item_3/text = "Bordless-FullScreen"
 popup/item_3/id = 3
 
-[node name="AudioSetting" type="VBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer"]
-visible = false
+[node name="AudioSetting" type="HBoxContainer" parent="SettingBackground/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 15
+theme_override_constants/separation = 215
+script = ExtResource("5_31ui4")
 
-[node name="seperator" type="Control" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting"]
-layout_mode = 2
-
-[node name="MainVolumecontainer" type="HBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting"]
-layout_mode = 2
-theme_override_constants/separation = 225
-
-[node name="seperator" type="Control" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting/MainVolumecontainer"]
+[node name="Control" type="Control" parent="SettingBackground/VBoxContainer/AudioSetting"]
 layout_mode = 2
 
-[node name="VolumeSettingcontainer" type="VBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting/MainVolumecontainer"]
+[node name="Container" type="VBoxContainer" parent="SettingBackground/VBoxContainer/AudioSetting"]
 layout_mode = 2
-theme_override_constants/separation = 10
 
-[node name="MainVolumelaber" type="Label" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting/MainVolumecontainer/VolumeSettingcontainer"]
+[node name="MasterVolume" type="Label" parent="SettingBackground/VBoxContainer/AudioSetting/Container"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Main Volume"
+theme_override_font_sizes/font_size = 30
+text = "MasterVolume"
 
-[node name="MainVolumeslideer" type="HSlider" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting/MainVolumecontainer/VolumeSettingcontainer"]
-custom_minimum_size = Vector2(300, 10)
+[node name="MasterVolumeBar" type="HSlider" parent="SettingBackground/VBoxContainer/AudioSetting/Container"]
+custom_minimum_size = Vector2(400, 20)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_styles/slider = SubResource("StyleBoxLine_u58eq")
+theme_override_styles/slider = SubResource("StyleBoxLine_31ui4")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_scrng")
 
-[node name="MusicVolumelabel" type="Label" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting/MainVolumecontainer/VolumeSettingcontainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Music Volume"
-
-[node name="MusicVolumeslider" type="HSlider" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting/MainVolumecontainer/VolumeSettingcontainer"]
-custom_minimum_size = Vector2(300, 10)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_styles/slider = SubResource("StyleBoxLine_7k1fe")
-theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_31ui4")
-
-[node name="Graphsetting" type="VBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer"]
-visible = false
+[node name="GraphSetting" type="HBoxContainer" parent="SettingBackground/VBoxContainer"]
 layout_mode = 2
 
-[node name="MISCsetting" type="VBoxContainer" parent="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer"]
-visible = false
+[node name="MiscSetting" type="HBoxContainer" parent="SettingBackground/VBoxContainer"]
 layout_mode = 2
-
-[connection signal="draw" from="mainscreen" to="." method="_on_mainscreen_draw"]
-[connection signal="tree_entered" from="mainscreen" to="." method="_on_mainscreen_tree_entered"]
-[connection signal="draw" from="mainscreen/SettingBackground/Buttoncontainer" to="." method="_on_buttoncontainer_draw"]
-[connection signal="pressed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/LeaveButton" to="." method="_on_leave_button_pressed"]
-[connection signal="pressed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/MainCategories/VideoButton" to="." method="_on_video_button_pressed"]
-[connection signal="pressed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/MainCategories/AudioButton" to="." method="_on_audio_button_pressed"]
-[connection signal="pressed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/MainCategories/GraphButton" to="." method="_on_graph_button_pressed"]
-[connection signal="pressed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/MainCategories/MISCButton" to="." method="_on_misc_button_pressed"]
-[connection signal="visibility_changed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/VideoSetting" to="." method="_on_video_setting_visibility_changed"]
-[connection signal="item_selected" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/VideoSetting/HBoxContainer/ButtonContainer/ResolutionOption" to="." method="_on_resolution_option_item_selected"]
-[connection signal="item_selected" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/VideoSetting/HBoxContainer/ButtonContainer/ScreenModeSelector" to="." method="_on_screen_mode_2_item_selected"]
-[connection signal="visibility_changed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting" to="." method="_on_audio_setting_visibility_changed"]
-[connection signal="value_changed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/AudioSetting/MainVolumecontainer/VolumeSettingcontainer/MainVolumeslideer" to="." method="_on_volumesetting_value_changed"]
-[connection signal="visibility_changed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/Graphsetting" to="." method="_on_graphsetting_visibility_changed"]
-[connection signal="visibility_changed" from="mainscreen/SettingBackground/Buttoncontainer/VBoxContainer/MISCsetting" to="." method="_on_mis_csetting_visibility_changed"]
