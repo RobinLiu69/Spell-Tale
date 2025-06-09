@@ -45,14 +45,13 @@ func _process(delta: float) -> void:
 	pass
 
 func host_room() -> void:
-	cleanup_multiplayer()
+	await cleanup_multiplayer()
 	peer = ENetMultiplayerPeer.new()
-	
-	var result = peer.create_server(25565)
+	var port = randi_range(10000,60000)
+	Global.server_port = port
+	var result = peer.create_server(port)
 	if result != OK:
-		print("Failed to create server: ", result)
-		return
-		
+		print("Failed to create server, please retry: ", port)
 	multiplayer.multiplayer_peer = peer
 	var mp = get_tree().get_multiplayer()
 	mp.peer_disconnected.connect(_on_peer_disconnected)
@@ -64,13 +63,13 @@ func host_room() -> void:
 	Global.multiplayer_ui_status = false
 
 func join_room() -> void:
-	cleanup_multiplayer()
+	await cleanup_multiplayer()
 	peer = ENetMultiplayerPeer.new()
-
-	var result = peer.create_client(Global.multiplayer_IP, 25565)
+	var port = Global.server_port
+	var result = peer.create_client(Global.multiplayer_IP, port)
 	if result != OK:
-		print(" Failed to connect to server: ", result)
-		return	
+		print("Failed to connect server, please retry: ", port)
+		return
 	multiplayer.multiplayer_peer = peer
 	var tree_mp = get_tree().get_multiplayer()
 	tree_mp.peer_disconnected.connect(_on_peer_disconnected)
@@ -88,9 +87,9 @@ func cleanup_multiplayer():
 	if multiplayer.multiplayer_peer:
 		multiplayer.multiplayer_peer.close()
 		multiplayer.multiplayer_peer = null
-
-	var new_mp_api := SceneMultiplayer.new()
-	get_tree().set_multiplayer(new_mp_api)	
+		
+	var new_multiplayer := SceneMultiplayer.new()
+	get_tree().set_multiplayer(new_multiplayer)
 
 func _on_peer_connected(pid):
 	print("peer " + str(pid) + " joined")
@@ -98,13 +97,13 @@ func _on_peer_connected(pid):
 	Global.achivement1_status = true
 
 func _on_peer_disconnected(pid):
-	print("function activate")
 	if not multiplayer.is_server():
 		print("Host exit，client exit")
 		get_tree().change_scene_to_packed(modechoice_scene)
 	else:
 		print("delete player")
 		del_player(pid)
+	
 		
 func _on_server_disconnected():
 	print("Disconnected from server")
@@ -151,4 +150,6 @@ func _del_player(pid):
 func notify_clients_game_ending():
 	print("Host is exiting")
 	Global.is_multiplayer_mode = false
+	cleanup_multiplayer()
+	await get_tree().create_timer(0.1).timeout
 	get_tree().change_scene_to_packed(modechoice_scene)

@@ -37,7 +37,8 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if !is_multiplayer_authority():
 		return
-	
+
+
 	var pos := get_global_mouse_position()
 	
 	

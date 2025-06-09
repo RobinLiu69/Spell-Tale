@@ -130,7 +130,7 @@ layout_mode = 2
 [node name="Topic" type="Label" parent="UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "Enter IP to Join Room"
+text = "Enter IP and Port to Join Room"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -141,7 +141,14 @@ layout_mode = 2
 custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 size_flags_horizontal = 4
-placeholder_text = "127.0.0.1"
+placeholder_text = "IP: 127.0.0.1"
+alignment = 1
+
+[node name="PortInput" type="LineEdit" parent="UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+placeholder_text = "Port: 26656"
 alignment = 1
 
 [node name="SubmitButton" type="Button" parent="UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer"]
@@ -149,6 +156,9 @@ custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Submit"
+
+[node name="seperator3" type="Control" parent="UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer"]
+layout_mode = 2
 
 [connection signal="pressed" from="MainScreen/BackgroundTexture/VBoxContainer/Leavebutton" to="." method="_on_leavebutton_pressed"]
 [connection signal="pressed" from="MainScreen/BackgroundTexture/VBoxContainer/HBoxContainer/HostButton" to="." method="_on_host_button_pressed"]

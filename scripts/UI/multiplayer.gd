@@ -7,14 +7,16 @@ class_name Multiplayer
 @onready var margin_container: MarginContainer = $UI/MarginContainer
 @onready var join_friend_button: Button = $MainScreen/BackgroundTexture/VBoxContainer/HBoxContainer/JoinFriendButton
 @onready var seperate_button: Button = $MainScreen/BackgroundTexture/VBoxContainer/HBoxContainer/SeperateButton
+@onready var result_host: Label = $MainScreen/BackgroundTexture/VBoxContainer/ResultHost
+
+
 var game_scene_ref
 
-func _ready() -> void:
-	print("Multiplayer mode ", Global.is_multiplayer_mode)
 
 func _on_host_button_pressed() -> void:
 	if game_scene_ref:
 		game_scene_ref.host_room()
+		print(Global.server_port)
 		queue_free()
 	else:
 		print("failed")
@@ -36,8 +38,16 @@ func _on_leavebutton_pressed() -> void:
 	
 func _on_submit_button_pressed() -> void:
 	Global.multiplayer_IP = $UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer/IPInput.text
+	Global.server_port = $UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer/PortInput.text
 	if Global.multiplayer_IP == null:
 		result.text = "Invalid IP, can't join the room!"
+		result.visible = true
+		topic.visible = false
+		await get_tree().create_timer(5.0).timeout
+		result.visible = true
+		topic.visible = false
+	elif Global.server_port == null:
+		result.text = "Invalid Port, can't join the room!"
 		result.visible = true
 		topic.visible = false
 		await get_tree().create_timer(5.0).timeout
