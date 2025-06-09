@@ -97,10 +97,6 @@ func _on_peer_connected(pid):
 	Global.achivement1_status = true
 
 func _on_peer_disconnected(pid):
-	if not multiplayer.is_server():
-		print("Host exit，client exit")
-		get_tree().change_scene_to_packed(modechoice_scene)
-	else:
 		print("delete player")
 		del_player(pid)
 	
