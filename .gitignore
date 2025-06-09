@@ -6,6 +6,7 @@ export_presets.cfg
 .godot/editor/
 .godot/uid_cache.bin
 .godot/
+addons/auto_saver
 
 
 # Mono-specific ignores

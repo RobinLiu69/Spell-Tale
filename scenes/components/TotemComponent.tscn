@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dk14rxp6aj55y"]
+
+[ext_resource type="Script" uid="uid://6taallsprxmf" path="res://scripts/components/totem_component.gd" id="1_crv6p"]
+
+[node name="TotemComponent" type="Node"]
+script = ExtResource("1_crv6p")

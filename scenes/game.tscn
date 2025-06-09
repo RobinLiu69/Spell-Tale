@@ -121,9 +121,6 @@ scale = Vector2(1.6, 1.6)
 texture = ExtResource("3_lbhrr")
 flip_h = true
 
-[node name="Player" parent="." instance=ExtResource("2_lnu2h")]
-position = Vector2(-715, -185)
-
 [connection signal="pressed" from="UI/ESCMenu/VBoxContainer/ContinueButton" to="UI/ESCMenu" method="_on_continue_button_pressed"]
 [connection signal="pressed" from="UI/ESCMenu/VBoxContainer/SettingButton" to="UI/ESCMenu" method="_on_setting_button_pressed"]
 [connection signal="pressed" from="UI/ESCMenu/VBoxContainer/LeaveButton" to="UI/ESCMenu" method="_on_leave_button_pressed"]

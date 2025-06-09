@@ -1,9 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://baeupmwvx1kib"]
+[gd_scene load_steps=14 format=3 uid="uid://baeupmwvx1kib"]
 
 [ext_resource type="Texture2D" uid="uid://buxqa7rdfotov" path="res://resources/images/player/player.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dlvhwpsrbw6mc" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="PackedScene" uid="uid://dbthbwirn2glv" path="res://scenes/player/health_bar.tscn" id="3_gmlin"]
 [ext_resource type="Script" uid="uid://bqqufaikvwb6f" path="res://scripts/effects/status_effect_manager.gd" id="4_lvxji"]
+[ext_resource type="PackedScene" uid="uid://c5u5f70vb7hvr" path="res://scenes/components/MovementComponent.tscn" id="5_p47bc"]
+[ext_resource type="PackedScene" uid="uid://dkcheg856022e" path="res://scenes/components/HealthComponent.tscn" id="6_qek5x"]
+[ext_resource type="PackedScene" uid="uid://dk14rxp6aj55y" path="res://scenes/components/TotemComponent.tscn" id="7_5gtgg"]
+[ext_resource type="PackedScene" uid="uid://c6qi0u5qqqp7k" path="res://scenes/components/SpellComponent.tscn" id="8_h17s1"]
+[ext_resource type="PackedScene" uid="uid://cl7vaadu8w5wu" path="res://scenes/components/CameraFollowComponent.tscn" id="9_5gtgg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 16.0
@@ -77,3 +82,19 @@ replication_config = SubResource("SceneReplicationConfig_qlg0r")
 
 [node name="StatusEffectManager" type="Node2D" parent="."]
 script = ExtResource("4_lvxji")
+
+[node name="MovementComponent" parent="." node_paths=PackedStringArray("source") instance=ExtResource("5_p47bc")]
+source = NodePath("..")
+sprite_path = NodePath("../PlayerSprite")
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("health_bar", "source") instance=ExtResource("6_qek5x")]
+health_bar = NodePath("../HealthBar")
+source = NodePath("..")
+
+[node name="TotemComponent" parent="." node_paths=PackedStringArray("source") instance=ExtResource("7_5gtgg")]
+source = NodePath("..")
+
+[node name="SpellComponent" parent="." instance=ExtResource("8_h17s1")]
+
+[node name="CameraFollowComponent" parent="." node_paths=PackedStringArray("camera_2d") instance=ExtResource("9_5gtgg")]
+camera_2d = NodePath("../Camera2D")
