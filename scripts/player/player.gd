@@ -1,19 +1,16 @@
-class_name Player
 extends CharacterBody2D
+class_name Player
 
 @onready var marker := $SpellCon/Marker2D
 @onready var health_bar := $HealthBar
 @onready var status_effect_manager: Node2D = $StatusEffectManager
 @onready var camera_2d := $Camera2D
+@onready var player_sprite := $PlayerSprite
 
-
-const SPEED = 300.0
 const JUMP_VELOCITY = -500.0
 
-var acceleration = 0.0
-var speed_multiplier := 1.0
 var health = 10.0
-
+var movement_direction = 0
 
 var spell_1: String
 var spell_2: String
@@ -63,30 +60,21 @@ func _physics_process(delta: float) -> void:
 		cast.rpc(multiplayer.get_unique_id(), spell_3, pos)
 	
 	# Handle jump.
-
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("left", "right")
 	
-	if is_on_floor():
-		if direction:
-			acceleration = direction * SPEED * speed_multiplier
-		else:
-			acceleration = move_toward(acceleration, 0, SPEED)
-
-	velocity.x = acceleration
-
-	if velocity.x < 0:
-		$PlayerSprite.flip_h = true
-	elif velocity.x > 0:
-		$PlayerSprite.flip_h = false
-
-
+	inputHandeler()
+	
 	move_and_slide()
 
+func inputHandeler():
+	movement_direction = 0
+	
+	if Input.is_action_just_pressed("left"):
+		movement_direction -= -1
+	if Input.is_action_just_pressed("right"):
+		movement_direction += 1
+		
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
 	
 @rpc("call_local")
 func cast(caster_pid: int, spell_name: String, target_pos: Vector2 = Vector2.ZERO):

@@ -1,9 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://baeupmwvx1kib"]
+[gd_scene load_steps=12 format=3 uid="uid://baeupmwvx1kib"]
 
 [ext_resource type="Texture2D" uid="uid://buxqa7rdfotov" path="res://resources/images/player/player.png" id="1_3vyb7"]
-[ext_resource type="Script" uid="uid://dlvhwpsrbw6mc" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://dlvhwpsrbw6mc" path="res://scripts/player/player.gd" id="1_g2els"]
 [ext_resource type="PackedScene" uid="uid://dbthbwirn2glv" path="res://scenes/player/health_bar.tscn" id="3_gmlin"]
 [ext_resource type="Script" uid="uid://bqqufaikvwb6f" path="res://scripts/effects/status_effect_manager.gd" id="4_lvxji"]
+[ext_resource type="Script" uid="uid://bpfkuhklhvfql" path="res://scripts/player/components/run_component.gd" id="5_p47bc"]
+[ext_resource type="Script" uid="uid://ca0hpxki4n0lq" path="res://scripts/player/trees/behavior_tree.gd" id="6_75vfm"]
+[ext_resource type="Script" uid="uid://daof1ifvd1ygh" path="res://scripts/player/components/idle_component.gd" id="7_0owmy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 16.0
@@ -77,3 +80,16 @@ replication_config = SubResource("SceneReplicationConfig_qlg0r")
 
 [node name="StatusEffectManager" type="Node2D" parent="."]
 script = ExtResource("4_lvxji")
+
+[node name="BehaviorTree" type="Node" parent="." node_paths=PackedStringArray("entity", "default_component")]
+script = ExtResource("6_75vfm")
+entity = NodePath("..")
+default_component = NodePath("IdleComponent")
+
+[node name="RunComponent" type="Node" parent="BehaviorTree" node_paths=PackedStringArray("tree")]
+script = ExtResource("5_p47bc")
+tree = NodePath("..")
+
+[node name="IdleComponent" type="Node" parent="BehaviorTree" node_paths=PackedStringArray("tree")]
+script = ExtResource("7_0owmy")
+tree = NodePath("..")
