@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://bt2vdvk6lle2x"]
+[gd_scene load_steps=18 format=3 uid="uid://bt2vdvk6lle2x"]
 
 [ext_resource type="Script" uid="uid://bgb1d77qceyxp" path="res://scripts/UI/main_menu.gd" id="1_bqqt6"]
 [ext_resource type="Texture2D" uid="uid://bwd3frreglqot" path="res://resources/images/retro-8-bit-pixel-desert-road-landscape-background-vector.jpg" id="1_l6cm7"]
 [ext_resource type="Texture2D" uid="uid://qicioyu8sq4k" path="res://resources/images/stock-vector-interface-menu-buttons-pixel-art-set-menu-panel-collection-play-pause-store-settings-options-2185918411-Photoroom.png" id="2_ekxnf"]
-[ext_resource type="Script" uid="uid://cbf6htw2eeyk2" path="res://scripts/UI/ButtonAction.gd" id="4_wu84c"]
+[ext_resource type="Script" uid="uid://cvpo88lsv4uxc" path="res://scripts/UI/ButtonAction.gd" id="4_wu84c"]
+[ext_resource type="AudioStream" uid="uid://bkkqc35v4lfmk" path="res://resources/sounds/button-305770.mp3" id="5_8ln24"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oa1go"]
 texture = ExtResource("2_ekxnf")
@@ -163,23 +164,25 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_lgwnu")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_rcqid")
 theme_override_styles/normal = SubResource("StyleBoxTexture_rtw2f")
 
-[node name="PlayAction" type="Node" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="PlayAction" type="Node" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("button_effect")]
 script = ExtResource("4_wu84c")
 button_path = NodePath("../PlayButton")
+button_effect = NodePath("../../../../../../ButtonEffectMain")
 
-[node name="SettingAction" type="Node" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="SettingAction" type="Node" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("button_effect")]
 script = ExtResource("4_wu84c")
 button_path = NodePath("../SettingButton")
+button_effect = NodePath("../../../../../../ButtonEffectMain")
 
-[node name="StoreAction" type="Node" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="StoreAction" type="Node" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("button_effect")]
 script = ExtResource("4_wu84c")
 button_path = NodePath("../StoreButton")
+button_effect = NodePath("../../../../../../ButtonEffectMain")
 
-[node name="QuitAction" type="Node" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="QuitAction" type="Node" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("button_effect")]
 script = ExtResource("4_wu84c")
 button_path = NodePath("../QuitButton")
+button_effect = NodePath("../../../../../../ButtonEffectMain")
 
-[connection signal="pressed" from="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
-[connection signal="pressed" from="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer/SettingButton" to="." method="_on_setting_button_pressed"]
-[connection signal="pressed" from="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer/StoreButton" to="." method="_on_store_button_pressed"]
-[connection signal="pressed" from="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[node name="ButtonEffectMain" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_8ln24")

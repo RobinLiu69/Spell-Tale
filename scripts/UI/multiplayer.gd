@@ -16,6 +16,7 @@ var game_scene_ref
 func _on_host_button_pressed() -> void:
 	if game_scene_ref:
 		game_scene_ref.host_room()
+		game_scene_ref.port_manifest()
 		print(Global.server_port)
 		queue_free()
 	else:

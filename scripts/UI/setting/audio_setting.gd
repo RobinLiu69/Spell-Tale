@@ -9,4 +9,3 @@ func _ready() -> void:
 
 func _on_volumesetting_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(0, value)
-	print(value)

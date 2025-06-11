@@ -4,6 +4,8 @@ extends PanelContainer
 var player: Player
 @onready var esc_menu: PanelContainer = $"."
 @onready var setting_scene = preload("res://scenes/setting.tscn")
+@onready var port_display_in_game: MarginContainer = $"../PortDisplayInGame"
+
 
 
 func _on_leave_button_pressed() -> void:
@@ -24,4 +26,5 @@ func _on_setting_button_pressed() -> void:
 
 func toggle_pause_menu():
 	esc_menu.visible = ! Global.menu_status
+	port_display_in_game.visible = ! Global.menu_status
 	Global.menu_status = ! Global.menu_status

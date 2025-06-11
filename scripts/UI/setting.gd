@@ -6,6 +6,10 @@ extends Control
 @onready var audio_setting := setting_stack.get_node("AudioSetting")
 @onready var graph_setting := setting_stack.get_node("GraphSetting")
 @onready var misc_setting := setting_stack.get_node("MiscSetting")
+@onready var button_effect: AudioStreamPlayer2D = $ButtonEffect
+
+
+
 
 func _ready():
 	$SettingBackground/VBoxContainer/LeaveAction.action = Callable(self, "_leave_setting")
@@ -24,15 +28,17 @@ func _show_setting(category: String):
 func _go_to_video_setting() -> void:
 	_show_setting("video")
 
+
 func _go_to_audio_setting() -> void:
 	_show_setting("audio")
-
+	
+	
 func _go_to_graph_setting() -> void:
 	_show_setting("graph")
+	
 
 func _go_to_misc_setting() -> void:
 	_show_setting("misc")
-
 		
 func _leave_setting() -> void:
 	if Global.previous_scene_path == "res://scenes/main.tscn":

@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://d0o1y11hyk8ru"]
+[gd_scene load_steps=4 format=3 uid="uid://d0o1y11hyk8ru"]
 
 [ext_resource type="Script" uid="uid://d0o5iidx4bitb" path="res://scripts/UI/modechoice.gd" id="1_gh6dx"]
+[ext_resource type="AudioStream" uid="uid://bkkqc35v4lfmk" path="res://resources/sounds/button-305770.mp3" id="2_5l4u1"]
+[ext_resource type="Script" uid="uid://cvpo88lsv4uxc" path="res://scripts/UI/ButtonAction.gd" id="2_pd27q"]
 
 [node name="ModeUI" type="Control"]
 layout_mode = 3
@@ -44,6 +46,11 @@ size_flags_vertical = 0
 text = "Back
 "
 
+[node name="LeaveAction" type="Node" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer" node_paths=PackedStringArray("button_effect")]
+script = ExtResource("2_pd27q")
+button_path = NodePath("../LeaveButton")
+button_effect = NodePath("../../../../../ButtonEffect")
+
 [node name="seperator" type="Control" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -63,6 +70,11 @@ theme_override_font_sizes/font_size = 35
 text = "1 VS 1
 BATTLE"
 
+[node name="BattleAction" type="Node" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer/modebuttonscontainer" node_paths=PackedStringArray("button_effect")]
+script = ExtResource("2_pd27q")
+button_path = NodePath("../BattleButton")
+button_effect = NodePath("../../../../../../ButtonEffect")
+
 [node name="Control" type="Control" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer/modebuttonscontainer"]
 layout_mode = 2
 
@@ -74,9 +86,13 @@ theme_override_font_sizes/font_size = 35
 text = "TRAINING
 MODE"
 
+[node name="TrainingAction" type="Node" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer/modebuttonscontainer" node_paths=PackedStringArray("button_effect")]
+script = ExtResource("2_pd27q")
+button_path = NodePath("../TrainingModebutton")
+button_effect = NodePath("../../../../../../ButtonEffect")
+
 [node name="Control3" type="Control" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer/modebuttonscontainer"]
 layout_mode = 2
 
-[connection signal="pressed" from="MarginContainer/MainUITexture/MarginContainer/VBoxContainer/LeaveButton" to="." method="_on_leave_button_pressed"]
-[connection signal="pressed" from="MarginContainer/MainUITexture/MarginContainer/VBoxContainer/modebuttonscontainer/BattleButton" to="." method="_on_battle_button_pressed"]
-[connection signal="pressed" from="MarginContainer/MainUITexture/MarginContainer/VBoxContainer/modebuttonscontainer/TrainingModebutton" to="." method="_on_training_modebutton_pressed"]
+[node name="ButtonEffect" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_5l4u1")

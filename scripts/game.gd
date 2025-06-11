@@ -5,6 +5,11 @@ extends Node2D
 @onready var esc_menu: PanelContainer = $UI/ESCMenu
 @onready var multiplayer_scene = preload("res://scenes/multiplayer.tscn")
 @onready var modechoice_scene = preload("res://scenes/modechoice.tscn")
+@onready var port_display: MarginContainer = $UI/PortDisplay
+@onready var port: Label = $UI/PortDisplay/Port
+@onready var port_in_game: Label = $UI/PortDisplayInGame/PortInGame
+@onready var port_display_in_game: MarginContainer = $UI/PortDisplayInGame
+
 
 var peer = ENetMultiplayerPeer.new()
 var players: Array[Player] = []
@@ -32,12 +37,22 @@ func setup_menu_player_reference():
 	var player = $Player
 	esc_menu.player = player
 
+func port_manifest() -> void:
+	port_display.visible = true
+	port.text = "Room has been successfully created, Port is: " + str(Global.server_port)
+	port_in_game.text = "Room port is: " + str(Global.server_port)
+	await get_tree().create_timer(5).timeout
+	port_display.visible = false
+	
+	
+	
 func _input(event) -> void:
 	if event.is_action_pressed("ui_cancel") && get_tree().current_scene.name == "Game":
 		toggle_pause_menu()
 
 func toggle_pause_menu():
 	esc_menu.visible = ! Global.menu_status
+	port_display_in_game.visible = ! Global.menu_status
 	Global.menu_status = ! Global.menu_status
 	
 

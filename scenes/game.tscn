@@ -27,6 +27,35 @@ player_scene = ExtResource("2_lnu2h")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
+[node name="PortDisplayInGame" type="MarginContainer" parent="UI"]
+visible = false
+custom_minimum_size = Vector2(0, 200)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="PortInGame" type="Label" parent="UI/PortDisplayInGame"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PortDisplay" type="MarginContainer" parent="UI"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_bottom = 50
+
+[node name="Port" type="Label" parent="UI/PortDisplay"]
+custom_minimum_size = Vector2(500, 450)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 35
+horizontal_alignment = 1
+
 [node name="ESCMenu" type="PanelContainer" parent="UI"]
 visible = false
 custom_minimum_size = Vector2(300, 500)
@@ -112,7 +141,7 @@ position = Vector2(-52, -379)
 
 [node name="Map1" type="Sprite2D" parent="."]
 position = Vector2(818, -205)
-scale = Vector2(1.6, 1.6)
+scale = Vector2(1.61962, 1.60507)
 texture = ExtResource("3_lbhrr")
 
 [node name="Map2" type="Sprite2D" parent="."]
