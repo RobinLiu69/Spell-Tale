@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cturmxpont854" path="res://resources/images/spell/void/laser_haed.png" id="4_hsm0m"]
 
 [node name="VoidLaser" type="Node2D"]
+physics_interpolation_mode = 2
 scale = Vector2(2, 2)
 script = ExtResource("1_t3qf7")
 

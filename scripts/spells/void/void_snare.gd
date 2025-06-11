@@ -5,8 +5,6 @@ extends Spell
 
 func _init() -> void:
 	damage = 3
-	
-
 
 func _ready():
 	self.global_position = get_global_mouse_position()

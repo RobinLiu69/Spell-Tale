@@ -1,14 +1,22 @@
 extends CharacterBody2D
 class_name Player
 
-@onready var marker := $SpellCon/Marker2D
+@onready var marker := $SpellConComponent/Marker2D
 @onready var health_bar := $HealthBar
 @onready var status_effect_manager: Node2D = $StatusEffectManager
 @onready var camera_2d := $Camera2D
 @onready var player_sprite := $PlayerSprite
+@onready var spell_con := $SpellConComponent
+@onready var text_edit := $TextEdit
 
-const JUMP_VELOCITY = -500.0
+@export var JUMP_VELOCITY: float = -500.0
+@export var SPEED: float = 300.0
+var acceleration = 0.0
+var speed_multiplier := 1.0
 
+var mouse_pos
+
+var jump = false
 var health = 10.0
 var movement_direction = 0
 
@@ -29,52 +37,59 @@ func _ready() -> void:
 	camera_2d.enabled = is_multiplayer_authority()
 	
 	if !is_multiplayer_authority():
-		$PlayerSprite.modulate = Color.RED
+		player_sprite.modulate = Color.RED
 	
 func _physics_process(delta: float) -> void:
 	if !is_multiplayer_authority():
 		return
-
-
-	var pos := get_global_mouse_position()
 	
-	
-	$SpellCon.look_at(pos)
-	
-	var offset_x = (pos.x - global_position.x) / (1920.0 / 50.0)
-	var offset_y = (pos.y - global_position.y) / (1080.0 / 50.0)
+	mouse_pos = get_global_mouse_position()
+		
+	var offset_x = (mouse_pos.x - global_position.x) / (1920.0 / 50.0)
+	var offset_y = (mouse_pos.y - global_position.y) / (1080.0 / 50.0)
 	
 	#camera_2d.offset.lerp(Vector2(offset_x, offset_y), 0.1)
 	camera_2d.offset = Vector2(offset_x, offset_y)
+		
 	
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+	input_handler()
 	
-	
-	if Input.is_action_just_pressed("special_1"):
-		cast.rpc(multiplayer.get_unique_id(), spell_1, pos)
-	elif Input.is_action_just_pressed("special_2"):
-		cast.rpc(multiplayer.get_unique_id(), spell_2, pos)
-	elif Input.is_action_just_pressed("special_3"):
-		cast.rpc(multiplayer.get_unique_id(), spell_3, pos)
-	
-	# Handle jump.
-	
-	inputHandeler()
+	component_tree_handler(delta)
+	component_handler(delta)
 	
 	move_and_slide()
 
-func inputHandeler():
-	movement_direction = 0
+func component_tree_handler(delta):
+	var behavior_component_tree = get_node_or_null("BehaviorComponentTree")
 	
-	if Input.is_action_just_pressed("left"):
-		movement_direction -= -1
-	if Input.is_action_just_pressed("right"):
-		movement_direction += 1
+	if is_instance_valid(behavior_component_tree):
+		behavior_component_tree.update_tree(delta)
+	
+func component_handler(delta):
+	var spell_con_component = get_node_or_null("SpellConComponent")
+	
+	if is_instance_valid(spell_con_component):
+		spell_con_component.update_component()
+
+func input_handler():	
+	$lefttex.visible = Input.is_action_pressed("left")
+	$righttex.visible = Input.is_action_pressed("right")
+	if Input.is_action_pressed("left") == Input.is_action_pressed("right"):
+		movement_direction = 0
+	elif Input.is_action_pressed("left"):
+		movement_direction = -1
+	elif Input.is_action_pressed("right"):
+		movement_direction = 1
 		
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+	if Input.is_action_pressed("jump") and is_on_floor():
+		jump = true
+
+	if Input.is_action_just_pressed("special_1"):
+		cast.rpc(multiplayer.get_unique_id(), spell_1, mouse_pos)
+	elif Input.is_action_just_pressed("special_2"):
+		cast.rpc(multiplayer.get_unique_id(), spell_2, mouse_pos)
+	elif Input.is_action_just_pressed("special_3"):
+		cast.rpc(multiplayer.get_unique_id(), spell_3, mouse_pos)
 	
 @rpc("call_local")
 func cast(caster_pid: int, spell_name: String, target_pos: Vector2 = Vector2.ZERO):
@@ -97,7 +112,7 @@ func cast(caster_pid: int, spell_name: String, target_pos: Vector2 = Vector2.ZER
 	elif cast_at == "self":
 		pass
 	spell.cast()
-
+	
 @rpc("call_local")
 func place_totem(caster_pid: int, totem_name: String, position: Vector2, direction: Vector2):
 	if not TotemRegistry.TOTEMS.has(totem_name):
