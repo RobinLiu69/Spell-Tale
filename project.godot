@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 SpellRegistry="*res://scripts/spells/SpellRegistry.gd"
 Global="*res://scripts/UI/global.gd"
 TotemRegistry="*res://scripts/totems/TotemRegistry.gd"
+AudioManager="*res://scripts/UI/AudioManager.gd"
 
 [display]
 

@@ -141,14 +141,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
 size_flags_horizontal = 4
-placeholder_text = "IP: 127.0.0.1"
-alignment = 1
-
-[node name="PortInput" type="LineEdit" parent="UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer"]
-custom_minimum_size = Vector2(250, 50)
-layout_mode = 2
-size_flags_horizontal = 4
-placeholder_text = "Port: 26656"
+placeholder_text = "IP + Port: 127.0.0.1:42356"
 alignment = 1
 
 [node name="SubmitButton" type="Button" parent="UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer"]

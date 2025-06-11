@@ -46,10 +46,9 @@ size_flags_vertical = 0
 text = "Back
 "
 
-[node name="LeaveAction" type="Node" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer" node_paths=PackedStringArray("button_effect")]
+[node name="LeaveAction" type="Node" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer"]
 script = ExtResource("2_pd27q")
 button_path = NodePath("../LeaveButton")
-button_effect = NodePath("../../../../../ButtonEffect")
 
 [node name="seperator" type="Control" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -70,10 +69,9 @@ theme_override_font_sizes/font_size = 35
 text = "1 VS 1
 BATTLE"
 
-[node name="BattleAction" type="Node" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer/modebuttonscontainer" node_paths=PackedStringArray("button_effect")]
+[node name="BattleAction" type="Node" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer/modebuttonscontainer"]
 script = ExtResource("2_pd27q")
 button_path = NodePath("../BattleButton")
-button_effect = NodePath("../../../../../../ButtonEffect")
 
 [node name="Control" type="Control" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer/modebuttonscontainer"]
 layout_mode = 2
@@ -86,10 +84,9 @@ theme_override_font_sizes/font_size = 35
 text = "TRAINING
 MODE"
 
-[node name="TrainingAction" type="Node" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer/modebuttonscontainer" node_paths=PackedStringArray("button_effect")]
+[node name="TrainingAction" type="Node" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer/modebuttonscontainer"]
 script = ExtResource("2_pd27q")
 button_path = NodePath("../TrainingModebutton")
-button_effect = NodePath("../../../../../../ButtonEffect")
 
 [node name="Control3" type="Control" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer/modebuttonscontainer"]
 layout_mode = 2

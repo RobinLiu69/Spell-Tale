@@ -38,8 +38,10 @@ func _on_leavebutton_pressed() -> void:
 	
 	
 func _on_submit_button_pressed() -> void:
-	Global.multiplayer_IP = $UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer/IPInput.text
-	Global.server_port = $UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer/PortInput.text
+	var user_input : PackedStringArray = $UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer/IPInput.text.split(":")
+	if user_input.size() > 1:
+		Global.multiplayer_IP = user_input[0]
+	Global.server_port = int(user_input[-1])	
 	if Global.multiplayer_IP == null:
 		result.text = "Invalid IP, can't join the room!"
 		result.visible = true

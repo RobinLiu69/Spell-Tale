@@ -112,8 +112,8 @@ func _on_peer_connected(pid):
 	Global.achivement1_status = true
 
 func _on_peer_disconnected(pid):
-		print("delete player")
-		del_player(pid)
+	print("delete player")
+	del_player(pid)
 	
 		
 func _on_server_disconnected():
@@ -157,6 +157,9 @@ func _del_player(pid):
 	if esc_menu.player and str(esc_menu.player.name) == str(pid):
 		esc_menu.player = null
 		
+
+		
+
 @rpc("authority")
 func notify_clients_game_ending():
 	print("Host is exiting")

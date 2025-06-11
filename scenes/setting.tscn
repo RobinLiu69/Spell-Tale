@@ -53,10 +53,9 @@ layout_mode = 2
 size_flags_horizontal = 8
 text = "Leave"
 
-[node name="LeaveAction" type="Node" parent="SettingBackground/VBoxContainer" node_paths=PackedStringArray("button_effect")]
+[node name="LeaveAction" type="Node" parent="SettingBackground/VBoxContainer"]
 script = ExtResource("3_7k1fe")
 button_path = NodePath("../LeaveButton")
-button_effect = NodePath("../../../ButtonEffect")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SettingBackground/VBoxContainer"]
 layout_mode = 2
@@ -93,25 +92,21 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "MISC"
 
-[node name="VideoAction" type="Node" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("button_effect")]
+[node name="VideoAction" type="Node" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
 script = ExtResource("3_7k1fe")
 button_path = NodePath("../VideoButton")
-button_effect = NodePath("../../../../../ButtonEffect")
 
-[node name="AudioAction" type="Node" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("button_effect")]
+[node name="AudioAction" type="Node" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
 script = ExtResource("3_7k1fe")
 button_path = NodePath("../AudioButton")
-button_effect = NodePath("../../../../../ButtonEffect")
 
-[node name="GraphAction" type="Node" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("button_effect")]
+[node name="GraphAction" type="Node" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
 script = ExtResource("3_7k1fe")
 button_path = NodePath("../GraphButton")
-button_effect = NodePath("../../../../../ButtonEffect")
 
-[node name="MISCAction" type="Node" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("button_effect")]
+[node name="MISCAction" type="Node" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
 script = ExtResource("3_7k1fe")
 button_path = NodePath("../MISCButton")
-button_effect = NodePath("../../../../../ButtonEffect")
 
 [node name="VideoSetting" type="HBoxContainer" parent="SettingBackground/VBoxContainer"]
 visible = false
@@ -178,13 +173,14 @@ layout_mode = 2
 [node name="MasterVolume" type="Label" parent="SettingBackground/VBoxContainer/AudioSetting/Container"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "MasterVolume"
 
 [node name="MasterVolumeBar" type="HSlider" parent="SettingBackground/VBoxContainer/AudioSetting/Container"]
 custom_minimum_size = Vector2(400, 20)
 layout_mode = 2
 theme_override_styles/slider = SubResource("StyleBoxLine_31ui4")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_scrng")
+max_value = 1.0
+step = 0.01
 
 [node name="GraphSetting" type="HBoxContainer" parent="SettingBackground/VBoxContainer"]
 layout_mode = 2

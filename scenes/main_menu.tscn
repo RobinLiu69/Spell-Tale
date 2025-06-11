@@ -164,25 +164,21 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_lgwnu")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_rcqid")
 theme_override_styles/normal = SubResource("StyleBoxTexture_rtw2f")
 
-[node name="PlayAction" type="Node" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("button_effect")]
+[node name="PlayAction" type="Node" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
 script = ExtResource("4_wu84c")
 button_path = NodePath("../PlayButton")
-button_effect = NodePath("../../../../../../ButtonEffectMain")
 
-[node name="SettingAction" type="Node" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("button_effect")]
+[node name="SettingAction" type="Node" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
 script = ExtResource("4_wu84c")
 button_path = NodePath("../SettingButton")
-button_effect = NodePath("../../../../../../ButtonEffectMain")
 
-[node name="StoreAction" type="Node" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("button_effect")]
+[node name="StoreAction" type="Node" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
 script = ExtResource("4_wu84c")
 button_path = NodePath("../StoreButton")
-button_effect = NodePath("../../../../../../ButtonEffectMain")
 
-[node name="QuitAction" type="Node" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("button_effect")]
+[node name="QuitAction" type="Node" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
 script = ExtResource("4_wu84c")
 button_path = NodePath("../QuitButton")
-button_effect = NodePath("../../../../../../ButtonEffectMain")
 
 [node name="ButtonEffectMain" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_8ln24")
