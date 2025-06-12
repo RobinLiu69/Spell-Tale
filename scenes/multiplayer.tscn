@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://buafe3kxce2c2"]
+[gd_scene load_steps=6 format=3 uid="uid://buafe3kxce2c2"]
 
 [ext_resource type="Script" uid="uid://cc0in88462unc" path="res://scripts/UI/multiplayer.gd" id="1_b0l6s"]
+[ext_resource type="Script" uid="uid://cvpo88lsv4uxc" path="res://scripts/UI/ButtonAction.gd" id="2_crvko"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b0l6s"]
 
@@ -47,6 +48,10 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 text = "Leave"
 
+[node name="LeaveAction" type="Node" parent="MainScreen/BackgroundTexture/VBoxContainer"]
+script = ExtResource("2_crvko")
+button_path = NodePath("../Leavebutton")
+
 [node name="seperator" type="Control" parent="MainScreen/BackgroundTexture/VBoxContainer"]
 layout_mode = 2
 
@@ -61,6 +66,10 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 37
 text = "HOST"
 
+[node name="HostAction" type="Node" parent="MainScreen/BackgroundTexture/VBoxContainer/HBoxContainer"]
+script = ExtResource("2_crvko")
+button_path = NodePath("../HostButton")
+
 [node name="seperator" type="Control" parent="MainScreen/BackgroundTexture/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
@@ -69,6 +78,10 @@ custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "JOIN FRIEND"
+
+[node name="JoinFriendAction" type="Node" parent="MainScreen/BackgroundTexture/VBoxContainer/HBoxContainer"]
+script = ExtResource("2_crvko")
+button_path = NodePath("../JoinFriendButton")
 
 [node name="SeperateButton" type="Button" parent="MainScreen/BackgroundTexture/VBoxContainer/HBoxContainer"]
 visible = false
@@ -117,6 +130,10 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 text = "X"
 
+[node name="CancelAction" type="Node" parent="UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer"]
+script = ExtResource("2_crvko")
+button_path = NodePath("../CancelButton")
+
 [node name="Result" type="Label" parent="UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer"]
 visible = false
 layout_mode = 2
@@ -150,12 +167,9 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Submit"
 
+[node name="SubmitAction" type="Node" parent="UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer"]
+script = ExtResource("2_crvko")
+button_path = NodePath("../SubmitButton")
+
 [node name="seperator3" type="Control" parent="UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer"]
 layout_mode = 2
-
-[connection signal="pressed" from="MainScreen/BackgroundTexture/VBoxContainer/Leavebutton" to="." method="_on_leavebutton_pressed"]
-[connection signal="pressed" from="MainScreen/BackgroundTexture/VBoxContainer/HBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
-[connection signal="pressed" from="MainScreen/BackgroundTexture/VBoxContainer/HBoxContainer/JoinFriendButton" to="." method="_on_join_friend_button_pressed"]
-[connection signal="pressed" from="UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
-[connection signal="text_submitted" from="UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer/IPInput" to="." method="_on_ip_input_text_submitted"]
-[connection signal="pressed" from="UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer/SubmitButton" to="." method="_on_submit_button_pressed"]

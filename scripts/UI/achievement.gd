@@ -6,14 +6,19 @@ extends Control
 @onready var achievement_1_container: PanelContainer = $MainScrren/ScreenTexture/Maincontainer/VBoxContainer/CanvasLayer/HBoxContainer/VBoxContainer/achievement1container
 @onready var buttonseperator: Button = $MainScrren/ScreenTexture/Maincontainer/VBoxContainer/HBoxContainer/buttonseperator
 
+func _ready() -> void:
+	$MainScrren/ScreenTexture/Maincontainer/VBoxContainer/LeaveAction.action = Callable(self, "_leave_achievement")
+	$MainScrren/ScreenTexture/Maincontainer/VBoxContainer/HBoxContainer/FirstcombatAction.action = Callable(self, "_first_combat_button_pressed")
+	$MainScrren/ScreenTexture/Maincontainer/VBoxContainer/CanvasLayer/HBoxContainer/VBoxContainer/achievement1container/closeaction.action = Callable(self, "_close_button_pressed")
 
 
-func _on_leave_button_pressed() -> void:
+
+func _leave_achievement() -> void:
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 
 
-func _on_button_pressed() -> void:
+func _first_combat_button_pressed() -> void:
 	firstcombatbutton.visible = false
 	show_achievement(
 		"First Combat",
@@ -22,7 +27,7 @@ func _on_button_pressed() -> void:
 	)
 	buttonseperator.visible = true
 
-func _on_closebutton_pressed() -> void:
+func _close_button_pressed() -> void:
 	achievement_1_container.visible = false
 	firstcombatbutton.visible = true
 	buttonseperator.visible = false

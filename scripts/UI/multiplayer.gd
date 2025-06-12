@@ -11,31 +11,35 @@ class_name Multiplayer
 
 var game_scene_ref
 
-func _on_host_button_pressed() -> void:
+func _ready() -> void:
+	$MainScreen/BackgroundTexture/VBoxContainer/LeaveAction.action = Callable(self,"_leave_multiplayer")
+	$MainScreen/BackgroundTexture/VBoxContainer/HBoxContainer/HostAction.action = Callable(self,"_host_room")
+	$MainScreen/BackgroundTexture/VBoxContainer/HBoxContainer/JoinFriendAction.action = Callable(self,"_join_friend_room")
+	$UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer/CancelAction.action = Callable(self,"_cancel_join_UI")
+	$UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer/SubmitAction.action = Callable(self,"_submit_IP_port")
+
+func _host_room() -> void:
 	if game_scene_ref:
 		game_scene_ref.host_room()
 		game_scene_ref.port_manifest()
-		print(Global.server_port)
 		queue_free()
-	else:
-		print("failed")
 	
 	
 
-func _on_join_friend_button_pressed() -> void:
+func _join_friend_room() -> void:
 	margin_container.visible = true
 	join_friend_button.visible = false
 	seperate_button.visible = true
 	
 	
 
-func _on_leavebutton_pressed() -> void:
+func _leave_multiplayer() -> void:
 	get_tree().change_scene_to_file("res://scenes/modechoice.tscn")
 	Global.is_multiplayer_mode = ! Global.is_multiplayer_mode
 	print(Global.is_multiplayer_mode)
 	
 	
-func _on_submit_button_pressed() -> void:
+func _submit_IP_port() -> void:
 	var user_input : PackedStringArray = $UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer/IPInput.text.split(":")
 	if user_input.size() > 1:
 		Global.multiplayer_IP = user_input[0]
@@ -59,7 +63,7 @@ func _on_submit_button_pressed() -> void:
 		queue_free()
 		
 	
-func _on_cancel_button_pressed() -> void:
+func _cancel_join_UI() -> void:
 	margin_container.visible = false
 	join_friend_button.visible = true
 	seperate_button.visible = false
