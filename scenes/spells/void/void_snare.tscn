@@ -169,6 +169,7 @@ _data = {
 radius = 21.0
 
 [node name="VoidSnare" type="Node2D"]
+physics_interpolation_mode = 2
 scale = Vector2(2, 2)
 script = ExtResource("1_4bnks")
 
