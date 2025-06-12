@@ -95,9 +95,11 @@ func join_room() -> void:
 	Global.achivement1_status = true
 
 func exit_game(pid):
-	rpc("notify_clients_game_ending")
+	if multiplayer.is_server():
+		rpc("notify_clients_game_ending")
+	else:
+		await cleanup_multiplayer()
 	del_player(pid)
-	await cleanup_multiplayer()
 	for player in players:
 		player.queue_free()
 	
@@ -159,6 +161,5 @@ func _del_player(pid):
 func notify_clients_game_ending():
 	print("Host is exiting")
 	Global.is_multiplayer_mode = false
-	cleanup_multiplayer()
-	await get_tree().create_timer(0.1).timeout
+	await cleanup_multiplayer()
 	get_tree().change_scene_to_packed(modechoice_scene)
