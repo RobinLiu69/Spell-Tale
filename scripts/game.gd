@@ -96,7 +96,10 @@ func join_room() -> void:
 func exit_game(pid):
 	rpc("notify_clients_game_ending")
 	del_player(pid)
-	
+	multiplayer.multiplayer_peer.close()
+	multiplayer.multiplayer_peer = null
+	for player in players:
+		player.queue_free()
 	
 func cleanup_multiplayer():
 	if multiplayer.multiplayer_peer:
@@ -133,6 +136,7 @@ func add_player(pid) -> Node2D:
 	player.global_position = $Level.get_child(spawn_index).global_position
 	if pid == multiplayer.get_unique_id():
 		$UI/ESCMenu.player = player
+	players.append(player)
 	return player
 
 func del_player(pid):
@@ -148,17 +152,8 @@ func _del_player(pid):
 	else:
 		print("Player node ", pid, " 不存在或已被釋放")
 
-	for i in range(players.size()):
-		if players[i].multiplayer.get_unique_id() == int(pid):
-			players[i].queue_free()
-			players.pop_at(i)
-			return
-
 	if esc_menu.player and str(esc_menu.player.name) == str(pid):
 		esc_menu.player = null
-		
-
-		
 
 @rpc("authority")
 func notify_clients_game_ending():

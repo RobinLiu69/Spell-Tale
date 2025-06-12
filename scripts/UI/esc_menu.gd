@@ -18,7 +18,6 @@ func _on_continue_button_pressed() -> void:
 	
 
 func _on_setting_button_pressed() -> void:
-	esc_menu.visible = false
 	var setting_screen = setting_scene.instantiate()
 	owner.get_node("UI").add_child(setting_screen)
 	

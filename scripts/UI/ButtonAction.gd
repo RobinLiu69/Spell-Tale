@@ -11,7 +11,6 @@ func _ready():
 
 func _on_button_pressed():
 	if AudioManager.click_sound:
-		print("success")
 		AudioManager.click_sound.play()
 	if action and action.is_valid():
 		action.call()
