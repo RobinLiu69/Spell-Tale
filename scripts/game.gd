@@ -72,6 +72,7 @@ func host_room() -> void:
 	mp.peer_disconnected.connect(_on_peer_disconnected)
 	mp.peer_connected.connect(_on_peer_connected)
 
+	await get_tree().create_timer(0.1).timeout
 	
 	$MultiplayerSpawner.spawn_function = add_player
 	$MultiplayerSpawner.spawn(multiplayer.get_unique_id())
@@ -96,8 +97,7 @@ func join_room() -> void:
 func exit_game(pid):
 	rpc("notify_clients_game_ending")
 	del_player(pid)
-	multiplayer.multiplayer_peer.close()
-	multiplayer.multiplayer_peer = null
+	await cleanup_multiplayer()
 	for player in players:
 		player.queue_free()
 	
