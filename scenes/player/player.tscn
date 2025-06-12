@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://baeupmwvx1kib"]
+[gd_scene load_steps=18 format=3 uid="uid://baeupmwvx1kib"]
 
 [ext_resource type="Texture2D" uid="uid://buxqa7rdfotov" path="res://resources/images/player/player.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dlvhwpsrbw6mc" path="res://scripts/player/player.gd" id="1_g2els"]
@@ -11,6 +11,8 @@
 [ext_resource type="Script" uid="uid://lwsb76gfvbn7" path="res://scripts/components/jump_component.gd" id="7_5gtgg"]
 [ext_resource type="Script" uid="uid://bm0pie7mhqy4s" path="res://scripts/components/fall_component.gd" id="10_h17s1"]
 [ext_resource type="Texture2D" uid="uid://d1wp6sw4mmjeh" path="res://icon.svg" id="11_je7p5"]
+[ext_resource type="Script" uid="uid://dktbxf4vjijse" path="res://scripts/components/input_component.gd" id="12_fm80t"]
+[ext_resource type="Script" uid="uid://bwlxtoi3sbpvw" path="res://scripts/components/camera_component.gd" id="13_gx1jg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 16.0
@@ -61,18 +63,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_3vyb7")
 }
 
-[node name="SpellConComponent" type="Node2D" parent="." node_paths=PackedStringArray("entity")]
-position = Vector2(1, 0)
-script = ExtResource("3_5gtgg")
-entity = NodePath("..")
-
-[node name="Marker2D" type="Marker2D" parent="SpellConComponent"]
-position = Vector2(40, 0)
-
-[node name="Line2D" type="Line2D" parent="SpellConComponent/Marker2D"]
-points = PackedVector2Array(0, 0, 25, 0)
-width = 3.0
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
 
@@ -87,6 +77,18 @@ replication_config = SubResource("SceneReplicationConfig_qlg0r")
 
 [node name="StatusEffectManager" type="Node2D" parent="."]
 script = ExtResource("4_lvxji")
+
+[node name="SpellConComponent" type="Node2D" parent="." node_paths=PackedStringArray("entity")]
+position = Vector2(1, 0)
+script = ExtResource("3_5gtgg")
+entity = NodePath("..")
+
+[node name="Marker2D" type="Marker2D" parent="SpellConComponent"]
+position = Vector2(40, 0)
+
+[node name="Line2D" type="Line2D" parent="SpellConComponent/Marker2D"]
+points = PackedVector2Array(0, 0, 25, 0)
+width = 3.0
 
 [node name="BehaviorComponentTree" type="Node" parent="." node_paths=PackedStringArray("entity", "default_component")]
 script = ExtResource("6_75vfm")
@@ -109,6 +111,14 @@ tree = NodePath("..")
 script = ExtResource("10_h17s1")
 tree = NodePath("..")
 
+[node name="InputComponent" type="Node" parent="." node_paths=PackedStringArray("entity")]
+script = ExtResource("12_fm80t")
+entity = NodePath("..")
+
+[node name="CameraComponent" type="Node" parent="." node_paths=PackedStringArray("entity")]
+script = ExtResource("13_gx1jg")
+entity = NodePath("..")
+
 [node name="TextEdit" type="TextEdit" parent="."]
 offset_left = -43.0
 offset_top = 67.0
@@ -116,9 +126,11 @@ offset_right = 56.0
 offset_bottom = 91.0
 
 [node name="lefttex" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-112, 4)
 texture = ExtResource("11_je7p5")
 
 [node name="righttex" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(130, 3)
 texture = ExtResource("11_je7p5")
