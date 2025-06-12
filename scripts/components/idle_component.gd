@@ -21,4 +21,5 @@ func component_changes(entity):
 func update_component(delta):
 	var entity = tree.entity
 	entity.velocity.x = 0
+	entity.acceleration = 0
 	component_changes(entity)
