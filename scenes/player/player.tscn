@@ -38,6 +38,7 @@ properties/5/spawn = true
 properties/5/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D"]
+physics_interpolation_mode = 1
 script = ExtResource("1_g2els")
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]

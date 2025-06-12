@@ -72,6 +72,7 @@ func host_room() -> void:
 	mp.peer_disconnected.connect(_on_peer_disconnected)
 	mp.peer_connected.connect(_on_peer_connected)
 
+	await get_tree().create_timer(0.1).timeout
 	
 	$MultiplayerSpawner.spawn_function = add_player
 	$MultiplayerSpawner.spawn(multiplayer.get_unique_id())
@@ -94,9 +95,13 @@ func join_room() -> void:
 	Global.achivement1_status = true
 
 func exit_game(pid):
-	rpc("notify_clients_game_ending")
+	if multiplayer.is_server():
+		rpc("notify_clients_game_ending")
+	else:
+		await cleanup_multiplayer()
 	del_player(pid)
-	
+	for player in players:
+		player.queue_free()
 	
 func cleanup_multiplayer():
 	if multiplayer.multiplayer_peer:
@@ -133,6 +138,7 @@ func add_player(pid) -> Node2D:
 	player.global_position = $Level.get_child(spawn_index).global_position
 	if pid == multiplayer.get_unique_id():
 		$UI/ESCMenu.player = player
+	players.append(player)
 	return player
 
 func del_player(pid):
@@ -148,22 +154,12 @@ func _del_player(pid):
 	else:
 		print("Player node ", pid, " 不存在或已被釋放")
 
-	for i in range(players.size()):
-		if players[i].multiplayer.get_unique_id() == int(pid):
-			players[i].queue_free()
-			players.pop_at(i)
-			return
-
 	if esc_menu.player and str(esc_menu.player.name) == str(pid):
 		esc_menu.player = null
-		
-
-		
 
 @rpc("authority")
 func notify_clients_game_ending():
 	print("Host is exiting")
 	Global.is_multiplayer_mode = false
-	cleanup_multiplayer()
-	await get_tree().create_timer(0.1).timeout
+	await cleanup_multiplayer()
 	get_tree().change_scene_to_packed(modechoice_scene)

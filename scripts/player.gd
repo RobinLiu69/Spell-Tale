@@ -27,7 +27,7 @@ func _ready() -> void:
 	
 	spell_1 = "fireball"
 	spell_2 = "void_snare"
-	spell_3= "fire_aura"
+	spell_3= "void_laser"
 	
 	camera_2d.enabled = is_multiplayer_authority()
 	
