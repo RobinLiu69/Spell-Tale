@@ -1,19 +1,21 @@
-extends Component
+extends Behavior
 
-@export var tree: ComponentTree
+@export var component: Component
 
 func initialize():
 	pass
 
 func component_changes(entity):
 	if entity.is_on_floor():
-		if entity.movement_direction:
-			tree.change_component("WalkComponent")
+		if entity.jump:
+			component.change_behavior("JumpBehavior")
+		elif entity.movement_direction:
+			component.change_behavior("WalkBehavior")
 		else:
-			tree.change_component("IdleComponent")
+			component.change_behavior("IdleBehavior")
 
-func update_component(delta):
-	var entity = tree.entity
+func update_behavior(delta):
+	var entity = component.entity
 	
 	entity.velocity.y += entity.get_gravity().y * delta
 	

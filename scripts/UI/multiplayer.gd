@@ -9,9 +9,7 @@ class_name Multiplayer
 @onready var seperate_button: Button = $MainScreen/BackgroundTexture/VBoxContainer/HBoxContainer/SeperateButton
 @onready var result_host: Label = $MainScreen/BackgroundTexture/VBoxContainer/ResultHost
 
-
 var game_scene_ref
-
 
 func _on_host_button_pressed() -> void:
 	if game_scene_ref:

@@ -48,21 +48,13 @@ func _physics_process(delta: float) -> void:
 	
 	mouse_pos = get_global_mouse_position()
 	
-	component_tree_handler(delta)
 	component_handler(delta)
 	
 	move_and_slide()
 
-func component_tree_handler(delta):
-	var component_trees = [
-		get_node_or_null("BehaviorComponentTree"),
-	]
-	for component_tree in component_trees:
-		if is_instance_valid(component_tree):
-			component_tree.update_tree(delta)
-
 func component_handler(delta):
 	var components = [
+		get_node_or_null("BehaviorComponent"),
 		get_node_or_null("SpellConComponent"),
 		get_node_or_null("InputComponent"),
 		get_node_or_null("CameraComponent")

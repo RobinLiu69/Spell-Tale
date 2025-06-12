@@ -12,8 +12,7 @@ func update_component(delta):
 	elif Input.is_action_pressed("right"):
 		entity.movement_direction = 1
 		
-	if Input.is_action_pressed("jump") and entity.is_on_floor():
-		entity.jump = true
+	entity.jump = Input.is_action_pressed("jump")
 
 	if Input.is_action_just_pressed("special_1"):
 		entity.cast.rpc(multiplayer.get_unique_id(), entity.spell_1, entity.mouse_pos)

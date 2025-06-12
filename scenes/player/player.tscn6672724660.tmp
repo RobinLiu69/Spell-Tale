@@ -90,26 +90,26 @@ position = Vector2(40, 0)
 points = PackedVector2Array(0, 0, 25, 0)
 width = 3.0
 
-[node name="BehaviorComponent" type="Node" parent="." node_paths=PackedStringArray("entity", "default_behavior")]
+[node name="BehaviorComponent" type="Node" parent="." node_paths=PackedStringArray("entity", "default_component")]
 script = ExtResource("6_75vfm")
 entity = NodePath("..")
-default_behavior = NodePath("IdleBehavior")
+default_component = NodePath("Idle")
 
-[node name="JumpBehavior" type="Node" parent="BehaviorComponent" node_paths=PackedStringArray("component")]
+[node name="Jump" type="Node" parent="BehaviorComponent" node_paths=PackedStringArray("tree")]
 script = ExtResource("7_5gtgg")
-component = NodePath("..")
+tree = NodePath("..")
 
-[node name="WalkBehavior" type="Node" parent="BehaviorComponent" node_paths=PackedStringArray("component")]
+[node name="Walk" type="Node" parent="BehaviorComponent" node_paths=PackedStringArray("tree")]
 script = ExtResource("5_p47bc")
-component = NodePath("..")
+tree = NodePath("..")
 
-[node name="IdleBehavior" type="Node" parent="BehaviorComponent" node_paths=PackedStringArray("component")]
+[node name="Idle" type="Node" parent="BehaviorComponent" node_paths=PackedStringArray("tree")]
 script = ExtResource("7_0owmy")
-component = NodePath("..")
+tree = NodePath("..")
 
-[node name="FallBehavior" type="Node" parent="BehaviorComponent" node_paths=PackedStringArray("component")]
+[node name="Fall" type="Node" parent="BehaviorComponent" node_paths=PackedStringArray("tree")]
 script = ExtResource("10_h17s1")
-component = NodePath("..")
+tree = NodePath("..")
 
 [node name="InputComponent" type="Node" parent="." node_paths=PackedStringArray("entity")]
 script = ExtResource("12_fm80t")
