@@ -19,6 +19,7 @@ radius = 7.0
 height = 28.0161
 
 [node name="Fireballs" type="Node2D"]
+physics_interpolation_mode = 2
 script = ExtResource("1_n2x5j")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

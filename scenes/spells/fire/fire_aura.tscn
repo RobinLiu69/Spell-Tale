@@ -72,6 +72,7 @@ _data = {
 radius = 118.038
 
 [node name="FireAura" type="Node2D"]
+physics_interpolation_mode = 2
 scale = Vector2(3, 3)
 script = ExtResource("1_ujoy2")
 

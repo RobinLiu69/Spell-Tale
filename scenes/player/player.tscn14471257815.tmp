@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://baeupmwvx1kib"]
+[gd_scene load_steps=15 format=3 uid="uid://baeupmwvx1kib"]
 
 [ext_resource type="Texture2D" uid="uid://buxqa7rdfotov" path="res://resources/images/player/player.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dlvhwpsrbw6mc" path="res://scripts/player/player.gd" id="1_g2els"]
@@ -10,7 +10,6 @@
 [ext_resource type="Script" uid="uid://daof1ifvd1ygh" path="res://scripts/components/idle_component.gd" id="7_0owmy"]
 [ext_resource type="Script" uid="uid://lwsb76gfvbn7" path="res://scripts/components/jump_component.gd" id="7_5gtgg"]
 [ext_resource type="Script" uid="uid://bm0pie7mhqy4s" path="res://scripts/components/fall_component.gd" id="10_h17s1"]
-[ext_resource type="Texture2D" uid="uid://d1wp6sw4mmjeh" path="res://icon.svg" id="11_je7p5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 16.0
@@ -45,7 +44,6 @@ properties/5/spawn = true
 properties/5/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D"]
-physics_interpolation_mode = 1
 script = ExtResource("1_g2els")
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
@@ -96,10 +94,12 @@ default_component = NodePath("IdleComponent")
 [node name="JumpComponent" type="Node" parent="BehaviorComponentTree" node_paths=PackedStringArray("tree")]
 script = ExtResource("7_5gtgg")
 tree = NodePath("..")
+JUMP_VELOCITY = null
 
 [node name="WalkComponent" type="Node" parent="BehaviorComponentTree" node_paths=PackedStringArray("tree")]
 script = ExtResource("5_p47bc")
 tree = NodePath("..")
+SPEED = null
 
 [node name="IdleComponent" type="Node" parent="BehaviorComponentTree" node_paths=PackedStringArray("tree")]
 script = ExtResource("7_0owmy")
@@ -114,11 +114,3 @@ offset_left = -43.0
 offset_top = 67.0
 offset_right = 56.0
 offset_bottom = 91.0
-
-[node name="lefttex" type="Sprite2D" parent="."]
-position = Vector2(-112, 4)
-texture = ExtResource("11_je7p5")
-
-[node name="righttex" type="Sprite2D" parent="."]
-position = Vector2(130, 3)
-texture = ExtResource("11_je7p5")
