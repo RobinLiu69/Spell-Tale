@@ -7,15 +7,18 @@ class_name Player
 @onready var camera_2d := $Camera2D
 @onready var player_sprite := $PlayerSprite
 @onready var spell_con := $SpellConComponent
+#Debug Use ------------------------
 @onready var text_edit := $TextEdit
-
+@onready var righttex  := $righttex
+@onready var lefttex   := $lefttex
+#----------------------------------
 @export var JUMP_VELOCITY: float = -500.0
 @export var SPEED: float = 300.0
+
 var acceleration = 0.0
 var speed_multiplier := 1.0
 
 var mouse_pos
-
 var jump = false
 var health = 10.0
 var movement_direction = 0
@@ -44,15 +47,6 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	mouse_pos = get_global_mouse_position()
-		
-	var offset_x = (mouse_pos.x - global_position.x) / (1920.0 / 50.0)
-	var offset_y = (mouse_pos.y - global_position.y) / (1080.0 / 50.0)
-	
-	#camera_2d.offset.lerp(Vector2(offset_x, offset_y), 0.1)
-	camera_2d.offset = Vector2(offset_x, offset_y)
-		
-	
-	input_handler()
 	
 	component_tree_handler(delta)
 	component_handler(delta)
@@ -60,36 +54,22 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func component_tree_handler(delta):
-	var behavior_component_tree = get_node_or_null("BehaviorComponentTree")
-	
-	if is_instance_valid(behavior_component_tree):
-		behavior_component_tree.update_tree(delta)
-	
+	var component_trees = [
+		get_node_or_null("BehaviorComponentTree"),
+	]
+	for component_tree in component_trees:
+		if is_instance_valid(component_tree):
+			component_tree.update_tree(delta)
+
 func component_handler(delta):
-	var spell_con_component = get_node_or_null("SpellConComponent")
-	
-	if is_instance_valid(spell_con_component):
-		spell_con_component.update_component()
-
-func input_handler():	
-	$lefttex.visible = Input.is_action_pressed("left")
-	$righttex.visible = Input.is_action_pressed("right")
-	if Input.is_action_pressed("left") == Input.is_action_pressed("right"):
-		movement_direction = 0
-	elif Input.is_action_pressed("left"):
-		movement_direction = -1
-	elif Input.is_action_pressed("right"):
-		movement_direction = 1
-		
-	if Input.is_action_pressed("jump") and is_on_floor():
-		jump = true
-
-	if Input.is_action_just_pressed("special_1"):
-		cast.rpc(multiplayer.get_unique_id(), spell_1, mouse_pos)
-	elif Input.is_action_just_pressed("special_2"):
-		cast.rpc(multiplayer.get_unique_id(), spell_2, mouse_pos)
-	elif Input.is_action_just_pressed("special_3"):
-		cast.rpc(multiplayer.get_unique_id(), spell_3, mouse_pos)
+	var components = [
+		get_node_or_null("SpellConComponent"),
+		get_node_or_null("InputComponent"),
+		get_node_or_null("CameraComponent")
+	]
+	for component in components:
+		if is_instance_valid(component):
+			component.update_component(delta)
 	
 @rpc("call_local")
 func cast(caster_pid: int, spell_name: String, target_pos: Vector2 = Vector2.ZERO):
