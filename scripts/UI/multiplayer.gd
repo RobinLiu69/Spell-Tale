@@ -7,7 +7,7 @@ class_name Multiplayer
 @onready var margin_container: MarginContainer = $UI/MarginContainer
 @onready var join_friend_button: Button = $MainScreen/BackgroundTexture/VBoxContainer/HBoxContainer/JoinFriendButton
 @onready var seperate_button: Button = $MainScreen/BackgroundTexture/VBoxContainer/HBoxContainer/SeperateButton
-@onready var result_host: Label = $MainScreen/BackgroundTexture/VBoxContainer/ResultHost
+#@onready var result_host: Label = $MainScreen/BackgroundTexture/VBoxContainer/ResultHost 似乎沒用到且會報錯，先註解。(Anemois)
 
 var game_scene_ref
 

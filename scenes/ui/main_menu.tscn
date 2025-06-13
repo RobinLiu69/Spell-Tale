@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://cvpo88lsv4uxc" path="res://scripts/UI/ButtonAction.gd" id="4_wu84c"]
 [ext_resource type="AudioStream" uid="uid://bkkqc35v4lfmk" path="res://resources/sounds/buttons/button-305770.mp3" id="5_8ln24"]
 
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oa1go"]
 texture = ExtResource("2_ekxnf")
 region_rect = Rect2(555, 133, 303, 73)

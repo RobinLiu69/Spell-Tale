@@ -5,3 +5,15 @@ res://scripts/UI/modechoice.gd
 res://scripts/game.gd
 res://scripts/UI/esc_menu.gd
 res://scripts/UI/training_room.gd
+res://scenes/ui/setting.tscn
+res://scripts/UI/setting/video_setting.gd
+res://scenes/ui/main_menu.tscn
+res://scripts/spells/fire/fire_aura.gd
+res://scenes/player/player.tscn
+res://scripts/spells/SpellRegistry.gd
+res://scenes/spells/void/void_snare.tscn
+res://scenes/spells/void/void_laser.tscn
+res://scenes/spells/fire/fireball.tscn
+res://scenes/spells/fire/fire_aura.tscn
+res://scenes/ui/multiplayer.tscn
+res://scripts/UI/multiplayer.gd

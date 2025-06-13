@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://buxqa7rdfotov" path="res://resources/images/players/rabbit/idle/player.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dlvhwpsrbw6mc" path="res://entity/player/player.gd" id="1_g2els"]
-[ext_resource type="Script" uid="uid://wo4fm38ftpwo" path="res://component2D/spell_con.gd" id="3_5gtgg"]
+[ext_resource type="Script" uid="uid://wo4fm38ftpwo" path="res://component2D/spell_con_component.gd" id="3_5gtgg"]
 [ext_resource type="PackedScene" uid="uid://dbthbwirn2glv" path="res://scenes/player/health_bar.tscn" id="3_gmlin"]
 [ext_resource type="Script" uid="uid://bqqufaikvwb6f" path="res://component/status_effect_component.gd" id="4_lvxji"]
 [ext_resource type="Script" uid="uid://bpfkuhklhvfql" path="res://component/behavior/run_behavior.gd" id="5_p47bc"]

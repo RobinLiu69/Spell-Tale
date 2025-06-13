@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://hhi8tbhpjopj" path="res://resources/images/spells/void/void_snare/void_snare_2.png" id="4_ilia6"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dt17f"]
-load_path = "res://.godot/imported/void_snare_1.png-97769a038b1011b25fab71848818e532.ctex"
 
 [sub_resource type="Animation" id="Animation_pq332"]
 length = 0.001
