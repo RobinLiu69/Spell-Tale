@@ -1,16 +1,13 @@
 extends PanelContainer
 
-
 var player: Player
 @onready var esc_menu: PanelContainer = $"."
-@onready var setting_scene = preload("res://scenes/setting.tscn")
+@onready var setting_scene = preload("res://scenes/ui/setting.tscn")
 @onready var port_display_in_game: MarginContainer = $"../PortDisplayInGame"
-
-
 
 func _on_leave_button_pressed() -> void:
 	owner.exit_game(player.name)
-	get_tree().change_scene_to_file("res://scenes/modechoice.tscn")
+	get_tree().change_scene_to_file("res://scenes/ui/modechoice.tscn")
 	
 
 func _on_continue_button_pressed() -> void:

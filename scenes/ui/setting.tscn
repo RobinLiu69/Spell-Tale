@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://bkkqc35v4lfmk" path="res://resources/sounds/buttons/button-305770.mp3" id="6_q5xb5"]
 [ext_resource type="AudioStream" uid="uid://bvslftlpc5wj3" path="res://resources/sounds/buttons/button-click-289742.mp3" id="7_oemk0"]
 
+
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_31ui4"]
 color = Color(1, 1, 1, 1)
 grow_begin = -5.0

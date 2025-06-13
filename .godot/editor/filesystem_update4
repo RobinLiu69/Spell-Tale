@@ -1,0 +1,7 @@
+res://scenes/main.tscn
+res://scripts/UI/AudioManager.gd
+res://scripts/UI/main_menu.gd
+res://scripts/UI/modechoice.gd
+res://scripts/game.gd
+res://scripts/UI/esc_menu.gd
+res://scripts/UI/training_room.gd
