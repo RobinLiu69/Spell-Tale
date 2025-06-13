@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://cvhel0wfofnod"]
 
 [ext_resource type="Script" uid="uid://dpr8p7181hfju" path="res://scripts/spells/void/void_snare.gd" id="1_4bnks"]
-[ext_resource type="Texture2D" uid="uid://myuv7vmyyt5o" path="res://resources/images/spell/void/void_snare_1.png" id="3_e0r4j"]
-[ext_resource type="Texture2D" uid="uid://hhi8tbhpjopj" path="res://resources/images/spell/void/void_snare_2.png" id="4_ilia6"]
+[ext_resource type="Texture2D" uid="uid://myuv7vmyyt5o" path="res://resources/images/spells/void/void_snare/void_snare_1.png" id="3_e0r4j"]
+[ext_resource type="Texture2D" uid="uid://hhi8tbhpjopj" path="res://resources/images/spells/void/void_snare/void_snare_2.png" id="4_ilia6"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_dt17f"]
 load_path = "res://.godot/imported/void_snare_1.png-97769a038b1011b25fab71848818e532.ctex"

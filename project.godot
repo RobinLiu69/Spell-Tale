@@ -13,13 +13,17 @@ config_version=5
 config/name="Spell & Tale"
 run/main_scene="uid://clf87pry42tl2"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://resources/images/icon.svg"
+
+[audio]
+
+buses/default_bus_layout="res://resources/sounds/default_bus_layout.tres"
 
 [autoload]
 
 SpellRegistry="*res://scripts/spells/SpellRegistry.gd"
 Global="*res://scripts/UI/global.gd"
-TotemRegistry="*res://scripts/totems/TotemRegistry.gd"
+TotemRegistry="*res://entity/totems/TotemRegistry.gd"
 AudioManager="*res://scripts/UI/AudioManager.gd"
 
 [display]

@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://ltks2sig3wmy"]
 
-[ext_resource type="Texture2D" uid="uid://cpt6guk6ikt13" path="res://resources/images/spell/fire/fire_aura.png" id="1_3ukeo"]
+[ext_resource type="Texture2D" uid="uid://cpt6guk6ikt13" path="res://resources/images/spells/fire/fire_aura/fire_aura.png" id="1_3ukeo"]
 [ext_resource type="Script" uid="uid://cydob85elqbio" path="res://scripts/spells/fire/fire_aura.gd" id="1_ujoy2"]
-[ext_resource type="Texture2D" uid="uid://drmrnngt8d6rp" path="res://resources/images/spell/fire/fire_aura2.png" id="2_ujoy2"]
-[ext_resource type="Texture2D" uid="uid://c7kp6bb3cfbwm" path="res://resources/images/spell/fire/fire_aura3.png" id="3_ijlpm"]
-[ext_resource type="Texture2D" uid="uid://4h63dotiyj1g" path="res://resources/images/spell/fire/fire_back.png" id="5_rdaby"]
+[ext_resource type="Texture2D" uid="uid://drmrnngt8d6rp" path="res://resources/images/spells/fire/fire_aura/fire_aura2.png" id="2_ujoy2"]
+[ext_resource type="Texture2D" uid="uid://c7kp6bb3cfbwm" path="res://resources/images/spells/fire/fire_aura/fire_aura3.png" id="3_ijlpm"]
+[ext_resource type="Texture2D" uid="uid://4h63dotiyj1g" path="res://resources/images/spells/fire/fire_aura/fire_back.png" id="5_rdaby"]
 
 [sub_resource type="Animation" id="Animation_mejad"]
 length = 0.001

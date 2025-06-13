@@ -1,0 +1,95 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0o1y11hyk8ru"]
+
+[ext_resource type="Script" uid="uid://d0o5iidx4bitb" path="res://scripts/UI/modechoice.gd" id="1_r5afa"]
+[ext_resource type="Script" uid="uid://cvpo88lsv4uxc" path="res://scripts/UI/ButtonAction.gd" id="2_yjtnl"]
+[ext_resource type="AudioStream" uid="uid://bkkqc35v4lfmk" path="res://resources/sounds/buttons/button-305770.mp3" id="3_fbwsn"]
+
+[node name="ModeUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_r5afa")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainUITexture" type="NinePatchRect" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MainUITexture"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MainUITexture/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 170
+
+[node name="LeaveButton" type="Button" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Back
+"
+
+[node name="LeaveAction" type="Node" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer"]
+script = ExtResource("2_yjtnl")
+button_path = NodePath("../LeaveButton")
+
+[node name="seperator" type="Control" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="modebuttonscontainer" type="HBoxContainer" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 215
+
+[node name="Control2" type="Control" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer/modebuttonscontainer"]
+layout_mode = 2
+
+[node name="BattleButton" type="Button" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer/modebuttonscontainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "1 VS 1
+BATTLE"
+
+[node name="BattleAction" type="Node" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer/modebuttonscontainer"]
+script = ExtResource("2_yjtnl")
+button_path = NodePath("../BattleButton")
+
+[node name="Control" type="Control" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer/modebuttonscontainer"]
+layout_mode = 2
+
+[node name="TrainingModebutton" type="Button" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer/modebuttonscontainer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 35
+text = "TRAINING
+MODE"
+
+[node name="TrainingAction" type="Node" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer/modebuttonscontainer"]
+script = ExtResource("2_yjtnl")
+button_path = NodePath("../TrainingModebutton")
+
+[node name="Control3" type="Control" parent="MarginContainer/MainUITexture/MarginContainer/VBoxContainer/modebuttonscontainer"]
+layout_mode = 2
+
+[node name="ButtonEffect" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_fbwsn")
