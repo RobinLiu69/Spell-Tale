@@ -1,9 +1,18 @@
-[gd_scene load_steps=9 format=3 uid="uid://baeupmwvx1kib"]
+[gd_scene load_steps=18 format=3 uid="uid://baeupmwvx1kib"]
 
-[ext_resource type="Texture2D" uid="uid://buxqa7rdfotov" path="res://resources/images/player/player.png" id="1_3vyb7"]
-[ext_resource type="Script" uid="uid://dlvhwpsrbw6mc" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://buxqa7rdfotov" path="res://resources/images/players/rabbit/idle/player.png" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://dlvhwpsrbw6mc" path="res://entity/player/player.gd" id="1_g2els"]
+[ext_resource type="Script" uid="uid://wo4fm38ftpwo" path="res://component2D/spell_con_component.gd" id="3_5gtgg"]
 [ext_resource type="PackedScene" uid="uid://dbthbwirn2glv" path="res://scenes/player/health_bar.tscn" id="3_gmlin"]
-[ext_resource type="Script" uid="uid://bqqufaikvwb6f" path="res://scripts/effects/status_effect_manager.gd" id="4_lvxji"]
+[ext_resource type="Script" uid="uid://bqqufaikvwb6f" path="res://component/status_effect_component.gd" id="4_lvxji"]
+[ext_resource type="Script" uid="uid://bpfkuhklhvfql" path="res://component/behavior/run_behavior.gd" id="5_p47bc"]
+[ext_resource type="Script" uid="uid://ca0hpxki4n0lq" path="res://component/behavior_component.gd" id="6_75vfm"]
+[ext_resource type="Script" uid="uid://daof1ifvd1ygh" path="res://component/behavior/idle_behavior.gd" id="7_0owmy"]
+[ext_resource type="Script" uid="uid://lwsb76gfvbn7" path="res://component/behavior/jump_behavior.gd" id="7_5gtgg"]
+[ext_resource type="Script" uid="uid://bm0pie7mhqy4s" path="res://component/behavior/fall_behavior.gd" id="10_h17s1"]
+[ext_resource type="Texture2D" uid="uid://d1wp6sw4mmjeh" path="res://resources/images/icon.svg" id="11_je7p5"]
+[ext_resource type="Script" uid="uid://dktbxf4vjijse" path="res://component/input_component.gd" id="12_fm80t"]
+[ext_resource type="Script" uid="uid://bwlxtoi3sbpvw" path="res://component/camera_component.gd" id="13_gx1jg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 16.0
@@ -24,20 +33,21 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-properties/2/path = NodePath("SpellCon:rotation")
+properties/2/path = NodePath("PlayerSprite:flip_h")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath("PlayerSprite:flip_h")
+properties/3/path = NodePath("HealthBar:value")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath("HealthBar:value")
+properties/4/path = NodePath("HealthBar:max_value")
 properties/4/spawn = true
 properties/4/replication_mode = 1
-properties/5/path = NodePath("HealthBar:max_value")
+properties/5/path = NodePath("SpellConComponent:rotation")
 properties/5/spawn = true
 properties/5/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D"]
+physics_interpolation_mode = 1
 script = ExtResource("1_g2els")
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
@@ -53,16 +63,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_3vyb7")
 }
 
-[node name="SpellCon" type="Node2D" parent="."]
-position = Vector2(1, 0)
-
-[node name="Marker2D" type="Marker2D" parent="SpellCon"]
-position = Vector2(40, 0)
-
-[node name="Line2D" type="Line2D" parent="SpellCon/Marker2D"]
-points = PackedVector2Array(0, 0, 25, 0)
-width = 3.0
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
 
@@ -77,3 +77,60 @@ replication_config = SubResource("SceneReplicationConfig_qlg0r")
 
 [node name="StatusEffectManager" type="Node2D" parent="."]
 script = ExtResource("4_lvxji")
+
+[node name="SpellConComponent" type="Node2D" parent="." node_paths=PackedStringArray("entity")]
+position = Vector2(1, 0)
+script = ExtResource("3_5gtgg")
+entity = NodePath("..")
+
+[node name="Marker2D" type="Marker2D" parent="SpellConComponent"]
+position = Vector2(40, 0)
+
+[node name="Line2D" type="Line2D" parent="SpellConComponent/Marker2D"]
+points = PackedVector2Array(0, 0, 25, 0)
+width = 3.0
+
+[node name="BehaviorComponent" type="Node" parent="." node_paths=PackedStringArray("entity", "default_behavior")]
+script = ExtResource("6_75vfm")
+entity = NodePath("..")
+default_behavior = NodePath("IdleBehavior")
+
+[node name="JumpBehavior" type="Node" parent="BehaviorComponent" node_paths=PackedStringArray("component")]
+script = ExtResource("7_5gtgg")
+component = NodePath("..")
+
+[node name="WalkBehavior" type="Node" parent="BehaviorComponent" node_paths=PackedStringArray("component")]
+script = ExtResource("5_p47bc")
+component = NodePath("..")
+
+[node name="IdleBehavior" type="Node" parent="BehaviorComponent" node_paths=PackedStringArray("component")]
+script = ExtResource("7_0owmy")
+component = NodePath("..")
+
+[node name="FallBehavior" type="Node" parent="BehaviorComponent" node_paths=PackedStringArray("component")]
+script = ExtResource("10_h17s1")
+component = NodePath("..")
+
+[node name="InputComponent" type="Node" parent="." node_paths=PackedStringArray("entity")]
+script = ExtResource("12_fm80t")
+entity = NodePath("..")
+
+[node name="CameraComponent" type="Node" parent="." node_paths=PackedStringArray("entity")]
+script = ExtResource("13_gx1jg")
+entity = NodePath("..")
+
+[node name="TextEdit" type="TextEdit" parent="."]
+offset_left = -43.0
+offset_top = 67.0
+offset_right = 56.0
+offset_bottom = 91.0
+
+[node name="lefttex" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-112, 4)
+texture = ExtResource("11_je7p5")
+
+[node name="righttex" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(130, 3)
+texture = ExtResource("11_je7p5")

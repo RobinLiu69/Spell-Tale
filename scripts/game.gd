@@ -3,8 +3,8 @@ extends Node2D
 
 @export var player_scene: PackedScene
 @onready var esc_menu: PanelContainer = $UI/ESCMenu
-@onready var multiplayer_scene = preload("res://scenes/multiplayer.tscn")
-@onready var modechoice_scene = preload("res://scenes/modechoice.tscn")
+@onready var multiplayer_scene = preload("res://scenes/ui/multiplayer.tscn")
+@onready var modechoice_scene = preload("res://scenes/ui/modechoice.tscn")
 @onready var port_display: MarginContainer = $UI/PortDisplay
 @onready var port: Label = $UI/PortDisplay/Port
 @onready var port_in_game: Label = $UI/PortDisplayInGame/PortInGame

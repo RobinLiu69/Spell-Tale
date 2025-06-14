@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://7mfn3sv2twq5"]
 
 [ext_resource type="Script" uid="uid://be2rcviaamiyb" path="res://scripts/spells/fire/fireball.gd" id="1_n2x5j"]
-[ext_resource type="Texture2D" uid="uid://brok0cdrd4ii6" path="res://resources/images/spell/fire/fireball.png" id="2_q30sl"]
+[ext_resource type="Texture2D" uid="uid://brok0cdrd4ii6" path="res://resources/images/spells/fire/fireball/fireball.png" id="2_q30sl"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_1gl40"]
 animations = [{
@@ -19,6 +19,7 @@ radius = 7.0
 height = 28.0161
 
 [node name="Fireballs" type="Node2D"]
+physics_interpolation_mode = 2
 script = ExtResource("1_n2x5j")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

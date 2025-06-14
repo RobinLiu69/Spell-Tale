@@ -22,12 +22,9 @@ func _ready() -> void:
 
 	$LifeTimer.start(duration)
 
-
-
 func _process(delta) -> void:
 	if source:
 		global_position = source.global_position
-
 
 func _on_damage_timer_timeout() -> void:
 	if !is_multiplayer_authority():

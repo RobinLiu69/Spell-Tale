@@ -1,0 +1,3 @@
+res://scenes/ui/setting.tscn
+res://scripts/UI/multiplayer.gd
+res://scripts/UI/setting/video_setting.gd

@@ -1,11 +1,12 @@
 [gd_scene load_steps=5 format=3 uid="uid://ckq7vkd1x3ll"]
 
 [ext_resource type="Script" uid="uid://cpyf6xbjn1ref" path="res://scripts/spells/void/void_laser.gd" id="1_t3qf7"]
-[ext_resource type="Texture2D" uid="uid://cvh6gkg8dj42a" path="res://resources/images/spell/void/laser_mid.png" id="2_u6pe0"]
-[ext_resource type="Texture2D" uid="uid://canelyoqxt7cr" path="res://resources/images/spell/void/laser_end.png" id="3_cfhsi"]
-[ext_resource type="Texture2D" uid="uid://cturmxpont854" path="res://resources/images/spell/void/laser_haed.png" id="4_hsm0m"]
+[ext_resource type="Texture2D" uid="uid://cvh6gkg8dj42a" path="res://resources/images/spells/void/void_laser/laser_mid.png" id="2_u6pe0"]
+[ext_resource type="Texture2D" uid="uid://canelyoqxt7cr" path="res://resources/images/spells/void/void_laser/laser_end.png" id="3_cfhsi"]
+[ext_resource type="Texture2D" uid="uid://cturmxpont854" path="res://resources/images/spells/void/void_laser/laser_haed.png" id="4_hsm0m"]
 
 [node name="VoidLaser" type="Node2D"]
+physics_interpolation_mode = 2
 scale = Vector2(2, 2)
 script = ExtResource("1_t3qf7")
 

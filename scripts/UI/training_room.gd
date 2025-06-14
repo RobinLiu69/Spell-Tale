@@ -27,7 +27,7 @@ func toggle_pause_menu():
 func _on_leave_button_pressed() -> void:
 	Global.pause_status = ! Global.pause_status
 	get_tree().paused = Global.pause_status
-	get_tree().change_scene_to_file("res://scenes/modechoice.tscn")
+	get_tree().change_scene_to_file("res://scenes/ui/modechoice.tscn")
 
 
 
