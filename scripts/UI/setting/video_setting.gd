@@ -8,8 +8,8 @@ class_name VideoSetting
 
 
 func _ready() -> void:
-	resolution_option.connect("item_pressed", Callable(self, "_on_resolution_option_item_selected"))
-	screen_mode_option.connect("item_pressed", Callable(self, "_on_screen_mode_item_selected"))
+	resolution_option.connect("item_focused", Callable(self, "_on_resolution_option_item_selected"))
+	screen_mode_option.connect("item_focused", Callable(self, "_on_screen_mode_item_selected"))
 	resolution_option.connect("item_selected", Callable(self, "_on_resolution_option_item_selected"))
 	screen_mode_option.connect("item_selected", Callable(self, "_on_screen_mode_item_selected"))
 
