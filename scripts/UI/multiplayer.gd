@@ -34,9 +34,8 @@ func _join_friend_room() -> void:
 	
 
 func _leave_multiplayer() -> void:
-	get_tree().change_scene_to_file("res://scenes/modechoice.tscn")
+	get_tree().change_scene_to_file("res://scenes/ui/modechoice.tscn")
 	Global.is_multiplayer_mode = ! Global.is_multiplayer_mode
-	print(Global.is_multiplayer_mode)
 	
 	
 func _submit_IP_port() -> void:

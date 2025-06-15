@@ -1,12 +1,11 @@
-[gd_scene load_steps=11 format=4 uid="uid://bp1th31aar6d4"]
+[gd_scene load_steps=10 format=4 uid="uid://bp1th31aar6d4"]
 
 [ext_resource type="Script" uid="uid://bsnb8032mibp5" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://baeupmwvx1kib" path="res://scenes/player/player.tscn" id="2_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://bb5uogctpos7y" path="res://resources/maps/icon.png" id="2_yqjtg"]
-[ext_resource type="Script" uid="uid://cpv6d2vojbwjl" path="res://scripts/UI/esc_menu.gd" id="3_iywne"]
 [ext_resource type="Texture2D" uid="uid://bj7l18fpqbdkv" path="res://resources/maps/map1.png" id="3_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://bkw044sor0rwg" path="res://scenes/ui/esc_menu.tscn" id="3_lo34c"]
 [ext_resource type="PackedScene" uid="uid://buafe3kxce2c2" path="res://scenes/ui/multiplayer.tscn" id="4_p57ef"]
-[ext_resource type="PackedScene" uid="uid://1ry85xqrtjd3" path="res://scenes/ui/setting.tscn" id="4_u5sy4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("2_yqjtg")
@@ -43,83 +42,34 @@ theme_override_font_sizes/font_size = 35
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PortDisplay" type="MarginContainer" parent="UI"]
+[node name="EscMenu" parent="UI" instance=ExtResource("3_lo34c")]
 visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_bottom = 50
-
-[node name="Port" type="Label" parent="UI/PortDisplay"]
-custom_minimum_size = Vector2(500, 450)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 35
-horizontal_alignment = 1
-
-[node name="ESCMenu" type="PanelContainer" parent="UI"]
-visible = false
-custom_minimum_size = Vector2(300, 500)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -250.0
-offset_right = 150.0
-offset_bottom = 250.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("3_iywne")
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/ESCMenu"]
+[node name="PortDisplay" type="MarginContainer" parent="UI"]
+visible = false
+custom_minimum_size = Vector2(200, 50)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 400.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_bottom = 50
+
+[node name="Port" type="Label" parent="UI/PortDisplay"]
+custom_minimum_size = Vector2(500, 350)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/separation = 30
-
-[node name="seperator" type="Control" parent="UI/ESCMenu/VBoxContainer"]
-layout_mode = 2
-
-[node name="MenuTitle" type="Label" parent="UI/ESCMenu/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "Menu"
+theme_override_font_sizes/font_size = 35
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="seperator2" type="Control" parent="UI/ESCMenu/VBoxContainer"]
-layout_mode = 2
-
-[node name="ContinueButton" type="Button" parent="UI/ESCMenu/VBoxContainer"]
-custom_minimum_size = Vector2(200, 60)
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Continue"
-
-[node name="seperator3" type="Control" parent="UI/ESCMenu/VBoxContainer"]
-layout_mode = 2
-
-[node name="SettingButton" type="Button" parent="UI/ESCMenu/VBoxContainer"]
-custom_minimum_size = Vector2(200, 60)
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Setting
-"
-
-[node name="seperator4" type="Control" parent="UI/ESCMenu/VBoxContainer"]
-layout_mode = 2
-
-[node name="LeaveButton" type="Button" parent="UI/ESCMenu/VBoxContainer"]
-custom_minimum_size = Vector2(200, 60)
-layout_mode = 2
-theme_override_font_sizes/font_size = 20
-text = "Leave"
-
-[node name="Setting" parent="UI" instance=ExtResource("4_u5sy4")]
-visible = false
 
 [node name="multiplayer" parent="UI" instance=ExtResource("4_p57ef")]
 visible = false
@@ -162,7 +112,3 @@ rotation = -0.671982
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("RectangleShape2D_u5sy4")
-
-[connection signal="pressed" from="UI/ESCMenu/VBoxContainer/ContinueButton" to="UI/ESCMenu" method="_on_continue_button_pressed"]
-[connection signal="pressed" from="UI/ESCMenu/VBoxContainer/SettingButton" to="UI/ESCMenu" method="_on_setting_button_pressed"]
-[connection signal="pressed" from="UI/ESCMenu/VBoxContainer/LeaveButton" to="UI/ESCMenu" method="_on_leave_button_pressed"]

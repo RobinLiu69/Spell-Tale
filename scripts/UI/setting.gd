@@ -45,7 +45,6 @@ func _leave_setting() -> void:
 		get_tree().change_scene_to_file("res://scenes/main.tscn")
 		return
 	queue_free()
-	if Global.previous_scene_path == "res://scenes/training_room.tscn":
-		get_tree().paused = Global.pause_status
+
 	
 	
