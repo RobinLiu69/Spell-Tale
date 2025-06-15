@@ -98,19 +98,24 @@ func join_room() -> void:
 func exit_game(pid):
 	if multiplayer.is_server():
 		rpc("notify_clients_game_ending")
+		await get_tree().create_timer(0.1).timeout
+		cleanup_multiplayer()
 	else:
-		await cleanup_multiplayer()
-	del_player(pid)
+		cleanup_multiplayer()
+
 	for player in players:
-		player.queue_free()
-	
+		if is_instance_valid(player):
+			player.queue_free()
+
 func cleanup_multiplayer():
 	if multiplayer.multiplayer_peer:
 		multiplayer.multiplayer_peer.close()
 		multiplayer.multiplayer_peer = null
-		
+
+	
 	var new_multiplayer := SceneMultiplayer.new()
 	get_tree().set_multiplayer(new_multiplayer)
+	#await get_tree().create_timer(0.1).timeout
 
 func _on_peer_connected(pid):
 	print("peer " + str(pid) + " joined")

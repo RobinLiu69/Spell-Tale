@@ -1,6 +1,6 @@
 extends Component
 
-@export var entity: CharacterBody2D 
+@export var entity: CharacterBody2D
 
 func update_component(delta):	
 	entity.lefttex.visible = Input.is_action_pressed("left")
@@ -15,8 +15,11 @@ func update_component(delta):
 	entity.jump = Input.is_action_pressed("jump")
 
 	if Input.is_action_just_pressed("special_1"):
-		entity.cast.rpc(multiplayer.get_unique_id(), entity.spell_1, entity.mouse_pos)
+		entity.request_cast(entity.spell_1, entity.mouse_pos)
 	elif Input.is_action_just_pressed("special_2"):
-		entity.cast.rpc(multiplayer.get_unique_id(), entity.spell_2, entity.mouse_pos)
+		entity.request_cast(entity.spell_2, entity.mouse_pos)
 	elif Input.is_action_just_pressed("special_3"):
-		entity.cast.rpc(multiplayer.get_unique_id(), entity.spell_3, entity.mouse_pos)
+		entity.request_cast(entity.spell_3, entity.mouse_pos)
+	
+	if Input.is_action_just_pressed("debug"):
+		print(SpellManager.spell_dict)

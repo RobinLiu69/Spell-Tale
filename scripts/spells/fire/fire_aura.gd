@@ -32,7 +32,7 @@ func _on_damage_timer_timeout() -> void:
 
 	for body in area2d.get_overlapping_bodies():
 		if body is Player:
-			body.take_damage.rpc_id(body.get_multiplayer_authority(), damage, source_path)
+			body.take_damage.rpc_id(body.get_multiplayer_authority(), damage)
 
 
 @rpc("call_local")
