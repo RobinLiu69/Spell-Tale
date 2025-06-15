@@ -2,7 +2,7 @@ class_name Game
 extends Node2D
 
 @export var player_scene: PackedScene
-@onready var esc_menu: PanelContainer = $UI/ESCMenu
+@onready var esc_menu: Control = $UI/EscMenu
 @onready var multiplayer_scene = preload("res://scenes/ui/multiplayer.tscn")
 @onready var modechoice_scene = preload("res://scenes/ui/modechoice.tscn")
 @onready var port_display: MarginContainer = $UI/PortDisplay
@@ -33,7 +33,7 @@ func _ready() -> void:
 		Global.multiplayer_ui_status = false
 
 func setup_menu_player_reference():
-	var esc_menu = $UI/ESCMenu
+	var esc_menu = $UI/EscMenu
 	var player = $Player
 	esc_menu.player = player
 
@@ -52,7 +52,8 @@ func _input(event) -> void:
 
 func toggle_pause_menu():
 	esc_menu.visible = ! Global.menu_status
-	port_display_in_game.visible = ! Global.menu_status
+	if Global.is_multiplayer_mode:
+		port_display_in_game.visible = ! Global.menu_status
 	Global.menu_status = ! Global.menu_status
 	
 
@@ -137,7 +138,7 @@ func add_player(pid) -> Node2D:
 	var spawn_index = (int(pid)-1) % $Level.get_child_count()
 	player.global_position = $Level.get_child(spawn_index).global_position
 	if pid == multiplayer.get_unique_id():
-		$UI/ESCMenu.player = player
+		$UI/EscMenu.player = player
 	players.append(player)
 	return player
 
