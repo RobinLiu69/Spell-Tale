@@ -1,0 +1,85 @@
+[gd_scene load_steps=3 format=3 uid="uid://dugyicgi14d8b"]
+
+[ext_resource type="Script" uid="uid://cpv6d2vojbwjl" path="res://scripts/UI/esc_menu.gd" id="1_1apln"]
+[ext_resource type="Script" uid="uid://cvpo88lsv4uxc" path="res://scripts/UI/ButtonAction.gd" id="1_guea3"]
+
+[node name="EscMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1apln")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(300, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -222.5
+offset_right = 100.0
+offset_bottom = 222.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="seperator" type="Control" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="seperator2" type="Control" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ContinueButton" type="Button" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 25
+text = "Continue"
+
+[node name="ContinueAciton" type="Node" parent="PanelContainer/VBoxContainer"]
+script = ExtResource("1_guea3")
+button_path = NodePath("../ContinueButton")
+
+[node name="seperator3" type="Control" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SettingButton" type="Button" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+text = "Setting"
+
+[node name="SettingAction" type="Node" parent="PanelContainer/VBoxContainer"]
+script = ExtResource("1_guea3")
+button_path = NodePath("../SettingButton")
+
+[node name="seperator4" type="Control" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LeaveButton" type="Button" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 25
+text = "Leave"
+
+[node name="LeaveAction" type="Node" parent="PanelContainer/VBoxContainer"]
+script = ExtResource("1_guea3")
+button_path = NodePath("../LeaveButton")

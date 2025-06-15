@@ -17,6 +17,12 @@ func _ready() -> void:
 func _on_resolution_option_pressed() -> void:
 	button_effect.play()
 
+func _center_window_posititon() -> void:
+	var screen_size = DisplayServer.screen_get_size()
+	var window_size = DisplayServer.window_get_size()
+	var center_position = (screen_size - window_size) / 2
+	DisplayServer.window_set_position(center_position)
+
 func _on_resolution_option_item_selected(index: int) -> void:
 	select_effect.play()
 	Global.resolution_index = index
@@ -24,7 +30,7 @@ func _on_resolution_option_item_selected(index: int) -> void:
 		0: DisplayServer.window_set_size(Vector2i(1280, 720))
 		1: DisplayServer.window_set_size(Vector2i(1600, 900))
 		2: DisplayServer.window_set_size(Vector2i(1920,1080))
-
+	_center_window_posititon()
 
 func _get_resolution_by_index(index: int) -> Vector2i:
 	match index:
@@ -53,3 +59,4 @@ func _on_screen_mode_item_selected(index: int) -> void:
 		3:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
+	_center_window_posititon()
