@@ -36,7 +36,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/auto_saver/plugin.cfg", "res://addons/wakatime/plugin.cfg")
+enabled=PackedStringArray("res://addons/wakatime/plugin.cfg")
 
 [input]
 
