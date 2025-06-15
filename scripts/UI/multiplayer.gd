@@ -43,6 +43,8 @@ func _submit_IP_port() -> void:
 	var user_input : PackedStringArray = $UI/MarginContainer/VBoxContainer/HBoxContainer/JoinUI/VBoxContainer/IPInput.text.split(":")
 	if user_input.size() > 1:
 		Global.multiplayer_IP = user_input[0]
+	else:
+		Global.multiplayer_IP = "127.0.0.1"
 	Global.server_port = int(user_input[-1])	
 	if Global.multiplayer_IP == null:
 		result.text = "Invalid IP, can't join the room!"

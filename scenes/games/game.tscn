@@ -102,7 +102,7 @@ texture = ExtResource("3_lbhrr")
 flip_h = true
 
 [node name="Player" parent="." instance=ExtResource("2_lnu2h")]
-position = Vector2(-715, -185)
+position = Vector2(-714, -273)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 position = Vector2(-211.999, -203.043)

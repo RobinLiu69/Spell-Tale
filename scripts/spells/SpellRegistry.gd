@@ -1,4 +1,4 @@
-extends  Node
+extends Node
 
 const SPELLS: Dictionary[String, Array] = {
 	"fireball": ["marker", preload("res://scenes/spells/fire/fireball.tscn")],
