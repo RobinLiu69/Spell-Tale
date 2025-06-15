@@ -1,4 +1,3 @@
-class_name HealthBar
 extends ProgressBar
 
 @onready var timer := $Timer

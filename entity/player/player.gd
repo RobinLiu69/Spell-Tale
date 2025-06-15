@@ -1,14 +1,12 @@
 extends CharacterBody2D
 class_name Player
 
-@onready var spell_con_component: Node2D = $SpellConComponent
+@onready var marker := $SpellConComponent/Marker2D
 @onready var health_bar := $HealthBar
 @onready var status_effect_manager: Node2D = $StatusEffectManager
 @onready var camera_2d := $Camera2D
 @onready var player_sprite := $PlayerSprite
 @onready var spell_con := $SpellConComponent
-@onready var hurtbox_component := $HurtboxComponent
-
 #Debug Use ------------------------
 @onready var text_edit := $TextEdit
 @onready var righttex  := $righttex
@@ -22,7 +20,7 @@ var speed_multiplier := 1.0
 
 var mouse_pos
 var jump = false
-
+var health = 10.0
 var movement_direction = 0
 
 var spell_1: String
@@ -33,6 +31,8 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(int(str(name)))
 
 func _ready() -> void:
+	health_bar.init_health(health)
+	
 	spell_1 = "fireball"
 	spell_2 = "void_snare"
 	spell_3= "void_laser"
@@ -62,10 +62,28 @@ func component_handler(delta):
 	for component in components:
 		if is_instance_valid(component):
 			component.update_component(delta)
-
-func request_cast(spell_name, target_pos):
-	spell_con_component.request_cast(spell_name, target_pos)
-
+	
+@rpc("call_local")
+func cast(caster_pid: int, spell_name: String, target_pos: Vector2 = Vector2.ZERO):
+	if not SpellRegistry.SPELLS.has(spell_name):
+		push_error("spell %s not found in registry" % spell_name)
+		return
+	var spell_info := SpellRegistry.get_spell_info(spell_name)
+	var cast_at: String = spell_info[0]
+	var spell: Spell = spell_info[-1].instantiate()
+	spell.source = self
+	spell.source_path = self.get_path()
+	spell.set_multiplayer_authority(caster_pid)
+	get_parent().add_child(spell)
+	
+	if cast_at == "marker":
+		spell.position = marker.global_position
+		spell.rotation = marker.global_rotation
+	elif cast_at == "target_pos":
+		spell.position = target_pos
+	elif cast_at == "self":
+		pass
+	spell.cast()
 	
 @rpc("call_local")
 func place_totem(caster_pid: int, totem_name: String, position: Vector2, direction: Vector2):
@@ -80,3 +98,13 @@ func place_totem(caster_pid: int, totem_name: String, position: Vector2, directi
 	totem.set_multiplayer_authority(caster_pid)
 	get_parent().add_child(totem)
 	totem.activate()
+
+@rpc("any_peer", "call_local")
+func take_damage(damage: float, source_path: String):
+	var source_node = get_node_or_null(source_path)
+	if source_node:
+		print("get damaged "+str(damage)+" from ", Player)
+		print(health_bar.health)
+		health -= damage
+		health_bar.health = health
+		print(health_bar.health)
