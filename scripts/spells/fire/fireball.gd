@@ -15,7 +15,6 @@ func _init() -> void:
 
 
 func _ready():
-	await get_tree()
 	$ExisitingTimer.set_wait_time(existing_time)
 	$ExisitingTimer.start()
 
@@ -24,20 +23,18 @@ func _process(delta):
 	position += transform.x * speed * delta
 
 
+@rpc("any_peer", "call_local")
+func request_remove(spell_id: int):
+	SpellManager.request_remove(spell_id)
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if !is_multiplayer_authority() or body == source:
-		return
+
+func hit(hurtbox: HurtboxComponent):
+	if hurtbox:
+		var attack = Attack.new()
+		attack.damage = 5
+		hurtbox.damage.rpc(attack.serialize())
 	
-	if body is Player:
-		body.take_damage.rpc_id(body.get_multiplayer_authority(), damage, source_path)
-	
-	remove_self.rpc()
-
-@rpc("call_local")
-func remove_self():
-	queue_free()
-
+	rpc("request_remove", spell_id)
 
 func _on_exisiting_timer_timeout() -> void:
-	remove_self.rpc()
+	rpc("request_remove", spell_id)
