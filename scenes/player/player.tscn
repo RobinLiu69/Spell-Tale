@@ -144,6 +144,7 @@ script = ExtResource("13_gx1jg")
 entity = NodePath("..")
 
 [node name="TextEdit" type="TextEdit" parent="."]
+visible = false
 offset_left = -43.0
 offset_top = 67.0
 offset_right = 56.0

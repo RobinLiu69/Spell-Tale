@@ -21,6 +21,7 @@ buses/default_bus_layout="res://resources/sounds/default_bus_layout.tres"
 
 [autoload]
 
+BrightnessManager="*res://scenes/ui/Brightness_manager.tscn"
 Global="*res://scripts/UI/global.gd"
 TotemRegistry="*res://entity/totems/TotemRegistry.gd"
 AudioManager="*res://scripts/UI/AudioManager.gd"
@@ -36,7 +37,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/wakatime/plugin.cfg")
+enabled=PackedStringArray("res://addons/auto_saver/plugin.cfg", "res://addons/wakatime/plugin.cfg")
 
 [input]
 
