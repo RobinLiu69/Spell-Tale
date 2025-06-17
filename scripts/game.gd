@@ -36,6 +36,8 @@ func setup_menu_player_reference():
 	var esc_menu = $UI/EscMenu
 	var player = $Player
 	esc_menu.player = player
+	$Player/MultiplayerSynchronizer.queue_free()
+	$Player/HealthBar/MultiplayerSynchronizer.queue_free()
 
 func port_manifest() -> void:
 	port_display.visible = true

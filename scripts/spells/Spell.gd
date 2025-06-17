@@ -7,7 +7,7 @@ var source: Player = null
 var source_path: String = ""
 var damage: float = 0
 var mana_cost: float = 0
-
+var caster_pid: int = 0
 func cast():
 	pass
 

@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var menucontainer: MarginContainer = $CanvasLayer/Menucontainer
+#@onready var menucontainer: MarginContainer = $CanvasLayer/Menucontainer 路徑找不到節點且沒用到導致報錯 先註解(Berry)
 @onready var main_screen: MarginContainer = $MainScreen
 @export var setting_scene: PackedScene
 var game: Node2D

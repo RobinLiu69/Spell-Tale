@@ -63,8 +63,10 @@ func component_handler(delta):
 		if is_instance_valid(component):
 			component.update_component(delta)
 
+
 func request_cast(spell_name, target_pos):
 	spell_con_component.request_cast(spell_name, target_pos)
+
 
 	
 @rpc("call_local")
