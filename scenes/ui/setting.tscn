@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://1ry85xqrtjd3"]
+[gd_scene load_steps=12 format=3 uid="uid://1ry85xqrtjd3"]
 
 [ext_resource type="Script" uid="uid://cuqvtw5gpc55k" path="res://scripts/UI/setting.gd" id="1_kq500"]
 [ext_resource type="Texture2D" uid="uid://cyk7oraywdkgj" path="res://resources/images/backgrounds/settingbackground.png" id="2_hqymk"]
@@ -7,6 +7,18 @@
 [ext_resource type="Script" uid="uid://sdjcnxccvfe" path="res://scripts/UI/setting/audio_setting.gd" id="5_nl25k"]
 [ext_resource type="AudioStream" uid="uid://bkkqc35v4lfmk" path="res://resources/sounds/buttons/button-305770.mp3" id="6_q5xb5"]
 [ext_resource type="AudioStream" uid="uid://bvslftlpc5wj3" path="res://resources/sounds/buttons/button-click-289742.mp3" id="7_oemk0"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_kq500"]
+color = Color(1, 1, 1, 1)
+grow_begin = -5.0
+grow_end = -5.0
+thickness = 5
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_hqymk"]
+color = Color(0.13662, 0.372034, 1, 1)
+grow_begin = -2.0
+grow_end = 5.0
+thickness = 10
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_31ui4"]
 color = Color(1, 1, 1, 1)
@@ -109,12 +121,11 @@ script = ExtResource("3_q4yat")
 button_path = NodePath("../MISCButton")
 
 [node name="VideoSetting" type="HBoxContainer" parent="SettingBackground/VBoxContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 220
 script = ExtResource("4_jo7xi")
 
-[node name="Control" type="Control" parent="SettingBackground/VBoxContainer/VideoSetting"]
+[node name="seperator" type="Control" parent="SettingBackground/VBoxContainer/VideoSetting"]
 layout_mode = 2
 
 [node name="Container" type="VBoxContainer" parent="SettingBackground/VBoxContainer/VideoSetting"]
@@ -144,7 +155,7 @@ layout_mode = 2
 [node name="ScreenMode" type="Label" parent="SettingBackground/VBoxContainer/VideoSetting/Container"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "ScreenMode"
+text = "Screen Mode"
 
 [node name="ScreenModeOption" type="OptionButton" parent="SettingBackground/VBoxContainer/VideoSetting/Container"]
 custom_minimum_size = Vector2(500, 40)
@@ -159,7 +170,58 @@ popup/item_2/id = 2
 popup/item_3/text = "Bordless-FullScreen"
 popup/item_3/id = 3
 
+[node name="seperator2" type="Control" parent="SettingBackground/VBoxContainer/VideoSetting/Container"]
+layout_mode = 2
+
+[node name="V-SyncCheck" type="CheckButton" parent="SettingBackground/VBoxContainer/VideoSetting/Container"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "V-Sync Mode"
+
+[node name="seperator3" type="Control" parent="SettingBackground/VBoxContainer/VideoSetting/Container"]
+layout_mode = 2
+
+[node name="FramerateLimit" type="Label" parent="SettingBackground/VBoxContainer/VideoSetting/Container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Framerate Limit"
+
+[node name="FramerateLimitOption" type="OptionButton" parent="SettingBackground/VBoxContainer/VideoSetting/Container"]
+custom_minimum_size = Vector2(500, 40)
+layout_mode = 2
+item_count = 6
+popup/item_0/text = "30 FPS"
+popup/item_0/id = 0
+popup/item_1/text = "60 FPS"
+popup/item_1/id = 1
+popup/item_2/text = "144 FPS"
+popup/item_2/id = 2
+popup/item_3/text = "165 FPS"
+popup/item_3/id = 3
+popup/item_4/text = "240 FPS"
+popup/item_4/id = 4
+popup/item_5/text = "Unlimited"
+popup/item_5/id = 5
+
+[node name="seperator4" type="Control" parent="SettingBackground/VBoxContainer/VideoSetting/Container"]
+layout_mode = 2
+
+[node name="Brightness" type="Label" parent="SettingBackground/VBoxContainer/VideoSetting/Container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Brightness"
+
+[node name="BrightnessSlider" type="HSlider" parent="SettingBackground/VBoxContainer/VideoSetting/Container"]
+custom_minimum_size = Vector2(400, 20)
+layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxLine_kq500")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_hqymk")
+max_value = 1.0
+step = 0.01
+
 [node name="AudioSetting" type="HBoxContainer" parent="SettingBackground/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 215
 script = ExtResource("5_nl25k")
