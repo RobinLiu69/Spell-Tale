@@ -7,6 +7,7 @@ var game: Node2D
 
 func _ready() -> void:
 	game = get_node("MainScreen/Buttoncontainer/Game")
+	AudioManager.play_battle_music()
 	Global.previous_scene_path = "res://scenes/games/training_room.tscn"
 	if Global.pause_status:
 		Global.pause_status = ! Global.pause_status

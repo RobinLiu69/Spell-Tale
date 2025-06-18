@@ -29,6 +29,9 @@ var spell_1: String
 var spell_2: String
 var spell_3: String
 
+var can_move := true
+var can_cast := true
+
 func _enter_tree() -> void:
 	set_multiplayer_authority(int(str(name)))
 
@@ -48,7 +51,8 @@ func _physics_process(delta: float) -> void:
 	
 	mouse_pos = get_global_mouse_position()
 	
-	component_handler(delta)
+	if can_move:
+		component_handler(delta)
 	
 	move_and_slide()
 
@@ -65,6 +69,8 @@ func component_handler(delta):
 
 
 func request_cast(spell_name, target_pos):
+	if not can_cast:
+		return 
 	spell_con_component.request_cast(spell_name, target_pos)
 
 

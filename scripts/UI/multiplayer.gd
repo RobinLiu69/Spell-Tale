@@ -22,6 +22,7 @@ func _host_room() -> void:
 	if game_scene_ref:
 		game_scene_ref.host_room()
 		game_scene_ref.port_manifest()
+		AudioManager.play_battle_music()
 		queue_free()
 	
 	
@@ -62,6 +63,7 @@ func _submit_IP_port() -> void:
 		topic.visible = false
 	elif game_scene_ref:
 		game_scene_ref.join_room()
+		AudioManager.play_battle_music()
 		queue_free()
 		
 	

@@ -21,12 +21,12 @@ buses/default_bus_layout="res://resources/sounds/default_bus_layout.tres"
 
 [autoload]
 
-BrightnessManager="*res://scenes/ui/Brightness_manager.tscn"
 Global="*res://scripts/UI/global.gd"
 TotemRegistry="*res://entity/totems/TotemRegistry.gd"
 AudioManager="*res://scripts/UI/AudioManager.gd"
 SpellRegistry="*res://scripts/spells/SpellRegistry.gd"
 SpellManager="*res://scripts/spells/SpellManager.gd"
+BrightnessManager="*res://scenes/ui/Brightness_manager.tscn"
 
 [display]
 

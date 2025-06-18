@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://1ry85xqrtjd3"]
+[gd_scene load_steps=16 format=3 uid="uid://1ry85xqrtjd3"]
 
 [ext_resource type="Script" uid="uid://cuqvtw5gpc55k" path="res://scripts/UI/setting.gd" id="1_kq500"]
 [ext_resource type="Texture2D" uid="uid://cyk7oraywdkgj" path="res://resources/images/backgrounds/settingbackground.png" id="2_hqymk"]
@@ -28,6 +28,30 @@ thickness = 5
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_scrng"]
 color = Color(0.0555849, 0.539981, 1, 1)
+grow_begin = -2.0
+grow_end = 5.0
+thickness = 10
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_q4yat"]
+color = Color(1, 1, 1, 1)
+grow_begin = -5.0
+grow_end = -5.0
+thickness = 5
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_jo7xi"]
+color = Color(0.054902, 0.541176, 1, 1)
+grow_begin = -2.0
+grow_end = 5.0
+thickness = 10
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_nl25k"]
+color = Color(1, 1, 1, 1)
+grow_begin = -5.0
+grow_end = -5.0
+thickness = 5
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_q5xb5"]
+color = Color(0.054902, 0.541176, 1, 1)
 grow_begin = -2.0
 grow_end = 5.0
 thickness = 10
@@ -71,14 +95,14 @@ button_path = NodePath("../LeaveButton")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SettingBackground/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 450
+theme_override_constants/separation = 520
 
 [node name="seperator" type="Control" parent="SettingBackground/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SettingBackground/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 150
+theme_override_constants/separation = 200
 
 [node name="VideoButton" type="Button" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(150, 50)
@@ -91,12 +115,6 @@ custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Audio"
-
-[node name="GraphButton" type="Button" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(150, 50)
-layout_mode = 2
-theme_override_font_sizes/font_size = 25
-text = "Graph"
 
 [node name="MISCButton" type="Button" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(150, 50)
@@ -114,13 +132,13 @@ button_path = NodePath("../AudioButton")
 
 [node name="GraphAction" type="Node" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
 script = ExtResource("3_q4yat")
-button_path = NodePath("../GraphButton")
 
 [node name="MISCAction" type="Node" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
 script = ExtResource("3_q4yat")
 button_path = NodePath("../MISCButton")
 
 [node name="VideoSetting" type="HBoxContainer" parent="SettingBackground/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 220
 script = ExtResource("4_jo7xi")
@@ -221,7 +239,6 @@ max_value = 1.0
 step = 0.01
 
 [node name="AudioSetting" type="HBoxContainer" parent="SettingBackground/VBoxContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 215
 script = ExtResource("5_nl25k")
@@ -231,6 +248,7 @@ layout_mode = 2
 
 [node name="Container" type="VBoxContainer" parent="SettingBackground/VBoxContainer/AudioSetting"]
 layout_mode = 2
+theme_override_constants/separation = 30
 
 [node name="MasterVolume" type="Label" parent="SettingBackground/VBoxContainer/AudioSetting/Container"]
 layout_mode = 2
@@ -241,6 +259,34 @@ custom_minimum_size = Vector2(400, 20)
 layout_mode = 2
 theme_override_styles/slider = SubResource("StyleBoxLine_31ui4")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_scrng")
+max_value = 1.0
+step = 0.01
+
+[node name="seperator" type="Control" parent="SettingBackground/VBoxContainer/AudioSetting/Container"]
+layout_mode = 2
+
+[node name="MusicVolume" type="Label" parent="SettingBackground/VBoxContainer/AudioSetting/Container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+
+[node name="MusicVolumeBar" type="HSlider" parent="SettingBackground/VBoxContainer/AudioSetting/Container"]
+layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxLine_q4yat")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_jo7xi")
+max_value = 1.0
+step = 0.01
+
+[node name="seperator2" type="Control" parent="SettingBackground/VBoxContainer/AudioSetting/Container"]
+layout_mode = 2
+
+[node name="EffectVolume" type="Label" parent="SettingBackground/VBoxContainer/AudioSetting/Container"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+
+[node name="EffectVolumeBar" type="HSlider" parent="SettingBackground/VBoxContainer/AudioSetting/Container"]
+layout_mode = 2
+theme_override_styles/slider = SubResource("StyleBoxLine_nl25k")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_q5xb5")
 max_value = 1.0
 step = 0.01
 
