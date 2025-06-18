@@ -9,13 +9,19 @@ extends Node2D
 @onready var port: Label = $UI/PortDisplay/Port
 @onready var port_in_game: Label = $UI/PortDisplayInGame/PortInGame
 @onready var port_display_in_game: MarginContainer = $UI/PortDisplayInGame
+@onready var count_down_label: Label = $UI/CountDownDisplay/CountDownLabel
+@onready var count_down_display: MarginContainer = $UI/CountDownDisplay
 
 
 var peer = ENetMultiplayerPeer.new()
 var players: Array[Player] = []
+var used_spawn_indices: Array[int] = []
+const MAX_PLAYERS := 2
+
 
 func _ready() -> void:
 	randomize()
+	Global.previous_scene_path = "res://scenes/ui/modechoice.tscn"
 	if Global.is_multiplayer_mode:
 		if $UI.has_node("Multiplayer"):
 			return
@@ -116,12 +122,20 @@ func cleanup_multiplayer():
 	var new_multiplayer := SceneMultiplayer.new()
 	get_tree().set_multiplayer(new_multiplayer)
 	#await get_tree().create_timer(0.1).timeout
+	used_spawn_indices.clear()
 
 func _on_peer_connected(pid):
 	print("peer " + str(pid) + " joined")
-	$MultiplayerSpawner.spawn(pid)
+	if players.size() >= 2:
+		print("Room is full, rejecting new player.")
+		return
+	var player = $MultiplayerSpawner.spawn(pid)
 	Global.achivement1_status = true
+	if players.size() == MAX_PLAYERS and multiplayer.is_server():
+		rpc("start_countdown")
 
+		
+			
 func _on_peer_disconnected(pid):
 	print("delete player")
 	del_player(pid)
@@ -138,14 +152,46 @@ func _on_connection_failed():
 
 
 func add_player(pid) -> Node2D:
+	if players.size() >= MAX_PLAYERS:
+		print("Room is full. Rejecting connection from", pid)
+		if multiplayer.is_server():
+			rpc_id(pid, "kick_from_full_room")
+		return null
+
 	var player: Player = player_scene.instantiate()
 	player.name = str(pid)
-	var spawn_index = (int(pid)-1) % $Level.get_child_count()
+
+
+	var spawn_index := -1
+	var level_children := $Level.get_child_count()
+	for i in level_children:
+		if not used_spawn_indices.has(i):
+			spawn_index = i
+			break
+	if spawn_index == -1:
+		spawn_index = 0
+	used_spawn_indices.append(spawn_index)
+
 	player.global_position = $Level.get_child(spawn_index).global_position
+	
 	if pid == multiplayer.get_unique_id():
 		$UI/EscMenu.player = player
 	players.append(player)
 	return player
+
+func show_countdown_ui(duration: int):
+	count_down_display.visible = true
+	for i in range(duration, 0, -1):
+		count_down_label.text = "Battle starts in " + str(i) + " Second"
+		await get_tree().create_timer(1).timeout
+	count_down_label.text = "Battle Starts!"
+	
+
+func hide_countdown_ui():
+	await get_tree().create_timer(3).timeout
+	count_down_display.visible = false
+	
+	
 
 func del_player(pid):
 	rpc("_del_player", pid)
@@ -169,3 +215,28 @@ func notify_clients_game_ending():
 	Global.is_multiplayer_mode = false
 	await cleanup_multiplayer()
 	get_tree().change_scene_to_packed(modechoice_scene)
+	AudioManager.play_bgm()
+	
+	
+@rpc("authority", "call_remote")
+func kick_from_full_room():
+	print("Room is full, you are being disconnected.")
+	get_tree().change_scene_to_packed(modechoice_scene)
+
+
+
+@rpc("any_peer", "call_local")
+func start_countdown():
+	for player in players:
+		player.can_move = false
+		player.can_cast = false
+
+	show_countdown_ui(5)
+
+	await get_tree().create_timer(5).timeout
+
+	for player in players:
+		player.can_move = true
+		player.can_cast = true
+
+	hide_countdown_ui()

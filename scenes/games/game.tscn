@@ -72,6 +72,25 @@ visible = false
 [node name="multiplayer" parent="UI" instance=ExtResource("4_p57ef")]
 visible = false
 
+[node name="CountDownDisplay" type="MarginContainer" parent="UI"]
+visible = false
+custom_minimum_size = Vector2(800, 250)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -0.5
+offset_right = 0.5
+offset_bottom = 23.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="CountDownLabel" type="Label" parent="UI/CountDownDisplay"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://baeupmwvx1kib")
 spawn_path = NodePath("..")

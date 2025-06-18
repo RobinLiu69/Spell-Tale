@@ -16,6 +16,8 @@ var server_port: int = 1
 
 #setting-audio
 var master_volume: float = 0.5
+var music_volume: float = 0.5
+var effect_volume: float = 0.5
 
 #setting-video
 var resolution_index: int = 2
