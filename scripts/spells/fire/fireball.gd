@@ -31,10 +31,12 @@ func request_remove(spell_id: int):
 func hit(hurtbox: HurtboxComponent):
 	if hurtbox:
 		var attack = Attack.new()
-		attack.damage = 5
+		attack.damage = self.damage
 		hurtbox.damage.rpc(attack.serialize())
-	
-	rpc("request_remove", spell_id)
+	_request_remove()
 
 func _on_exisiting_timer_timeout() -> void:
+	_request_remove()
+
+func _request_remove():
 	rpc("request_remove", spell_id)
