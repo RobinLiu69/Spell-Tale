@@ -130,9 +130,6 @@ button_path = NodePath("../VideoButton")
 script = ExtResource("3_q4yat")
 button_path = NodePath("../AudioButton")
 
-[node name="GraphAction" type="Node" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
-script = ExtResource("3_q4yat")
-
 [node name="MISCAction" type="Node" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
 script = ExtResource("3_q4yat")
 button_path = NodePath("../MISCButton")

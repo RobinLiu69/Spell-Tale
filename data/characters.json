@@ -1,0 +1,7 @@
+{
+    "rabbit": {
+      "name": "Rabbit",
+      "texture_path": "res://resources/images/players/rabbit/idle/player.png"
+    }
+  }
+  
