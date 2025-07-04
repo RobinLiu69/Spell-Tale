@@ -39,6 +39,10 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(int(str(name)))
 
 func _ready() -> void:
+	spell_1 = Global.spell_1
+	spell_2 = Global.spell_2
+	spell_3= Global.spell_3
+	
 	camera_2d.enabled = is_multiplayer_authority()
 	
 	if !is_multiplayer_authority():
