@@ -27,5 +27,16 @@ var vsync_check_status: bool = true
 var brightness_value: float = 0.0 
 
 
+#spell
+var spell_1: String = ""
+var spell_2: String = ""
+var spell_3: String = ""
+
+#character
+var selected_character: String = ""
+
+#misc
+var fullscreen_status = false
+
 func _ready():
 	AudioServer.set_bus_volume_db(0, linear_to_db(master_volume))

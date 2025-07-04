@@ -1,0 +1,35 @@
+{
+  "fireball": {
+	"name": "Fireball",
+	"description": "Shoots a powerful ball of fire.",
+	"icon": "res://resources/icons/fireball.png",
+	"cast_at": "marker",
+	"category": "fire",
+	"scene": "res://scenes/spells/fire/fireball.tscn"
+  },
+  "void_snare": {
+	"name": "Void Snare",
+	"description": "Traps enemies with dark energy.",
+	"icon": "res://resources/icons/void_snare_1.png",
+	"cast_at": "target_pos",
+	"category": "void",
+	"scene": "res://scenes/spells/void/void_snare.tscn"
+  },
+  "void_laser": {
+	"name": "Void Laser",
+	"description": "Fires a piercing beam of void.",
+	"icon": "res://resources/icons/laser_end.png",
+	"category": "void",
+	"cast_at": "marker",
+	"scene": "res://scenes/spells/void/void_laser.tscn"
+  },
+  "fire_aura": {
+	"name": "Fire Aura",
+	"description": "Surrounds you with fire to damage nearby foes.",
+	"icon": "res://resources/icons/fire_aura.png",
+	"cast_at": "self",
+	"category": "fire",
+	"scene": "res://scenes/spells/fire/fire_aura.tscn"
+  }
+}
+  

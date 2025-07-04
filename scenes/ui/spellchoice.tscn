@@ -1,0 +1,359 @@
+[gd_scene load_steps=8 format=3 uid="uid://bscpa8tvhustr"]
+
+[ext_resource type="Script" uid="uid://d1w2gew44fua4" path="res://scripts/UI/spellchoice.gd" id="1_d0hv0"]
+[ext_resource type="Script" uid="uid://cvpo88lsv4uxc" path="res://scripts/UI/ButtonAction.gd" id="2_pw2n1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d5t0e"]
+bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.6, 0.6, 0.6, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hbyfh"]
+bg_color = Color(0.141176, 0.141176, 0.141176, 0)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xn4hl"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cpoy6"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pw2n1"]
+bg_color = Color(0.133333, 0.133333, 0.133333, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.6, 0.6, 0.6, 1)
+
+[node name="Spellchoice" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d0hv0")
+
+[node name="UI" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -102.0
+offset_right = 205.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 470
+
+[node name="Seperator" type="Control" parent="UI"]
+layout_mode = 2
+
+[node name="LeftPanel" type="VBoxContainer" parent="UI"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="CharacterPreviewLabel" type="Label" parent="UI/LeftPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Character Preview"
+horizontal_alignment = 1
+
+[node name="Seperator2" type="Control" parent="UI/LeftPanel"]
+layout_mode = 2
+
+[node name="CharacterName" type="Label" parent="UI/LeftPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Character Name"
+horizontal_alignment = 1
+
+[node name="CharacterPreview" type="PanelContainer" parent="UI/LeftPanel"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_d5t0e")
+
+[node name="ChracterSelector" type="HBoxContainer" parent="UI/LeftPanel/CharacterPreview"]
+layout_mode = 2
+theme_override_constants/separation = 365
+
+[node name="LeftButton" type="Button" parent="UI/LeftPanel/CharacterPreview/ChracterSelector"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+text = "<"
+
+[node name="LeftButtonAction" type="Node" parent="UI/LeftPanel/CharacterPreview/ChracterSelector"]
+script = ExtResource("2_pw2n1")
+button_path = NodePath("../LeftButton")
+
+[node name="PreviewSprite" type="Sprite2D" parent="UI/LeftPanel/CharacterPreview/ChracterSelector"]
+position = Vector2(192, 246)
+scale = Vector2(2.5, 2.5)
+
+[node name="RightButton" type="Button" parent="UI/LeftPanel/CharacterPreview/ChracterSelector"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 25
+text = ">"
+
+[node name="RightButtonAction" type="Node" parent="UI/LeftPanel/CharacterPreview/ChracterSelector"]
+script = ExtResource("2_pw2n1")
+button_path = NodePath("../RightButton")
+
+[node name="Seperator" type="Control" parent="UI/LeftPanel"]
+layout_mode = 2
+
+[node name="SpellSlots" type="HBoxContainer" parent="UI/LeftPanel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="QSpell" type="VBoxContainer" parent="UI/LeftPanel/SpellSlots"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/LeftPanel/SpellSlots/QSpell"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hbyfh")
+
+[node name="QSlot" type="TextureRect" parent="UI/LeftPanel/SpellSlots/QSpell/PanelContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="QLabel" type="Label" parent="UI/LeftPanel/SpellSlots/QSpell"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="WSpell" type="VBoxContainer" parent="UI/LeftPanel/SpellSlots"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/LeftPanel/SpellSlots/WSpell"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xn4hl")
+
+[node name="WSlot" type="TextureRect" parent="UI/LeftPanel/SpellSlots/WSpell/PanelContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="WLabel" type="Label" parent="UI/LeftPanel/SpellSlots/WSpell"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="ESpell" type="VBoxContainer" parent="UI/LeftPanel/SpellSlots"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/LeftPanel/SpellSlots/ESpell"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_cpoy6")
+
+[node name="ESlot" type="TextureRect" parent="UI/LeftPanel/SpellSlots/ESpell/PanelContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="ELabel" type="Label" parent="UI/LeftPanel/SpellSlots/ESpell"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="NotifyLabel" type="Label" parent="UI/LeftPanel"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="ConfirmButton" type="Button" parent="UI/LeftPanel"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Save
+"
+
+[node name="ConfirmAction" type="Node" parent="UI/LeftPanel"]
+script = ExtResource("2_pw2n1")
+button_path = NodePath("../ConfirmButton")
+
+[node name="FightButton" type="Button" parent="UI/LeftPanel"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Fight"
+
+[node name="FightAction" type="Node" parent="UI/LeftPanel"]
+script = ExtResource("2_pw2n1")
+button_path = NodePath("../FightButton")
+
+[node name="RightPanel" type="VBoxContainer" parent="UI"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="SpellChoice" type="Label" parent="UI/RightPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 35
+text = "Spell Choice
+"
+horizontal_alignment = 1
+
+[node name="CategoryDropdown" type="OptionButton" parent="UI/RightPanel"]
+custom_minimum_size = Vector2(200, 25)
+layout_mode = 2
+
+[node name="SpellScroll" type="ScrollContainer" parent="UI/RightPanel"]
+custom_minimum_size = Vector2(400, 128)
+layout_mode = 2
+
+[node name="SpellList" type="HBoxContainer" parent="UI/RightPanel/SpellScroll"]
+layout_mode = 2
+
+[node name="SpellNameLabel" type="Label" parent="UI/RightPanel"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="SpellInfoLabel" type="Label" parent="UI/RightPanel"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="ActionButton" type="Button" parent="UI/RightPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+
+[node name="MessageLabel" type="Label" parent="UI/RightPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="ActionButtonNode" type="Node" parent="UI/RightPanel"]
+script = ExtResource("2_pw2n1")
+button_path = NodePath("../ActionButton")
+
+[node name="Seperator2" type="Control" parent="UI"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 60
+
+[node name="SpellGrid" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 4
+
+[node name="DescriptionalLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 25
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SelectedSpells" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Slot1" type="TextureRect" parent="MarginContainer/VBoxContainer/SelectedSpells"]
+layout_mode = 2
+size_flags_horizontal = 4
+stretch_mode = 5
+
+[node name="Slot2" type="TextureRect" parent="MarginContainer/VBoxContainer/SelectedSpells"]
+layout_mode = 2
+
+[node name="Slot3" type="TextureRect" parent="MarginContainer/VBoxContainer/SelectedSpells"]
+layout_mode = 2
+
+[node name="ConfirmButton" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Confirm"
+
+[node name="ConfirmButtonAction" type="Node" parent="MarginContainer/VBoxContainer"]
+script = ExtResource("2_pw2n1")
+button_path = NodePath("../ConfirmButton")
+
+[node name="ActionButton" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ActionButtonNode" type="Node" parent="MarginContainer/VBoxContainer"]
+script = ExtResource("2_pw2n1")
+button_path = NodePath("../ActionButton")
+
+[node name="BackButton" type="Button" parent="MarginContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SpellTooltip" type="PanelContainer" parent="CanvasLayer"]
+custom_minimum_size = Vector2(1, 0)
+offset_left = -27.0
+offset_top = -62.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pw2n1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SpellTooltip"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NameLabel" type="Label" parent="CanvasLayer/SpellTooltip/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
+
+[node name="DescLabel" type="Label" parent="CanvasLayer/SpellTooltip/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
+
+[node name="BackButton" type="Button" parent="."]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+text = "Back
+"
+
+[node name="BackButtonAction" type="Node" parent="."]
+script = ExtResource("2_pw2n1")
+button_path = NodePath("../BackButton")
