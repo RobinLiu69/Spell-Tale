@@ -6,6 +6,8 @@ extends Spell
 @onready var ray_cast: RayCast2D = $RayCast
 @onready var laser_end: Sprite2D = $LaserEnd
 @onready var timer: Timer = $Timer
+@onready var hitbox_component: Node2D = $HitboxComponent
+
 
 @onready var collider_list: Array[Player] = []
 
@@ -16,24 +18,26 @@ func _ready() -> void:
 	
 
 func cast():
-	ray_cast.force_raycast_update()
-	_check_laser_hit()
+	if ray_cast:
+		ray_cast.force_raycast_update()
+		_check_laser_hit()
 
 
 func _physics_process(delta: float) -> void:
 	_check_laser_hit()
-	
-	var collider = ray_cast.get_collider()
-	if collider and collider is Player and collider not in collider_list:
-		var slow = SlowEffect.new(timer.wait_time)
+
+func hit(hurtbox: HurtboxComponent):	
+	if hurtbox.entity not in collider_list:
+		var slow = SlowEffect.new(timer.wait_time+10)
 		slow.slow_multiplier = 0.5
-		collider.status_effect_manager.add_effect(slow, collider)
-		collider_list.append(collider)
+		hurtbox.entity.status_effect_manager.add_effect(slow, hurtbox.entity)
+		collider_list.append(hurtbox.entity)
+		print("add slow")
 
 func _process(delta: float) -> void:
 	if source:
-		position = source.marker.global_position
-		rotation = source.marker.global_rotation
+		position = source.spell_con.marker_2d.global_position
+		rotation = source.spell_con.marker_2d.global_rotation
 
 
 func _check_laser_hit():
@@ -45,6 +49,7 @@ func _check_laser_hit():
 func _set_length(length: float):
 	beam.points[1].x = length
 	laser_end.position.x = length
+	hitbox_component.position.x = length
 
 @rpc("call_local")
 func remove_self():

@@ -13,3 +13,6 @@ func cast():
 
 func hit(hurtbox: HurtboxComponent):
 	pass
+
+func hit_body(body: Node2D):
+	pass

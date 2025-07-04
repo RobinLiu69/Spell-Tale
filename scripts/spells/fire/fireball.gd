@@ -27,12 +27,13 @@ func _process(delta):
 func request_remove(spell_id: int):
 	SpellManager.request_remove(spell_id)
 
-
 func hit(hurtbox: HurtboxComponent):
-	if hurtbox:
-		var attack = Attack.new()
-		attack.damage = self.damage
-		hurtbox.damage.rpc(attack.serialize())
+	var attack = Attack.new()
+	attack.damage = damage
+	hurtbox.damage.rpc(attack.serialize())
+	_request_remove()
+
+func hit_body(body):
 	_request_remove()
 
 func _on_exisiting_timer_timeout() -> void:

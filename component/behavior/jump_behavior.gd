@@ -1,16 +1,16 @@
 extends Behavior
 
-@export var component: Component
-
 func initialize():
 	pass
 
 func component_changes(entity):
 	if !entity.is_on_floor():
 		component.change_behavior("FallBehavior")
+		return
 
 	if entity.is_on_floor() and !entity.velocity.y:
 		component.change_behavior("IdleBehavior")
+		return
 
 func update_behavior(delta):
 	var entity = component.entity

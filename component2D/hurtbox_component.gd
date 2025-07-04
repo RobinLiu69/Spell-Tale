@@ -1,6 +1,7 @@
 class_name HurtboxComponent
 extends Component2D
 
+@export var entity: CharacterBody2D
 @export var health_component: HealthComponent
 @export var hurtbox: Area2D
 

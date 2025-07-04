@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://bp1th31aar6d4"]
+[gd_scene load_steps=10 format=4 uid="uid://bp1th31aar6d4"]
 
 [ext_resource type="Script" uid="uid://bsnb8032mibp5" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://baeupmwvx1kib" path="res://scenes/player/player.tscn" id="2_lnu2h"]
@@ -20,9 +20,6 @@ texture_region_size = Vector2i(8, 8)
 tile_size = Vector2i(8, 8)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_lnu2h")
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u5sy4"]
-size = Vector2(252.371, 95.5841)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_lnu2h")
@@ -119,13 +116,6 @@ position = Vector2(-820, -205)
 scale = Vector2(1.6, 1.6)
 texture = ExtResource("3_lbhrr")
 flip_h = true
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(-211.999, -203.043)
-rotation = -0.671982
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-shape = SubResource("RectangleShape2D_u5sy4")
 
 [node name="Player" parent="." instance=ExtResource("2_lnu2h")]
 position = Vector2(-618, -327)

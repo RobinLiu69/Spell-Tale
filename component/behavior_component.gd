@@ -14,7 +14,6 @@ func update_component(delta):
 		current_behavior.update_behavior(delta)
 
 func set_behavior(new_behavior):
-	print(new_behavior.name)
 	current_behavior = new_behavior
 
 func change_behavior(new_behavior_name: String):

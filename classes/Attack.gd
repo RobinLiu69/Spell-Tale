@@ -1,6 +1,6 @@
 class_name Attack
 
-var damage := 0
+var damage := 0.0
 var knockback := 0.0
 var crit_chance := 0.0
 var element := "neutral"

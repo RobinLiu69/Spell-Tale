@@ -1,32 +1,45 @@
-[gd_scene load_steps=10 format=3 uid="uid://ltks2sig3wmy"]
+[gd_scene load_steps=11 format=3 uid="uid://ltks2sig3wmy"]
 
 [ext_resource type="Texture2D" uid="uid://cpt6guk6ikt13" path="res://resources/images/spells/fire/fire_aura/fire_aura.png" id="1_3ukeo"]
 [ext_resource type="Script" uid="uid://cydob85elqbio" path="res://scripts/spells/fire/fire_aura.gd" id="1_ujoy2"]
 [ext_resource type="Texture2D" uid="uid://drmrnngt8d6rp" path="res://resources/images/spells/fire/fire_aura/fire_aura2.png" id="2_ujoy2"]
 [ext_resource type="Texture2D" uid="uid://c7kp6bb3cfbwm" path="res://resources/images/spells/fire/fire_aura/fire_aura3.png" id="3_ijlpm"]
 [ext_resource type="Texture2D" uid="uid://4h63dotiyj1g" path="res://resources/images/spells/fire/fire_aura/fire_back.png" id="5_rdaby"]
+[ext_resource type="Script" uid="uid://cm8jpnxk4eqex" path="res://component2D/hitbox_component.gd" id="6_73dmr"]
 
 [sub_resource type="Animation" id="Animation_mejad"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:texture")
+tracks/0/path = NodePath("CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_3ukeo")]
+"values": [false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../Sprite2D:modulate")
+tracks/1/path = NodePath("../../Sprite2D:texture")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_ijlpm")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../Sprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -35,31 +48,42 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_2hxkl"]
 resource_name = "fire_aura_playing"
-loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:texture")
+tracks/0/path = NodePath("CollisionShape2D:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [ExtResource("1_3ukeo"), ExtResource("2_ujoy2"), ExtResource("3_ijlpm")]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../Sprite2D:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.507627, 1),
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../../Sprite2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6, 0.7),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.788235), Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_10tjx"]
@@ -72,19 +96,18 @@ _data = {
 radius = 118.038
 
 [node name="FireAura" type="Node2D"]
-physics_interpolation_mode = 2
 scale = Vector2(3, 3)
 script = ExtResource("1_ujoy2")
 
 [node name="FireBack" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.25098)
+modulate = Color(1, 1, 1, 0.501961)
 texture = ExtResource("5_rdaby")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_3ukeo")
+texture = ExtResource("3_ijlpm")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Arae2D")
+root_node = NodePath("../HitboxComponent/Hitbox")
 libraries = {
 &"": SubResource("AnimationLibrary_10tjx")
 }
@@ -93,9 +116,16 @@ libraries = {
 
 [node name="DamageTimer" type="Timer" parent="."]
 
-[node name="Arae2D" type="Area2D" parent="."]
+[node name="HitboxComponent" type="Node2D" parent="." node_paths=PackedStringArray("spell", "hitbox")]
+script = ExtResource("6_73dmr")
+spell = NodePath("..")
+hitbox = NodePath("Hitbox")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Arae2D"]
+[node name="Hitbox" type="Area2D" parent="HitboxComponent"]
+collision_layer = 48
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent/Hitbox"]
 shape = SubResource("CircleShape2D_0tp4o")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
