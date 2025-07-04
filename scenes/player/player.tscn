@@ -1,20 +1,25 @@
-[gd_scene load_steps=21 format=3 uid="uid://baeupmwvx1kib"]
+[gd_scene load_steps=26 format=3 uid="uid://baeupmwvx1kib"]
 
 [ext_resource type="Texture2D" uid="uid://buxqa7rdfotov" path="res://resources/images/players/rabbit/idle/player.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dlvhwpsrbw6mc" path="res://entity/player/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://wo4fm38ftpwo" path="res://component2D/spell_con_component.gd" id="3_5gtgg"]
 [ext_resource type="PackedScene" uid="uid://dbthbwirn2glv" path="res://scenes/player/health_bar.tscn" id="3_gmlin"]
 [ext_resource type="Script" uid="uid://bqqufaikvwb6f" path="res://component/status_effect_component.gd" id="4_lvxji"]
-[ext_resource type="Script" uid="uid://bpfkuhklhvfql" path="res://component/behavior/run_behavior.gd" id="5_p47bc"]
+[ext_resource type="Script" uid="uid://bpfkuhklhvfql" path="res://component/behavior/walk_behavior.gd" id="5_p47bc"]
 [ext_resource type="Script" uid="uid://ca0hpxki4n0lq" path="res://component/behavior_component.gd" id="6_75vfm"]
 [ext_resource type="Script" uid="uid://daof1ifvd1ygh" path="res://component/behavior/idle_behavior.gd" id="7_0owmy"]
 [ext_resource type="Script" uid="uid://lwsb76gfvbn7" path="res://component/behavior/jump_behavior.gd" id="7_5gtgg"]
 [ext_resource type="Script" uid="uid://bm0pie7mhqy4s" path="res://component/behavior/fall_behavior.gd" id="10_h17s1"]
 [ext_resource type="Texture2D" uid="uid://d1wp6sw4mmjeh" path="res://resources/images/icon.svg" id="11_je7p5"]
+[ext_resource type="Script" uid="uid://78hvbas5gwgm" path="res://component/behavior/ledge_creep_behavior.gd" id="11_myrg7"]
 [ext_resource type="Script" uid="uid://dktbxf4vjijse" path="res://component/input_component.gd" id="12_fm80t"]
 [ext_resource type="Script" uid="uid://b0q5xj30eh6rj" path="res://component/health_component.gd" id="12_ugbui"]
-[ext_resource type="Script" uid="uid://skmlnsw3bj2h" path="res://component/hurtbox_component.gd" id="13_fcs02"]
+[ext_resource type="Script" uid="uid://skmlnsw3bj2h" path="res://component2D/hurtbox_component.gd" id="13_fcs02"]
 [ext_resource type="Script" uid="uid://bwlxtoi3sbpvw" path="res://component/camera_component.gd" id="13_gx1jg"]
+[ext_resource type="Script" uid="uid://diftt7f120wan" path="res://component/spell_factory_component.gd" id="17_kvlxm"]
+[ext_resource type="Script" uid="uid://jidkrk5exi40" path="res://component/spell_cast_network_component.gd" id="17_uf5tr"]
+[ext_resource type="Script" uid="uid://cij41253djisl" path="res://component/cooldown_component.gd" id="18_8ydkj"]
+[ext_resource type="Script" uid="uid://el7wfd00roc4" path="res://component/mana_component.gd" id="18_lgqa7"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 16.0
@@ -60,6 +65,14 @@ script = ExtResource("1_g2els")
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_3vyb7")
 
+[node name="RayCastRight" type="RayCast2D" parent="."]
+rotation = -0.261799
+target_position = Vector2(0, 100)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+rotation = 0.261799
+target_position = Vector2(0, 100)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 11)
 rotation = -0.00507956
@@ -85,10 +98,13 @@ replication_config = SubResource("SceneReplicationConfig_qlg0r")
 [node name="StatusEffectManager" type="Node2D" parent="."]
 script = ExtResource("4_lvxji")
 
-[node name="SpellConComponent" type="Node2D" parent="." node_paths=PackedStringArray("entity")]
+[node name="SpellConComponent" type="Node2D" parent="." node_paths=PackedStringArray("entity", "mana_component", "spell_cast_network_component", "cooldown_component")]
 position = Vector2(1, 0)
 script = ExtResource("3_5gtgg")
 entity = NodePath("..")
+mana_component = NodePath("../ManaComponent")
+spell_cast_network_component = NodePath("../SpellCastNetworkComponent")
+cooldown_component = NodePath("../CooldownComponent")
 
 [node name="Marker2D" type="Marker2D" parent="SpellConComponent"]
 position = Vector2(40, 0)
@@ -96,6 +112,20 @@ position = Vector2(40, 0)
 [node name="Line2D" type="Line2D" parent="SpellConComponent/Marker2D"]
 points = PackedVector2Array(0, 0, 25, 0)
 width = 3.0
+
+[node name="HurtboxComponent" type="Node2D" parent="." node_paths=PackedStringArray("entity", "health_component", "hurtbox")]
+physics_interpolation_mode = 1
+script = ExtResource("13_fcs02")
+entity = NodePath("..")
+health_component = NodePath("../HealthComponent")
+hurtbox = NodePath("Hurtbox")
+
+[node name="Hurtbox" type="Area2D" parent="HurtboxComponent"]
+collision_layer = 2
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent/Hurtbox"]
+shape = SubResource("RectangleShape2D_gx1jg")
 
 [node name="BehaviorComponent" type="Node" parent="." node_paths=PackedStringArray("entity", "default_behavior")]
 script = ExtResource("6_75vfm")
@@ -118,6 +148,10 @@ component = NodePath("..")
 script = ExtResource("10_h17s1")
 component = NodePath("..")
 
+[node name="LedgeCreepBehavior" type="Node" parent="BehaviorComponent" node_paths=PackedStringArray("component")]
+script = ExtResource("11_myrg7")
+component = NodePath("..")
+
 [node name="InputComponent" type="Node" parent="." node_paths=PackedStringArray("entity")]
 script = ExtResource("12_fm80t")
 entity = NodePath("..")
@@ -126,22 +160,30 @@ entity = NodePath("..")
 script = ExtResource("12_ugbui")
 health_bar = NodePath("../HealthBar")
 
-[node name="HurtboxComponent" type="Node2D" parent="." node_paths=PackedStringArray("health_component", "hurtbox")]
-script = ExtResource("13_fcs02")
-health_component = NodePath("../HealthComponent")
-hurtbox = NodePath("Hurtbox")
-
-[node name="Hurtbox" type="Area2D" parent="HurtboxComponent"]
-collision_layer = 2
-collision_mask = 32
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent/Hurtbox"]
-position = Vector2(0, 11)
-shape = SubResource("RectangleShape2D_gx1jg")
-
 [node name="CameraComponent" type="Node" parent="." node_paths=PackedStringArray("entity")]
 script = ExtResource("13_gx1jg")
 entity = NodePath("..")
+
+[node name="SpellFactoryComponent" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("17_kvlxm")
+player = NodePath("..")
+metadata/_custom_type_script = "uid://diftt7f120wan"
+
+[node name="SpellCastNetworkComponent" type="Node" parent="." node_paths=PackedStringArray("player", "spell_factory", "mana_component")]
+script = ExtResource("17_uf5tr")
+player = NodePath("..")
+spell_factory = NodePath("../SpellFactoryComponent")
+mana_component = NodePath("../ManaComponent")
+metadata/_custom_type_script = "uid://jidkrk5exi40"
+
+[node name="CooldownComponent" type="Node" parent="."]
+script = ExtResource("18_8ydkj")
+metadata/_custom_type_script = "uid://cij41253djisl"
+
+[node name="ManaComponent" type="Node" parent="."]
+script = ExtResource("18_lgqa7")
+regen_elements = Array[String](["fire", "dark"])
+metadata/_custom_type_script = "uid://el7wfd00roc4"
 
 [node name="TextEdit" type="TextEdit" parent="."]
 visible = false

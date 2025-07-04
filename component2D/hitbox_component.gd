@@ -10,7 +10,10 @@ func _ready() -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if !is_multiplayer_authority() or body is Player:
 		return
-
+	
+	spell.hit_body(body)
+	
+	
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	if !is_multiplayer_authority():
 		return

@@ -9,5 +9,6 @@ func _ready() -> void:
 	health_bar.init_health(health)
 
 func damage(attack: Attack):
-	health -= attack.attack_damage
+	health -= attack.damage
 	health_bar.health = health
+	print(health)

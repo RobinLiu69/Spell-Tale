@@ -22,7 +22,6 @@ buses/default_bus_layout="res://resources/sounds/default_bus_layout.tres"
 [autoload]
 
 Global="*res://scripts/UI/global.gd"
-TotemRegistry="*res://entity/totems/TotemRegistry.gd"
 AudioManager="*res://scripts/UI/AudioManager.gd"
 SpellRegistry="*res://scripts/spells/SpellRegistry.gd"
 SpellManager="*res://scripts/spells/SpellManager.gd"
@@ -92,17 +91,19 @@ debug={
 ]
 }
 
+[internationalization]
+
+rendering/physics_interpolation=true
+rendering/layer_5="Projec"
+
 [layer_names]
 
 2d_physics/layer_1="Environmet"
 2d_physics/layer_2="Player"
 2d_physics/layer_3="Enemy"
 2d_physics/layer_4="Totem"
+2d_physics/layer_5="Projectile"
 2d_physics/layer_6="Bonus"
-
-[physics]
-
-common/physics_interpolation=true
 
 [rendering]
 

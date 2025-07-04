@@ -16,12 +16,12 @@ func _ready():
 func remove_self():
 	queue_free()
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if !is_multiplayer_authority() or body == source:
-		return
-	
-	if body is Player:
-		body.take_damage.rpc_id(body.get_multiplayer_authority(), damage, source_path)
+func hit(hurtbox: HurtboxComponent) -> void:
+	print("hit")
+	if hurtbox:
+		var attack = Attack.new()
+		attack.damage = damage
+		hurtbox.damage.rpc(attack.serialize())
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	remove_self()

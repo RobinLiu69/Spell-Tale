@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Player
 
 @onready var spell_con_component: Node2D = $SpellConComponent
+@onready var cooldown_component: CooldownComponent = $CooldownComponent
 @onready var health_bar := $HealthBar
 @onready var status_effect_manager: Node2D = $StatusEffectManager
 @onready var camera_2d := $Camera2D
@@ -17,17 +18,19 @@ class_name Player
 @export var JUMP_VELOCITY: float = -500.0
 @export var SPEED: float = 300.0
 
-var acceleration = 0.0
-var speed_multiplier := 1.0
+@export var spell_1: String = "fireball"
+@export var spell_2: String = "fire_aura"
+@export var spell_3: String = "void_laser"
 
+var acceleration := 0.0
+var speed_multiplier := 1.0
+var creep_speed := 150
+
+var time_moving := 0.0
 var mouse_pos
 var jump = false
 
 var movement_direction = 0
-
-var spell_1: String
-var spell_2: String
-var spell_3: String
 
 var can_move := true
 var can_cast := true
@@ -50,9 +53,11 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	mouse_pos = get_global_mouse_position()
+	cooldown_component.update_component(delta)
 	
 	if can_move:
 		component_handler(delta)
+		update_movement_timer(delta)
 	
 	move_and_slide()
 
@@ -67,24 +72,28 @@ func component_handler(delta):
 		if is_instance_valid(component):
 			component.update_component(delta)
 
+func is_near_ledge() -> bool:
+	if movement_direction < 0:
+		return !$RayCastLeft.is_colliding()
+	elif movement_direction > 0:
+		return !$RayCastRight.is_colliding()
+	return false
+
+func check_ground_ahead() -> bool:
+	if movement_direction < 0:
+		return $RayCastLeft.is_colliding()
+	elif movement_direction > 0:
+		return $RayCastRight.is_colliding()
+	return false
+
+func update_movement_timer(delta: float):
+	if abs(movement_direction) > 0.1:
+		time_moving += delta
+	else:
+		time_moving = 0.0
+
 
 func request_cast(spell_name, target_pos):
 	if not can_cast:
 		return 
 	spell_con_component.request_cast(spell_name, target_pos)
-
-
-	
-@rpc("call_local")
-func place_totem(caster_pid: int, totem_name: String, position: Vector2, direction: Vector2):
-	if not TotemRegistry.TOTEMS.has(totem_name):
-		push_error("totem %s not found in registry" % totem_name)
-		return
-	var totem_info := TotemRegistry.get_totem_info(totem_name)
-	var totem: Totem = totem_info.instantiate()
-	totem.position = position
-	totem.look_at(position + direction)
-	totem.source = self
-	totem.set_multiplayer_authority(caster_pid)
-	get_parent().add_child(totem)
-	totem.activate()
