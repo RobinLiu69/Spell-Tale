@@ -39,7 +39,7 @@ var tooltip_follow_mouse := false
 var character_data := {}               
 var character_list := []              
 var current_character_index := 0
-
+var restored_ids: Array[String] = []
 
 
 func _ready():
@@ -54,9 +54,18 @@ func _ready():
 	$BackButtonAction.action = Callable(self,"_on_back_button_pressed")
 	$UI/LeftPanel/CharacterPreview/ChracterSelector/LeftButtonAction.action = Callable(self,"_on_left_pressed")
 	$UI/LeftPanel/CharacterPreview/ChracterSelector/RightButtonAction.action = Callable(self,"_on_right_pressed")
-	update_ui_state()
 	_update_character_preview()
+	
+	if Global.spell_1 != "":
+		restored_ids.append(Global.spell_1)
+	if Global.spell_2 != "":
+		restored_ids.append(Global.spell_2)
+	if Global.spell_3 != "":
+		restored_ids.append(Global.spell_3)
+
+	selected_spell_ids = restored_ids
 	_update_spell_slots()
+	update_ui_state()
 
 func _process(delta):
 	if tooltip_follow_mouse and tooltip_panel.visible:
@@ -214,18 +223,23 @@ func _on_spell_hover_exited():
 	tooltip_follow_mouse = false 
 
 func _on_confirm_pressed():
-	if selected_spell_ids.size() == 3:
+	var count := selected_spell_ids.size()
+	if count > 0:
 		Global.spell_1 = selected_spell_ids[0]
-		Global.spell_2 = selected_spell_ids[1]
-		Global.spell_3 = selected_spell_ids[2]
-		fight_button.visible = true
-		notify_label.visible = true
-		notify_label.text = "Data saved, ready to battle !"
+		Global.spell_2 = selected_spell_ids[1] if count > 1 else ""
+		Global.spell_3 = selected_spell_ids[2] if count > 2 else ""
+		
+		if count == 3:
+			notify_label.text = "Spells saved. Ready to battle !"
+			notify_label.visible = true 
+			fight_button.visible = true  
+		else:
+			notify_label.text = "Spells saved. not ready for battle !"
+			notify_label.visible = true
 		update_ui_state()
 
 func _on_fight_pressed():
 	_on_confirm_pressed()
-	print("Ready to fight with:", Global.spell_1, Global.spell_2, Global.spell_3)
 	get_tree().change_scene_to_file("res://scenes/games/game.tscn")
 	
 func _on_back_button_pressed():
@@ -255,7 +269,6 @@ func _update_character_preview():
 
 	var texture = load(char_info["texture_path"])
 	preview_sprite.texture = texture
-
 
 	character_name.text = char_info["name"]
 	Global.selected_character = char_id
