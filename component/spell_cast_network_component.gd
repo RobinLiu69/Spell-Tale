@@ -8,7 +8,7 @@ class_name SpellCastNetworkComponent
 @rpc("authority")
 func server_cast(spell_name: String, target_pos: Vector2, caster_pid: int):
 	var spell_info = SpellRegistry.get_spell_info(spell_name)
-	var mana_cost = spell_info[1].get("mana_cost", 0)
+	var mana_cost = spell_info.get("mana_cost", 0)
 
 	if not mana_component or not mana_component.use_mana_multi(mana_cost):
 		print("Server: Not enough mana.")

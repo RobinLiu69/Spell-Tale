@@ -15,9 +15,9 @@ func request_cast(spell_name: String, target_pos: Vector2):
 	var my_id = multiplayer.get_unique_id()
 
 	var spell_info = SpellRegistry.get_spell_info(spell_name)
-	var mana_cost = spell_info[1].get("mana_cost", {})
-	var cooldown = spell_info[1].get("cooldown", 0.0)
-	var global_cd = spell_info[1].get("global_cooldown", 0.0)
+	var mana_cost = spell_info.get("mana_cost", {})
+	var cooldown = spell_info.get("cooldown", 0.0)
+	var global_cd = spell_info.get("global_cooldown", 0.0)
 
 	if cooldown_component and cooldown_component.is_on_cooldown(spell_name):
 		print("Spell", spell_name, "is on cooldown.")

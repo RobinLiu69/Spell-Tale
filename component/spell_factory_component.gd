@@ -6,8 +6,8 @@ var last_spawned_spell: Spell = null
 
 func spawn_spell(spell_name: String, target_pos: Vector2, caster_pid: int, spell_id: int) -> void:
 	var spell_info := SpellRegistry.get_spell_info(spell_name)
-	var cast_at: String = spell_info[0]
-	var packed_scene: PackedScene = spell_info[-1]
+	var cast_at: String = spell_info.get("cast_at")
+	var packed_scene: PackedScene = spell_info.get("packed_scene")
 	var spell: Spell = packed_scene.instantiate()
 
 	spell.set_multiplayer_authority(caster_pid)

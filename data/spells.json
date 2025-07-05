@@ -5,6 +5,8 @@
 	"icon": "res://resources/icons/fireball.png",
 	"cast_at": "marker",
 	"category": "fire",
+	"mana_cost": {"fire": 1},
+	"cooldown": 1.0,
 	"scene": "res://scenes/spells/fire/fireball.tscn"
   },
   "void_snare": {
@@ -13,14 +15,18 @@
 	"icon": "res://resources/icons/void_snare_1.png",
 	"cast_at": "target_pos",
 	"category": "void",
+	"mana_cost": {"void": 1},
+	"cooldown": 1.0,
 	"scene": "res://scenes/spells/void/void_snare.tscn"
   },
   "void_laser": {
 	"name": "Void Laser",
 	"description": "Fires a piercing beam of void.",
 	"icon": "res://resources/icons/laser_end.png",
-	"category": "void",
 	"cast_at": "marker",
+	"category": "void",
+	"mana_cost": {"void": 1},
+	"cooldown": 1.0,
 	"scene": "res://scenes/spells/void/void_laser.tscn"
   },
   "fire_aura": {
@@ -29,6 +35,8 @@
 	"icon": "res://resources/icons/fire_aura.png",
 	"cast_at": "self",
 	"category": "fire",
+	"mana_cost": {"fire": 1},
+	"cooldown": 5.0,
 	"scene": "res://scenes/spells/fire/fire_aura.tscn"
   }
 }

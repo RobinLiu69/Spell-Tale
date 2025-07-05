@@ -1,23 +1,6 @@
 extends Node
 
-const SPELLS: Dictionary[String, Array] = {
-	"fireball": ["marker", {
-		"mana_cost": {"fire": 1}, 
-		"cooldown": 1.0
-	}, preload("res://scenes/spells/fire/fireball.tscn")],
-	"fire_aura": ["self", {
-		"mana_cost": {"fire": 1},
-		"cooldown": 5.0
-	}, preload("res://scenes/spells/fire/fire_aura.tscn")],
-	"void_snare": ["target_pos", {
-		"mana_cost": {"dark": 1},
-		"cooldown": 1.5
-	}, preload("res://scenes/spells/void/void_snare.tscn")],
-	"void_laser": ["marker", {
-		"mana_cost": {"dark": 0},
-		"cooldown": 1
-	}, preload("res://scenes/spells/void/void_laser.tscn")]
-}
+var SPELLS: Dictionary = {}
 
 var spell_data: Dictionary = {}
 
@@ -30,24 +13,26 @@ func _ready():
 		print("SpellRegistry loaded with %d spells." % spell_data.size())
 	else:
 		push_error("Failed to load res://data/spells.json")
+		
+	for spell_name in spell_data.keys():
+		var spell_info: Dictionary = spell_data[spell_name]
+		var spell_path: String = spell_info.get("scene", "")
+		if spell_path == "":
+			push_error("Missing 'scene' for spell: %s" % spell_name)
+			continue
+
+		var packed_scene = load(spell_path)
+		if not packed_scene:
+			push_error("Failed to load scene: %s" % spell_path)
+			continue
+
+		SPELLS[spell_name] = spell_info
+		SPELLS[spell_name]["packed_scene"] = packed_scene
 
 
-func get_spell_info(spell_id: String) -> Dictionary:
-	return spell_data.get(spell_id, {})
+func get_spell_info(spell_name: String) -> Dictionary:
+	return SPELLS.get(spell_name, {})
 	
 	
 func get_spell_list() -> Array[String]:
-	return spell_data.keys()
-
-
-func instantiate_spell_scene(spell_id: String) -> Node:
-	var spell_info = get_spell_info(spell_id)
-	var scene_path = spell_info.get("scene", "")
-	if scene_path == "":
-		push_error("No scene found for spell: %s" % spell_id)
-		return null
-	var packed_scene := load(scene_path)
-	if packed_scene == null:
-		push_error("Failed to load scene for spell: %s" % spell_id)
-		return null
-	return packed_scene.instantiate()
+	return SPELLS.keys()
