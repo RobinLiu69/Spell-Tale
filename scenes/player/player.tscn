@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://baeupmwvx1kib"]
+[gd_scene load_steps=28 format=3 uid="uid://baeupmwvx1kib"]
 
 [ext_resource type="Texture2D" uid="uid://buxqa7rdfotov" path="res://resources/images/players/rabbit/idle/player.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dlvhwpsrbw6mc" path="res://entity/player/player.gd" id="1_g2els"]
