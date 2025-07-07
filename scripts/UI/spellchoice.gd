@@ -2,19 +2,22 @@ extends Control
 
 @onready var category_dropdown: OptionButton = $UI/RightPanel/CategoryDropdown
 @onready var spell_scroll := $UI/RightPanel/SpellScroll/SpellList
-@onready var action_button := $UI/RightPanel/ActionButton
+@onready var action_button := $UI/RightPanel/VBoxContainer/ActionButton
 @onready var confirm_button := $UI/LeftPanel/ConfirmButton
 @onready var fight_button := $UI/LeftPanel/FightButton
-@onready var message_label := $UI/RightPanel/MessageLabel
+@onready var message_label := $UI/RightPanel/VBoxContainer/SpellNameLabel
 @onready var notify_label := $UI/LeftPanel/NotifyLabel
 @onready var character_preview_label := $UI/LeftPanel/CharacterPreviewLabel
 @onready var tooltip_panel := $CanvasLayer/SpellTooltip
 @onready var tooltip_name := $CanvasLayer/SpellTooltip/VBoxContainer/NameLabel
 @onready var tooltip_desc := $CanvasLayer/SpellTooltip/VBoxContainer/DescLabel
-@onready var spell_info_label := $UI/RightPanel/SpellInfoLabel
-@onready var spell_name_label: Label = $UI/RightPanel/SpellNameLabel
+@onready var spell_info_label := $UI/RightPanel/VBoxContainer/SpellInfoLabel
+@onready var spell_name_label := $UI/RightPanel/VBoxContainer/SpellNameLabel
 @onready var preview_sprite := $UI/LeftPanel/CharacterPreview/ChracterSelector/PreviewSprite
 @onready var character_name := $UI/LeftPanel/CharacterName
+@onready var element_list := $UI/RightPanel/ScrollContainer/VBoxContainer
+
+var selected_element := ""
 
 
 @onready var selected_spell_slots := [
@@ -37,7 +40,7 @@ var tooltip_follow_mouse := false
 var character_data := {}               
 var character_list := []              
 var current_character_index := 0
-
+var restored_ids: Array[String] = []
 
 
 func _ready():
@@ -52,9 +55,19 @@ func _ready():
 	$BackButtonAction.action = Callable(self,"_on_back_button_pressed")
 	$UI/LeftPanel/CharacterPreview/ChracterSelector/LeftButtonAction.action = Callable(self,"_on_left_pressed")
 	$UI/LeftPanel/CharacterPreview/ChracterSelector/RightButtonAction.action = Callable(self,"_on_right_pressed")
-	update_ui_state()
 	_update_character_preview()
+	_connect_element_buttons()
+	
+	if Global.spell_1 != "":
+		restored_ids.append(Global.spell_1)
+	if Global.spell_2 != "":
+		restored_ids.append(Global.spell_2)
+	if Global.spell_3 != "":
+		restored_ids.append(Global.spell_3)
+
+	selected_spell_ids = restored_ids
 	_update_spell_slots()
+	update_ui_state()
 
 func _process(delta):
 	if tooltip_follow_mouse and tooltip_panel.visible:
@@ -212,18 +225,31 @@ func _on_spell_hover_exited():
 	tooltip_follow_mouse = false 
 
 func _on_confirm_pressed():
-	if selected_spell_ids.size() == 3:
+	var count := selected_spell_ids.size()
+	if count > 0:
 		Global.spell_1 = selected_spell_ids[0]
-		Global.spell_2 = selected_spell_ids[1]
-		Global.spell_3 = selected_spell_ids[2]
-		fight_button.visible = true
-		notify_label.visible = true
-		notify_label.text = "Data saved, ready to battle !"
+		Global.spell_2 = selected_spell_ids[1] if count > 1 else ""
+		Global.spell_3 = selected_spell_ids[2] if count > 2 else ""
+
+		if count == 3:
+			notify_label.text = "Spells saved. Ready to battle !"
+			notify_label.visible = true 
+			fight_button.visible = true  
+		else:
+			notify_label.text = "Spells saved. not ready for battle !"
+			notify_label.visible = true
+
+		if selected_element != "":
+			var mana = ManaComponent.new()
+			mana.set_mana_limit(selected_element, 10, 5)
+			Global.player_mana_component = mana
+
+		Global.selected_element = selected_element
 		update_ui_state()
+
 
 func _on_fight_pressed():
 	_on_confirm_pressed()
-	print("Ready to fight with:", Global.spell_1, Global.spell_2, Global.spell_3)
 	get_tree().change_scene_to_file("res://scenes/games/game.tscn")
 	
 func _on_back_button_pressed():
@@ -254,6 +280,40 @@ func _update_character_preview():
 	var texture = load(char_info["texture_path"])
 	preview_sprite.texture = texture
 
-
 	character_name.text = char_info["name"]
 	Global.selected_character = char_id
+	
+func _connect_element_buttons():
+	for box in element_list.get_children():
+		# 確認這是一個 HBoxContainer，並且裡面有我們要的節點
+		if not box is HBoxContainer:
+			continue
+		if box.has_node("ChooseButton") and box.has_node("Label"):
+			var choose_button := box.get_node("ChooseButton")
+			var label := box.get_node("Label")
+			# 將 element 名稱從 Label 中取出
+			var element_name = label.text.strip_edges().to_lower()
+			# 綁定事件（包含 box 自己和 element 名）
+			choose_button.connect("pressed", Callable(self, "_on_element_chosen").bind(box, element_name))
+
+func _on_element_chosen(box: HBoxContainer, element_name: String):
+	selected_element = element_name
+	notify_label.text = "Element selected: %s" % selected_element.capitalize()
+	notify_label.visible = true
+
+	# 清空所有 StatusLabel 的文字
+	for other_box in element_list.get_children():
+		if other_box.has_node("StatusLabel"):
+			other_box.get_node("StatusLabel").text = ""
+
+	# 在被選擇的那個元素上顯示已選擇
+	if box.has_node("StatusLabel"):
+		box.get_node("StatusLabel").text = "Element Chosen"
+	
+	for other_box in element_list.get_children():
+		if other_box.has_node("StatusLabel"):
+			other_box.get_node("StatusLabel").text = ""
+
+
+	if box.has_node("StatusLabel"):
+		box.get_node("StatusLabel").text = "Element Chosen"

@@ -5,6 +5,7 @@ extends Node2D
 @onready var esc_menu: Control = $UI/EscMenu
 @onready var multiplayer_scene = preload("res://scenes/ui/multiplayer.tscn")
 @onready var modechoice_scene = preload("res://scenes/ui/modechoice.tscn")
+@onready var battle_UI_scene = $UI/Battle_UI
 @onready var port_display: MarginContainer = $UI/PortDisplay
 @onready var port: Label = $UI/PortDisplay/Port
 @onready var port_in_game: Label = $UI/PortDisplayInGame/PortInGame
@@ -12,12 +13,11 @@ extends Node2D
 @onready var count_down_label: Label = $UI/CountDownDisplay/CountDownLabel
 @onready var count_down_display: MarginContainer = $UI/CountDownDisplay
 
-
 var peer = ENetMultiplayerPeer.new()
 var players: Array[Player] = []
 var used_spawn_indices: Array[int] = []
 const MAX_PLAYERS := 2
-
+var local_player: Player = null
 
 func _ready() -> void:
 	randomize()
@@ -39,9 +39,7 @@ func _ready() -> void:
 		Global.multiplayer_ui_status = false
 
 func setup_menu_player_reference():
-	var esc_menu = $UI/EscMenu
-	var player = $Player
-	esc_menu.player = player
+	esc_menu.player = $Player
 	$Player/MultiplayerSynchronizer.queue_free()
 	$Player/HealthBar/MultiplayerSynchronizer.queue_free()
 
@@ -51,19 +49,16 @@ func port_manifest() -> void:
 	port_in_game.text = "Room port is: " + str(Global.server_port)
 	await get_tree().create_timer(5).timeout
 	port_display.visible = false
-	
-	
-	
+
 func _input(event) -> void:
-	if event.is_action_pressed("ui_cancel") && get_tree().current_scene.name == "Game":
+	if event.is_action_pressed("ui_cancel") and get_tree().current_scene.name == "Game":
 		toggle_pause_menu()
 
 func toggle_pause_menu():
-	esc_menu.visible = ! Global.menu_status
+	esc_menu.visible = !Global.menu_status
 	if Global.is_multiplayer_mode:
-		port_display_in_game.visible = ! Global.menu_status
-	Global.menu_status = ! Global.menu_status
-	
+		port_display_in_game.visible = !Global.menu_status
+	Global.menu_status = !Global.menu_status
 
 func _process(delta: float) -> void:
 	pass
@@ -80,9 +75,7 @@ func host_room() -> void:
 	var mp = get_tree().get_multiplayer()
 	mp.peer_disconnected.connect(_on_peer_disconnected)
 	mp.peer_connected.connect(_on_peer_connected)
-
 	await get_tree().create_timer(0.1).timeout
-	
 	$MultiplayerSpawner.spawn_function = add_player
 	$MultiplayerSpawner.spawn(multiplayer.get_unique_id())
 	Global.multiplayer_ui_status = false
@@ -120,10 +113,8 @@ func cleanup_multiplayer():
 		multiplayer.multiplayer_peer.close()
 		multiplayer.multiplayer_peer = null
 
-	
 	var new_multiplayer := SceneMultiplayer.new()
 	get_tree().set_multiplayer(new_multiplayer)
-	#await get_tree().create_timer(0.1).timeout
 	used_spawn_indices.clear()
 
 func _on_peer_connected(pid):
@@ -136,13 +127,10 @@ func _on_peer_connected(pid):
 	if players.size() == MAX_PLAYERS and multiplayer.is_server():
 		rpc("start_countdown")
 
-		
-			
 func _on_peer_disconnected(pid):
 	print("delete player")
 	del_player(pid)
-	
-		
+
 func _on_server_disconnected():
 	print("Disconnected from server")
 	cleanup_multiplayer()
@@ -151,7 +139,6 @@ func _on_server_disconnected():
 func _on_connection_failed():
 	print("Connection to server failed")
 	get_tree().change_scene_to_packed(modechoice_scene)
-
 
 func add_player(pid) -> Node2D:
 	if players.size() >= MAX_PLAYERS:
@@ -163,7 +150,6 @@ func add_player(pid) -> Node2D:
 	var player: Player = player_scene.instantiate()
 	player.name = str(pid)
 
-
 	var spawn_index := -1
 	var level_children := $Level.get_child_count()
 	for i in level_children:
@@ -173,12 +159,26 @@ func add_player(pid) -> Node2D:
 	if spawn_index == -1:
 		spawn_index = 0
 	used_spawn_indices.append(spawn_index)
-
 	player.global_position = $Level.get_child(spawn_index).global_position
-	
+
 	if pid == multiplayer.get_unique_id():
+		local_player = player
 		$UI/EscMenu.player = player
+
 	players.append(player)
+	if player.has_node("ManaComponent"):
+		var mc = player.get_node("ManaComponent")
+		if pid == multiplayer.get_unique_id():
+			Global.player_mana_component = mc
+		else:
+			Global.enemy_mana_component = mc
+			
+			if player.has_method("get_selected_element"):
+				Global.enemy_element = player.get_selected_element()
+			elif "selected_element" in player:
+				Global.enemy_element = player.selected_element
+			else:
+				Global.enemy_element = "fire"  # fallback 預設值
 	return player
 
 func show_countdown_ui(duration: int):
@@ -187,13 +187,10 @@ func show_countdown_ui(duration: int):
 		count_down_label.text = "Battle starts in " + str(i) + " Second"
 		await get_tree().create_timer(1).timeout
 	count_down_label.text = "Battle Starts!"
-	
 
 func hide_countdown_ui():
 	await get_tree().create_timer(3).timeout
 	count_down_display.visible = false
-	
-	
 
 func del_player(pid):
 	rpc("_del_player", pid)
@@ -218,14 +215,11 @@ func notify_clients_game_ending():
 	await cleanup_multiplayer()
 	get_tree().change_scene_to_packed(modechoice_scene)
 	AudioManager.play_bgm()
-	
-	
+
 @rpc("authority", "call_remote")
 func kick_from_full_room():
 	print("Room is full, you are being disconnected.")
 	get_tree().change_scene_to_packed(modechoice_scene)
-
-
 
 @rpc("any_peer", "call_local")
 func start_countdown():
@@ -234,11 +228,21 @@ func start_countdown():
 		player.can_cast = false
 
 	show_countdown_ui(5)
-
 	await get_tree().create_timer(5).timeout
 
 	for player in players:
 		player.can_move = true
 		player.can_cast = true
 
-	hide_countdown_ui()
+	if is_instance_valid(battle_UI_scene):
+		battle_UI_scene.visible = true
+		battle_UI_scene.local_player = local_player
+		battle_UI_scene.remote_player = players.filter(func(p): return p != local_player)[0]
+		battle_UI_scene.assign_player_roles()
+		
+		battle_UI_scene.init_player_ui()
+		battle_UI_scene.init_enemy_ui()
+		battle_UI_scene.connect_health_signals()
+		battle_UI_scene.connect_mana_signals()
+
+		hide_countdown_ui()

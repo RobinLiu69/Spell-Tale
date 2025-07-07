@@ -29,9 +29,17 @@ var brightness_value: float = 0.0
 
 #spell
 var spell_1: String = "fireball"
-var spell_2: String = "fireball"
+var spell_2: String = ""fire_aura""
 var spell_3: String = "water_orb_spell"
 
+
+#mana
+var player_mana_component: ManaComponent = null
+var enemy_mana_component: ManaComponent = null
+
+#element
+var selected_element: String = ""
+var enemy_element: String = ""
 #character
 var selected_character: String = ""
 

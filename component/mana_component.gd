@@ -12,13 +12,13 @@ var max_mana: Dictionary = {
 	"dark": 10,
 }
 var current_mana: Dictionary = {
-	"fire": 5,
+	"fire": 10,
 	"water": 10,
 	"earth": 0,
 	"grass": 0,
 	"electric": 0,
 	"light": 0,
-	"dark": 0,
+	"dark": 10,
 }
 
 # 回復設定
@@ -31,6 +31,8 @@ var gain_log: Array[String] = []
 @export var gain_log_max_len: int = 20
 
 var _regen_timers: Dictionary = {}
+
+signal mana_changed(current_mana)
 
 func _ready():
 	for element in regen_elements:
@@ -68,6 +70,7 @@ func gain_mana(element: String, amount: int) -> void:
 	if current_mana[element] > old_value:
 		for i in amount:
 			_add_to_gain_log(element)
+		emit_signal("mana_changed", current_mana)
 
 func has_enough_multi(cost_dict: Dictionary) -> bool:
 	for element in cost_dict.keys():
@@ -81,7 +84,16 @@ func use_mana_multi(cost_dict: Dictionary) -> bool:
 		return false
 	for element in cost_dict.keys():
 		current_mana[element] -= cost_dict[element]
+		
+	emit_signal("mana_changed", current_mana)
+	rpc("sync_mana", current_mana)
 	return true
+	
+@rpc("any_peer", "call_local")
+func sync_mana(current: Dictionary):
+	current_mana = current
+	emit_signal("mana_changed", current_mana)
+
 
 
 func set_regen_elements(elements: Array[String]) -> void:
