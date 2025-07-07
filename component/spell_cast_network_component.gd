@@ -23,3 +23,8 @@ func server_cast(spell_name: String, target_pos: Vector2, caster_pid: int):
 func spawn_spell(spell_name: String, target_pos: Vector2, caster_pid: int, spell_id: int):
 	spell_factory.spawn_spell(spell_name, target_pos, caster_pid, spell_id)
 	SpellManager.register_spell(spell_id, spell_factory.last_spawned_spell)
+	
+	if caster_pid != multiplayer.get_unique_id():
+		var battle_ui := get_tree().get_root().get_node("Game/UI/Battle_UI")
+		if battle_ui:
+			battle_ui.update_enemy_skill(-1, spell_name)	

@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://rt681behr4uf"]
+
+[ext_resource type="Script" uid="uid://clbsotfxow0qe" path="res://scripts/UI/battle_ui.gd" id="1_uis45"]
+[ext_resource type="PackedScene" uid="uid://dbthbwirn2glv" path="res://scenes/player/health_bar.tscn" id="2_ye485"]
+[ext_resource type="PackedScene" uid="uid://duqvaikwlc7n0" path="res://scenes/player/mana_bar.tscn" id="3_l0ctv"]
+
+[node name="Battle_UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uis45")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerPanel" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MarginContainer/PlayerPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+
+[node name="HealthBar" parent="MarginContainer/PlayerPanel" instance=ExtResource("2_ye485")]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="ManaBar" parent="MarginContainer/PlayerPanel" instance=ExtResource("3_l0ctv")]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="SkillGroup" type="HBoxContainer" parent="MarginContainer/PlayerPanel"]
+layout_mode = 2
+
+[node name="EnemyPanel" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MarginContainer/EnemyPanel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+
+[node name="HealthBar" parent="MarginContainer/EnemyPanel" instance=ExtResource("2_ye485")]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="ManaBar" parent="MarginContainer/EnemyPanel" instance=ExtResource("3_l0ctv")]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="SkillGroup" type="HBoxContainer" parent="MarginContainer/EnemyPanel"]
+layout_mode = 2

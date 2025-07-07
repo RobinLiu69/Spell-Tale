@@ -3,6 +3,8 @@ extends Component
 
 @export var health_bar: HealthBar
 
+signal health_changed(new_health)
+
 var health: float = 10.0
 
 func _ready() -> void:
@@ -12,3 +14,4 @@ func damage(attack: Attack):
 	health -= attack.damage
 	health_bar.health = health
 	print(health)
+	emit_signal("health_changed", health)

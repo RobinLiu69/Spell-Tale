@@ -1,9 +1,10 @@
-[gd_scene load_steps=26 format=3 uid="uid://baeupmwvx1kib"]
+[gd_scene load_steps=27 format=3 uid="uid://baeupmwvx1kib"]
 
 [ext_resource type="Texture2D" uid="uid://buxqa7rdfotov" path="res://resources/images/players/rabbit/idle/player.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dlvhwpsrbw6mc" path="res://entity/player/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://wo4fm38ftpwo" path="res://component2D/spell_con_component.gd" id="3_5gtgg"]
 [ext_resource type="PackedScene" uid="uid://dbthbwirn2glv" path="res://scenes/player/health_bar.tscn" id="3_gmlin"]
+[ext_resource type="PackedScene" uid="uid://duqvaikwlc7n0" path="res://scenes/player/mana_bar.tscn" id="4_3j4b4"]
 [ext_resource type="Script" uid="uid://bqqufaikvwb6f" path="res://component/status_effect_component.gd" id="4_lvxji"]
 [ext_resource type="Script" uid="uid://bpfkuhklhvfql" path="res://component/behavior/walk_behavior.gd" id="5_p47bc"]
 [ext_resource type="Script" uid="uid://ca0hpxki4n0lq" path="res://component/behavior_component.gd" id="6_75vfm"]
@@ -91,6 +92,10 @@ offset_left = -55.0
 offset_top = -82.0
 offset_right = 45.0
 offset_bottom = -67.0
+max_value = 10.0
+value = 10.0
+
+[node name="ManaBar" parent="." instance=ExtResource("4_3j4b4")]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_qlg0r")

@@ -238,10 +238,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 15
 text = "choose"
 
-[node name="ChooseAction" type="Node" parent="UI/RightPanel/ScrollContainer/VBoxContainer/FireContainer"]
-script = ExtResource("2_pw2n1")
-button_path = NodePath("../ChooseButton")
-
 [node name="StatusLabel" type="Label" parent="UI/RightPanel/ScrollContainer/VBoxContainer/FireContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
@@ -259,10 +255,6 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 text = "choose"
-
-[node name="ChooseAction" type="Node" parent="UI/RightPanel/ScrollContainer/VBoxContainer/WaterContainer"]
-script = ExtResource("2_pw2n1")
-button_path = NodePath("../ChooseButton")
 
 [node name="StatusLabel" type="Label" parent="UI/RightPanel/ScrollContainer/VBoxContainer/WaterContainer"]
 layout_mode = 2
@@ -282,10 +274,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 15
 text = "choose"
 
-[node name="ChooseAction" type="Node" parent="UI/RightPanel/ScrollContainer/VBoxContainer/EarthContainer"]
-script = ExtResource("2_pw2n1")
-button_path = NodePath("../ChooseButton")
-
 [node name="StatusLabel" type="Label" parent="UI/RightPanel/ScrollContainer/VBoxContainer/EarthContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
@@ -303,10 +291,6 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 text = "choose"
-
-[node name="ChooseAction" type="Node" parent="UI/RightPanel/ScrollContainer/VBoxContainer/GrassContainer"]
-script = ExtResource("2_pw2n1")
-button_path = NodePath("../ChooseButton")
 
 [node name="StatusLabel" type="Label" parent="UI/RightPanel/ScrollContainer/VBoxContainer/GrassContainer"]
 layout_mode = 2
@@ -326,10 +310,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 15
 text = "choose"
 
-[node name="ChooseAction" type="Node" parent="UI/RightPanel/ScrollContainer/VBoxContainer/ElectricContainer"]
-script = ExtResource("2_pw2n1")
-button_path = NodePath("../ChooseButton")
-
 [node name="StatusLabel" type="Label" parent="UI/RightPanel/ScrollContainer/VBoxContainer/ElectricContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
@@ -347,10 +327,6 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 text = "choose"
-
-[node name="ChooseAction" type="Node" parent="UI/RightPanel/ScrollContainer/VBoxContainer/LightContainer"]
-script = ExtResource("2_pw2n1")
-button_path = NodePath("../ChooseButton")
 
 [node name="StatusLabel" type="Label" parent="UI/RightPanel/ScrollContainer/VBoxContainer/LightContainer"]
 layout_mode = 2
