@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dat1qym2ki01u"
-path="res://.godot/imported/void_snare_1.png-6ace9441df18d9ff53ee93e7b22e16a5.ctex"
+uid="uid://dn76tr6dr4q0i"
+path="res://.godot/imported/water_orb.png-5736b9de6ec9e8a933bf86a701626e81.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/icons/void_snare_1.png"
-dest_files=["res://.godot/imported/void_snare_1.png-6ace9441df18d9ff53ee93e7b22e16a5.ctex"]
+source_file="res://resources/icons/water_orb.png"
+dest_files=["res://.godot/imported/water_orb.png-5736b9de6ec9e8a933bf86a701626e81.ctex"]
 
 [params]
 

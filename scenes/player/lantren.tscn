@@ -1,0 +1,111 @@
+[gd_scene load_steps=8 format=3 uid="uid://bfg2o8uuu0eh8"]
+
+[ext_resource type="Texture2D" uid="uid://cxn3h8f3qiubn" path="res://resources/images/players/rabbit/lantern/lantern_light.png" id="1_vf5dl"]
+[ext_resource type="Script" uid="uid://dvoqm4c6nrh5j" path="res://scripts/lantren.gd" id="1_wj324"]
+[ext_resource type="Texture2D" uid="uid://b501740mq0ra2" path="res://resources/images/players/rabbit/lantern/back.png" id="2_byoga"]
+[ext_resource type="Texture2D" uid="uid://c7s0po88llxqq" path="res://resources/images/players/rabbit/lantern/lantren_dark.png" id="2_pqnw4"]
+
+[sub_resource type="Animation" id="Animation_jfd07"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MovementCon/Light:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 0, 0.403922)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MovementCon/Light:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MovementCon/Lantren:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_pqnw4")]
+}
+
+[sub_resource type="Animation" id="Animation_7l6pk"]
+resource_name = "flash"
+length = 2.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MovementCon/Light:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 0, 0.403922), Color(1, 1, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MovementCon/Light:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MovementCon/Lantren:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("1_vf5dl"), ExtResource("2_pqnw4")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cuc36"]
+_data = {
+&"RESET": SubResource("Animation_jfd07"),
+&"flash": SubResource("Animation_7l6pk")
+}
+
+[node name="Lantren" type="Node2D"]
+script = ExtResource("1_wj324")
+
+[node name="MovementCon" type="Node2D" parent="."]
+
+[node name="Light" type="Sprite2D" parent="MovementCon"]
+visible = false
+modulate = Color(1, 1, 0, 0.403922)
+scale = Vector2(1.25, 1.25)
+texture = ExtResource("2_byoga")
+
+[node name="Lantren" type="Sprite2D" parent="MovementCon"]
+texture = ExtResource("2_pqnw4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_cuc36")
+}

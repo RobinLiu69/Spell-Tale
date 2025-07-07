@@ -11,7 +11,7 @@ extends Component2D
 func update_component(delta):
 	self.look_at(entity.mouse_pos)
 
-func request_cast(spell_name: String, target_pos: Vector2):
+func request_cast(spell_name: String, target_pos: Vector2) -> bool:
 	var my_id = multiplayer.get_unique_id()
 
 	var spell_info = SpellRegistry.get_spell_info(spell_name)
@@ -21,12 +21,12 @@ func request_cast(spell_name: String, target_pos: Vector2):
 
 	if cooldown_component and cooldown_component.is_on_cooldown(spell_name):
 		print("Spell", spell_name, "is on cooldown.")
-		return
+		return false
 
 	var mana_component = entity.get_node_or_null("ManaComponent")
 	if mana_component and not mana_component.has_enough_multi(mana_cost):
 		print("Not enough mana to cast", spell_name)
-		return
+		return false
 
 	if cooldown_component:
 		if cooldown > 0:
@@ -38,3 +38,4 @@ func request_cast(spell_name: String, target_pos: Vector2):
 		entity.get_node("SpellCastNetworkComponent").server_cast(spell_name, target_pos, my_id)
 	else:
 		entity.get_node("SpellCastNetworkComponent").rpc_id(1, "server_cast", spell_name, target_pos, my_id)
+	return true

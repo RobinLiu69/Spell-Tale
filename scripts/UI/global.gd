@@ -29,8 +29,8 @@ var brightness_value: float = 0.0
 
 #spell
 var spell_1: String = "fireball"
-var spell_2: String = "fire_aura"
-var spell_3: String = "void_snare"
+var spell_2: String = ""fire_aura""
+var spell_3: String = "water_orb_spell"
 
 
 #mana

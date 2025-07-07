@@ -27,6 +27,7 @@ func _ready():
 			continue
 
 		SPELLS[spell_name] = spell_info
+
 		SPELLS[spell_name]["packed_scene"] = packed_scene
 
 

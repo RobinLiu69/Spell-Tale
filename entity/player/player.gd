@@ -2,8 +2,9 @@ extends CharacterBody2D
 class_name Player
 
 @onready var spell_con_component: Node2D = $SpellConComponent
-@onready var cooldown_component: CooldownComponent = $CooldownComponent
+@onready var cooldown_component := $CooldownComponent
 @onready var health_bar := $HealthBar
+@onready var health_component := $HealthComponent
 @onready var status_effect_manager: Node2D = $StatusEffectManager
 @onready var camera_2d := $Camera2D
 @onready var player_sprite := $PlayerSprite
@@ -45,6 +46,8 @@ func _ready() -> void:
 	
 	camera_2d.enabled = is_multiplayer_authority()
 	
+	PlayerManager.register_player(multiplayer.get_unique_id(), self)
+	
 	if !is_multiplayer_authority():
 		player_sprite.modulate = Color.RED
 	
@@ -60,6 +63,11 @@ func _physics_process(delta: float) -> void:
 		update_movement_timer(delta)
 	
 	move_and_slide()
+
+func got_hit(attack: Attack):
+	if health_component:
+		$lantren.flash()
+		health_component.damage(attack)
 
 func component_handler(delta):
 	var components = [
@@ -96,4 +104,5 @@ func update_movement_timer(delta: float):
 func request_cast(spell_name, target_pos):
 	if not can_cast:
 		return 
-	spell_con_component.request_cast(spell_name, target_pos)
+	if spell_con_component.request_cast(spell_name, target_pos):
+		$lantren.flash()
