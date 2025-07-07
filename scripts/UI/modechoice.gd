@@ -10,7 +10,7 @@ func _on_leave_pressed() -> void:
 
 func _go_to_online_battle() -> void:
 	Global.is_multiplayer_mode = true
-	get_tree().change_scene_to_file("res://scenes/games/game.tscn")
+	get_tree().change_scene_to_file("res://scenes/ui/spellchoice.tscn")
 
 
 func _go_to_training_room() -> void:
