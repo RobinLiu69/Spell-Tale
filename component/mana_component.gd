@@ -13,7 +13,7 @@ var max_mana: Dictionary = {
 }
 var current_mana: Dictionary = {
 	"fire": 5,
-	"water": 0,
+	"water": 10,
 	"earth": 0,
 	"grass": 0,
 	"electric": 0,

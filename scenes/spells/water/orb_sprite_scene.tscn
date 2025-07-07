@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://84glev1j43ar"]
+
+[ext_resource type="Texture2D" uid="uid://45ng3w0qa1cm" path="res://resources/images/spells/water/water_orb_0.png" id="1_5r1mg"]
+
+[node name="OrbSprite" type="Sprite2D"]
+texture = ExtResource("1_5r1mg")

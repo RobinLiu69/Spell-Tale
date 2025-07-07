@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://bucko5s5pt3k6"]
+
+[ext_resource type="Script" uid="uid://cupxqo1v0qrfp" path="res://scripts/spells/water/water_orb.gd" id="1_jk74x"]
+[ext_resource type="Script" uid="uid://cm8jpnxk4eqex" path="res://component2D/hitbox_component.gd" id="2_i1gwu"]
+[ext_resource type="Texture2D" uid="uid://ydit2tp8ck8u" path="res://resources/images/spells/water/water_orb_1.png" id="2_pjuyb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pjuyb"]
+radius = 13.991
+height = 41.9814
+
+[node name="WaterOrb" type="Node2D"]
+script = ExtResource("1_jk74x")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_pjuyb")
+
+[node name="ExisitingTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("")
+
+[node name="HitboxComponent" type="Node2D" parent="." node_paths=PackedStringArray("spell", "hitbox")]
+script = ExtResource("2_i1gwu")
+spell = NodePath("..")
+hitbox = NodePath("Hitbox")
+
+[node name="Hitbox" type="Area2D" parent="HitboxComponent"]
+collision_layer = 48
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent/Hitbox"]
+position = Vector2(-6, -1.86265e-09)
+rotation = 1.57933
+shape = SubResource("CapsuleShape2D_pjuyb")
+
+[connection signal="timeout" from="ExisitingTimer" to="." method="_on_exisiting_timer_timeout"]

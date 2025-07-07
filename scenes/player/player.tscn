@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://baeupmwvx1kib"]
+[gd_scene load_steps=27 format=3 uid="uid://baeupmwvx1kib"]
 
 [ext_resource type="Texture2D" uid="uid://buxqa7rdfotov" path="res://resources/images/players/rabbit/idle/player.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dlvhwpsrbw6mc" path="res://entity/player/player.gd" id="1_g2els"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://78hvbas5gwgm" path="res://component/behavior/ledge_creep_behavior.gd" id="11_myrg7"]
 [ext_resource type="Script" uid="uid://dktbxf4vjijse" path="res://component/input_component.gd" id="12_fm80t"]
 [ext_resource type="Script" uid="uid://b0q5xj30eh6rj" path="res://component/health_component.gd" id="12_ugbui"]
+[ext_resource type="PackedScene" uid="uid://bfg2o8uuu0eh8" path="res://scenes/player/lantren.tscn" id="13_3j4b4"]
 [ext_resource type="Script" uid="uid://skmlnsw3bj2h" path="res://component2D/hurtbox_component.gd" id="13_fcs02"]
 [ext_resource type="Script" uid="uid://bwlxtoi3sbpvw" path="res://component/camera_component.gd" id="13_gx1jg"]
 [ext_resource type="Script" uid="uid://diftt7f120wan" path="res://component/spell_factory_component.gd" id="17_kvlxm"]
@@ -87,10 +88,10 @@ libraries = {
 position_smoothing_enabled = true
 
 [node name="HealthBar" parent="." instance=ExtResource("3_gmlin")]
-offset_left = -55.0
-offset_top = -82.0
-offset_right = 45.0
-offset_bottom = -67.0
+offset_left = -52.0
+offset_top = -89.0
+offset_right = 48.0
+offset_bottom = -74.0
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_qlg0r")
@@ -113,11 +114,10 @@ position = Vector2(40, 0)
 points = PackedVector2Array(0, 0, 25, 0)
 width = 3.0
 
-[node name="HurtboxComponent" type="Node2D" parent="." node_paths=PackedStringArray("entity", "health_component", "hurtbox")]
+[node name="HurtboxComponent" type="Node2D" parent="." node_paths=PackedStringArray("entity", "hurtbox")]
 physics_interpolation_mode = 1
 script = ExtResource("13_fcs02")
 entity = NodePath("..")
-health_component = NodePath("../HealthComponent")
 hurtbox = NodePath("Hurtbox")
 
 [node name="Hurtbox" type="Area2D" parent="HurtboxComponent"]
@@ -151,6 +151,9 @@ component = NodePath("..")
 [node name="LedgeCreepBehavior" type="Node" parent="BehaviorComponent" node_paths=PackedStringArray("component")]
 script = ExtResource("11_myrg7")
 component = NodePath("..")
+
+[node name="lantren" parent="." node_paths=PackedStringArray("rabbit") instance=ExtResource("13_3j4b4")]
+rabbit = NodePath("../PlayerSprite")
 
 [node name="InputComponent" type="Node" parent="." node_paths=PackedStringArray("entity")]
 script = ExtResource("12_fm80t")

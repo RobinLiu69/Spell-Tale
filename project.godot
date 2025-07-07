@@ -26,6 +26,7 @@ AudioManager="*res://scripts/UI/AudioManager.gd"
 SpellRegistry="*res://scripts/spells/SpellRegistry.gd"
 SpellManager="*res://scripts/spells/SpellManager.gd"
 BrightnessManager="*res://scenes/ui/Brightness_manager.tscn"
+PlayerManager="*res://scripts/player/PlayerManager.gd"
 
 [display]
 

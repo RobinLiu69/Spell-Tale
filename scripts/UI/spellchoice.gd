@@ -17,8 +17,6 @@ extends Control
 @onready var character_name := $UI/LeftPanel/CharacterName
 
 
-
-
 @onready var selected_spell_slots := [
 	$UI/LeftPanel/SpellSlots/QSpell/PanelContainer/QSlot,
 	$UI/LeftPanel/SpellSlots/WSpell/PanelContainer/WSlot,

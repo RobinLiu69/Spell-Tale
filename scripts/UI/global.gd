@@ -28,9 +28,9 @@ var brightness_value: float = 0.0
 
 
 #spell
-var spell_1: String = ""
-var spell_2: String = ""
-var spell_3: String = ""
+var spell_1: String = "fireball"
+var spell_2: String = "fireball"
+var spell_3: String = "water_orb_spell"
 
 #character
 var selected_character: String = ""

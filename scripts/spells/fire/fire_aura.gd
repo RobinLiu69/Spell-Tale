@@ -20,9 +20,6 @@ func _ready() -> void:
 
 	$LifeTimer.start(duration)
 
-func _process(delta) -> void:
-	if source:
-		global_position = source.global_position
 
 func hit(hurtbox: HurtboxComponent):
 	var attack = Attack.new()
@@ -32,7 +29,7 @@ func hit(hurtbox: HurtboxComponent):
 	
 @rpc("any_peer", "call_local")
 func request_remove(spell_id: int):
-	SpellManager.request_remove(spell_id)
+	queue_free()
 
 func _request_remove():
 	rpc("request_remove", spell_id)
