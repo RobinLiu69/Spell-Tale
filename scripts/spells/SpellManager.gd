@@ -25,6 +25,8 @@ func remove_on_client(spell_id: int):
 	remove_spell(spell_id)
 
 func remove_spell(spell_id: int):
-	if spell_dict.has(spell_id):
+	if !spell_dict.has(spell_id):
+		return
+	if is_instance_valid(spell_dict[spell_id]):
 		spell_dict[spell_id].queue_free()
-		spell_dict.erase(spell_id)
+	spell_dict.erase(spell_id)

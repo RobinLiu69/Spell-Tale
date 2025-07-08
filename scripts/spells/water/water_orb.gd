@@ -33,4 +33,4 @@ func _request_remove():
 
 @rpc("any_peer", "call_local")
 func request_remove(spell_id: int):
-	SpellManager.remove_spell(spell_id)
+	SpellManager.request_remove(spell_id)
