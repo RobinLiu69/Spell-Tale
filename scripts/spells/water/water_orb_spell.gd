@@ -67,6 +67,7 @@ func _process(delta):
 		fire_interval -= 0.1
 
 	if balls_fired >= fire_order.size():
+		await get_tree().create_timer(0.2).timeout
 		queue_free()
 
 func _fire_waterball():
