@@ -11,6 +11,7 @@ func spawn_spell(spell_name: String, target_pos: Vector2, caster_pid: int, spell
 	var spell: Spell = packed_scene.instantiate()
 
 	spell.set_multiplayer_authority(caster_pid)
+	spell.name += "-"+str(spell_id)
 	spell.caster_pid = caster_pid
 	spell.spell_id = spell_id
 	spell.source = player
