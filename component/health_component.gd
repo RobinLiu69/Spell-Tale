@@ -3,7 +3,7 @@ extends Component
 
 @export var health_bar: HealthBar
 
-signal health_changed(new_health)
+signal health_changed(new_health: float)
 
 var health: float = 10.0
 

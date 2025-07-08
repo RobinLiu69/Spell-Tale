@@ -38,8 +38,9 @@ var player_mana_component: ManaComponent = null
 var enemy_mana_component: ManaComponent = null
 
 #element
-var selected_element: String = ""
-var enemy_element: String = ""
+var selected_element: String = "fire"
+var enemy_element: String = "fire"
+
 #character
 var selected_character: String = ""
 
