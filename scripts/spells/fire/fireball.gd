@@ -20,19 +20,17 @@ func _process(delta):
 	position += transform.x * speed * delta
 
 func hit(hurtbox: HurtboxComponent):
-	if is_multiplayer_authority():
+	if hurtbox:
 		var attack = Attack.new()
 		attack.damage = damage
 		hurtbox.damage.rpc(attack.serialize())
 		_request_remove()
 
 func hit_body(body):
-	if is_multiplayer_authority():
-		_request_remove()
+	_request_remove()
 
 func _on_exisiting_timer_timeout() -> void:
-	if is_multiplayer_authority():
-		_request_remove()
+	_request_remove()
 
 func _request_remove():
 	if is_multiplayer_authority():

@@ -42,15 +42,17 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	spell_1 = Global.spell_1
 	spell_2 = Global.spell_2
-	spell_3= Global.spell_3
+	spell_3 = Global.spell_3
 	
 	camera_2d.enabled = is_multiplayer_authority()
-	
-	PlayerManager.register_player(multiplayer.get_unique_id(), self)
-	
+
+	PlayerManager.register_player(get_multiplayer_authority(), self)
+
+	PlayerManager.rpc("announce_player", get_multiplayer_authority(), get_path())
+
 	if !is_multiplayer_authority():
 		player_sprite.modulate = Color.RED
-	
+
 func _physics_process(delta: float) -> void:
 	if !is_multiplayer_authority():
 		return

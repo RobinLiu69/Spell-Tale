@@ -30,7 +30,6 @@ func hit_body(body):
 func _request_remove():
 	if is_multiplayer_authority():
 		rpc("request_remove", spell_id)
-	request_remove(spell_id)
 
 @rpc("any_peer", "call_local")
 func request_remove(spell_id: int):

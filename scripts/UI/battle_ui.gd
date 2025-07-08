@@ -46,7 +46,7 @@ func init_player_ui():
 		player_hp_bar.init_health(10)
 	
 	if Global.player_mana_component and Global.selected_element != "":
-		print(Global.player_mana_component, Global.selected_element)
+		print("player mana: ",Global.player_mana_component, "player element: ",Global.selected_element)
 		var mana = Global.player_mana_component
 		var element = Global.selected_element
 		player_mana_bar.init_mana(mana.max_mana.get(element, 10))
@@ -60,7 +60,6 @@ func init_enemy_ui():
 	enemy_name_label.text = "Opponent"
 	if enemy_hp_bar:
 		enemy_hp_bar.init_health(10)  # 固定最大血量為 10
-	print(Global.enemy_mana_component," ",Global.enemy_element)
 	if Global.enemy_mana_component:
 		var mana = Global.enemy_mana_component
 		var element = Global.enemy_element
@@ -69,7 +68,7 @@ func init_enemy_ui():
 		enemy_mana_bar.set_bar_color(element_colors.get(element, Color.WHITE))
 
 	enemy_skill_icons = build_skill_ui(["?", "?", "?"], enemy_skill_container, false)
-	print("Enemy Mana:", Global.enemy_mana_component)
+	print("Enemy Mana:", Global.enemy_mana_component," enemy element: ", Global.enemy_element)
 
 func build_mp_ui(mana_component: Dictionary, container: Node):
 	for child in container.get_children():
