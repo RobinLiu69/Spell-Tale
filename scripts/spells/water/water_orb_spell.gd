@@ -35,7 +35,7 @@ func cast():
 		is_casting = true
 		timer = 0.0
 		balls_fired = 0
-		rpc("start_cast")  # 通知其他人
+		rpc("start_cast")
 	else:
 		pass
 
@@ -45,34 +45,34 @@ func start_cast():
 	timer = 0.0
 	balls_fired = 0
 
-	# 設定 spell_factory（每個 peer 都要做）
 	if spell_factory == null:
 		var player = PlayerManager.get_player(caster_pid)
 		if player:
 			spell_factory = player.get_node("SpellFactoryComponent")
-
+		else:
+			push_error("Can't find the targeting player, pid: ", caster_pid)
+		
 func _process(delta):
 	if !is_casting:
 		return
 
-	# 所有人都執行動畫與時間控制
 	rotation_con.rotation += delta * 2.5
 	timer += delta
 
 	if timer >= fire_interval and balls_fired < fire_order.size():
 		if is_multiplayer_authority():
-			_fire_waterball()  # 僅由 authority 執行發射
+			_fire_waterball()
 		timer = 0.0
 		balls_fired += 1
 		fire_interval -= 0.1
 
-	# 所有人都在 balls_fired 到極限後 queue_free
 	if balls_fired >= fire_order.size():
 		queue_free()
 
 func _fire_waterball():
 	if !is_multiplayer_authority():
 		return
+	
 	if balls_fired >= fire_order.size():
 		return
 
@@ -81,7 +81,7 @@ func _fire_waterball():
 		if player:
 			spell_factory = player.get_node("SpellFactoryComponent")
 		else:
-			printerr("Can't find player whose caster_pid is", caster_pid)
+			printerr("Can't find player whose caster_pid is ", caster_pid)
 			return
 	
 	var orb_sprite = fire_order[balls_fired]
@@ -93,7 +93,7 @@ func _fire_waterball():
 	remove_orb_sprite(orb_name)
 
 	var spell_id = SpellManager.get_new_id()
-	rpc("spawn_waterball", spawn_pos, rotation, spell_id)  # 通知所有人建立水球
+	rpc("spawn_waterball", spawn_pos, rotation, spell_id)
 	spawn_waterball(spawn_pos, rotation, spell_id)
 
 @rpc("any_peer")
@@ -111,7 +111,7 @@ func spawn_waterball(pos: Vector2, rot: float, spell_id: int):
 		if player:
 			spell_factory = player.get_node("SpellFactoryComponent")
 		else:
-			printerr("Can't find player whose caster_pid is", caster_pid)
+			printerr("Can't find player whose caster_pid is ", caster_pid)
 			return
 
 	var spell = spell_factory.spawn_spell("water_orb", pos, caster_pid, spell_id)

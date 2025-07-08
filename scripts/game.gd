@@ -161,6 +161,7 @@ func add_player(pid) -> Node2D:
 	used_spawn_indices.append(spawn_index)
 	player.global_position = $Level.get_child(spawn_index).global_position
 
+
 	if pid == multiplayer.get_unique_id():
 		local_player = player
 		$UI/EscMenu.player = player
