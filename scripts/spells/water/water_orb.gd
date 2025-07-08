@@ -9,6 +9,8 @@ var timer := 0.0
 
 func _ready():
 	damage = 1
+	$ExisitingTimer.set_wait_time(5)
+	$ExisitingTimer.start()
 
 func _physics_process(delta):
 	position += transform.x * speed * delta
@@ -23,6 +25,9 @@ func hit(hurtbox: HurtboxComponent):
 		attack.damage = damage
 		hurtbox.damage.rpc(attack.serialize())
 		_request_remove()
+
+func _on_exisiting_timer_timeout() -> void:
+	_request_remove()
 
 func hit_body(body):
 	_request_remove()
