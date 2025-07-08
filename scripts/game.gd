@@ -166,19 +166,43 @@ func add_player(pid) -> Node2D:
 		$UI/EscMenu.player = player
 
 	players.append(player)
+	
+	if player.has_node("HealthComponent"):
+		var hc = player.get_node("HealthComponent")
+		if pid == multiplayer.get_unique_id():
+			if is_instance_valid(battle_UI_scene):
+				hc.health_changed.connect(battle_UI_scene.update_player_health)
+		else:
+			if is_instance_valid(battle_UI_scene):
+				hc.health_changed.connect(battle_UI_scene.update_enemy_health)	
+
+	
 	if player.has_node("ManaComponent"):
 		var mc = player.get_node("ManaComponent")
 		if pid == multiplayer.get_unique_id():
 			Global.player_mana_component = mc
+			Global.selected_element = player.get_selected_element() if player.has_method("get_selected_element") else "fire"
+
+			if is_instance_valid(battle_UI_scene):
+				mc.mana_changed.connect(battle_UI_scene.update_player_mana)
 		else:
 			Global.enemy_mana_component = mc
 			
 			if player.has_method("get_selected_element"):
 				Global.enemy_element = player.get_selected_element()
-			elif "selected_element" in player:
-				Global.enemy_element = player.selected_element
 			else:
-				Global.enemy_element = "fire"  # fallback 預設值
+				var element = player.get("selected_element")
+				if element != null and typeof(element) == TYPE_STRING:
+					Global.enemy_element = element
+				else:
+					Global.enemy_element = "fire"  
+
+		
+			if is_instance_valid(battle_UI_scene):
+				battle_UI_scene.remote_player = player
+				mc.mana_changed.connect(battle_UI_scene.update_enemy_mana)
+				battle_UI_scene.init_enemy_ui()
+	
 	return player
 
 func show_countdown_ui(duration: int):
@@ -194,6 +218,19 @@ func hide_countdown_ui():
 
 func del_player(pid):
 	rpc("_del_player", pid)
+	
+func show_setup_battle_UI(multiplayer_status: bool):
+	if is_instance_valid(battle_UI_scene):
+		battle_UI_scene.visible = true
+		battle_UI_scene.local_player = local_player
+		if not multiplayer_status:
+			battle_UI_scene.remote_player = null
+		
+		battle_UI_scene.assign_player_roles()
+		battle_UI_scene.init_player_ui()
+		battle_UI_scene.connect_health_signals()
+		battle_UI_scene.connect_mana_signals()
+
 
 @rpc("any_peer","call_local")
 func _del_player(pid):
@@ -226,23 +263,12 @@ func start_countdown():
 	for player in players:
 		player.can_move = false
 		player.can_cast = false
-
-	show_countdown_ui(5)
-	await get_tree().create_timer(5).timeout
+	
+	show_countdown_ui(3)
+	await get_tree().create_timer(3).timeout
 
 	for player in players:
 		player.can_move = true
 		player.can_cast = true
-
-	if is_instance_valid(battle_UI_scene):
-		battle_UI_scene.visible = true
-		battle_UI_scene.local_player = local_player
-		battle_UI_scene.remote_player = players.filter(func(p): return p != local_player)[0]
-		battle_UI_scene.assign_player_roles()
-		
-		battle_UI_scene.init_player_ui()
-		battle_UI_scene.init_enemy_ui()
-		battle_UI_scene.connect_health_signals()
-		battle_UI_scene.connect_mana_signals()
 
 		hide_countdown_ui()
