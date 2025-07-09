@@ -51,9 +51,6 @@ func _set_length(length: float):
 	laser_end.position.x = length
 	hitbox_component.position.x = length
 
-@rpc("call_local")
-func remove_self():
-	queue_free()
 
 func _on_timer_timeout() -> void:
-	queue_free()
+	request_remove()

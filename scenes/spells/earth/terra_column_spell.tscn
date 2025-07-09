@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cig05uymv3d0w"]
+
+[ext_resource type="Script" uid="uid://cc1jvm6qmut60" path="res://scripts/spells/earth/terra_column_spell.gd" id="1_t81mi"]
+
+[node name="TerraColumnSpell" type="Node2D"]
+script = ExtResource("1_t81mi")

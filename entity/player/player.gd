@@ -1,11 +1,11 @@
 extends CharacterBody2D
 class_name Player
 
-@onready var spell_con_component: Node2D = $SpellConComponent
+@onready var spell_con_component := $SpellConComponent
 @onready var cooldown_component := $CooldownComponent
 @onready var health_bar := $HealthBar
 @onready var health_component := $HealthComponent
-@onready var status_effect_manager: Node2D = $StatusEffectManager
+@onready var effect_manager_component := $EffectManagerComponent
 @onready var camera_2d := $Camera2D
 @onready var player_sprite := $PlayerSprite
 @onready var spell_con := $SpellConComponent
@@ -33,8 +33,8 @@ var jump = false
 
 var movement_direction = 0
 
-var can_move := true
-var can_cast := true
+var disable_input := true
+var disable_skill := true
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(int(str(name)))
@@ -52,6 +52,10 @@ func _ready() -> void:
 
 	if !is_multiplayer_authority():
 		player_sprite.modulate = Color.RED
+	else:
+		disable_input = false
+		disable_skill = false
+	
 
 func _physics_process(delta: float) -> void:
 	if !is_multiplayer_authority():
@@ -60,15 +64,14 @@ func _physics_process(delta: float) -> void:
 	mouse_pos = get_global_mouse_position()
 	cooldown_component.update_component(delta)
 	
-	if can_move:
-		component_handler(delta)
-		update_movement_timer(delta)
+	component_handler(delta)
+	update_movement_timer(delta)
 	
 	move_and_slide()
 
 func got_hit(attack: Attack):
 	if health_component:
-		$lantren.flash()
+		$Lantren.flash()
 		health_component.damage(attack)
 
 func component_handler(delta):
@@ -76,7 +79,8 @@ func component_handler(delta):
 		get_node_or_null("BehaviorComponent"),
 		get_node_or_null("SpellConComponent"),
 		get_node_or_null("InputComponent"),
-		get_node_or_null("CameraComponent")
+		get_node_or_null("CameraComponent"),
+		get_node_or_null("EffectManagerComponent")
 	]
 	for component in components:
 		if is_instance_valid(component):
@@ -104,7 +108,11 @@ func update_movement_timer(delta: float):
 
 
 func request_cast(spell_name, target_pos):
-	if not can_cast:
+	if disable_skill:
 		return 
 	if spell_con_component.request_cast(spell_name, target_pos):
-		$lantren.flash()
+		rpc("lantren_flash")
+
+@rpc("any_peer", "call_local")
+func lantren_flash():
+	$Lantren.flash()

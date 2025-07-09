@@ -6,6 +6,9 @@ var last_spawned_spell: Spell = null
 
 func spawn_spell(spell_name: String, target_pos: Vector2, caster_pid: int, spell_id: int) -> Spell:
 	var spell_info := SpellRegistry.get_spell_info(spell_name)
+	if !spell_info:
+		printerr("No ", spell_name, " info")
+		return
 	var cast_at: String = spell_info.get("cast_at")
 	var packed_scene: PackedScene = spell_info.get("packed_scene")
 	var spell: Spell = packed_scene.instantiate()

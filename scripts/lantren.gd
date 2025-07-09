@@ -13,11 +13,15 @@ extends Node2D
 @export var vertical_speed := 5.0
 
 var target_position: Vector2
+var random_delay: float
 
 func _ready():
+	random_delay = randi() % 100 + 1
 	target_position = movement_con.global_position
 
 func _process(delta):
+	if !is_multiplayer_authority():
+		return
 	if rabbit == null:
 		return
 
@@ -27,7 +31,7 @@ func _process(delta):
 	var desired_position = rabbit.global_position + offset
 
 	var time := Time.get_ticks_msec() / 1000.0
-	var float_offset = sin(time * float_speed) * float_amplitude
+	var float_offset = sin((time+random_delay) * float_speed) * float_amplitude
 	desired_position.y += float_offset
 
 	target_position.x = lerp(target_position.x, desired_position.x, delta * horizontal_speed)

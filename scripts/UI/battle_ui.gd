@@ -119,7 +119,6 @@ func build_skill_ui(spell_ids: Array[String], container: Node, is_player: bool) 
 	return skill_boxes
 
 func update_enemy_skill(index: int, spell_id: String):
-	# 如果這個 spell 已經顯示過，就跳過
 	if revealed_spell_ids.has(spell_id):
 		return
 	revealed_spell_ids.append(spell_id)
@@ -127,7 +126,6 @@ func update_enemy_skill(index: int, spell_id: String):
 	var info = SpellRegistry.get_spell_info(spell_id)
 	var new_text := "%s" % [info.get("name")]
 
-	# 如果 index 合法，直接指定欄位更新
 	if index >= 0 and index < enemy_skill_icons.size():
 		var icon = enemy_skill_icons[index]["icon"]
 		var label = enemy_skill_icons[index]["label"]
@@ -135,7 +133,6 @@ func update_enemy_skill(index: int, spell_id: String):
 		label.text = new_text
 		return
 
-	# 否則自動找第一個 "???" 欄位更新
 	for skill in enemy_skill_icons:
 		if skill["label"].text == "???":
 			skill["icon"].texture = load(info.get("icon", ""))

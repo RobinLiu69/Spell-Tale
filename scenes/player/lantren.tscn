@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bfg2o8uuu0eh8"]
+[gd_scene load_steps=9 format=3 uid="uid://bfg2o8uuu0eh8"]
 
 [ext_resource type="Texture2D" uid="uid://cxn3h8f3qiubn" path="res://resources/images/players/rabbit/lantern/lantern_light.png" id="1_vf5dl"]
 [ext_resource type="Script" uid="uid://dvoqm4c6nrh5j" path="res://scripts/lantren.gd" id="1_wj324"]
@@ -91,7 +91,13 @@ _data = {
 &"flash": SubResource("Animation_7l6pk")
 }
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7l6pk"]
+properties/0/path = NodePath("MovementCon:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="Lantren" type="Node2D"]
+physics_interpolation_mode = 1
 script = ExtResource("1_wj324")
 
 [node name="MovementCon" type="Node2D" parent="."]
@@ -109,3 +115,6 @@ texture = ExtResource("2_pqnw4")
 libraries = {
 &"": SubResource("AnimationLibrary_cuc36")
 }
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_7l6pk")
