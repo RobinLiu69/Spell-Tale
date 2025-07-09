@@ -59,7 +59,7 @@
   "terra_column_spell": {
 	"name": "Terra Column",
 	"description": "?",
-	"icon": "res://resources/icons/unknow.png",
+	"icon": "res://resources/icons/terra_column.png",
 	"cast_at": "target_pos",
 	"category": "earth",
 	"mana_cost": {"earth": 0},

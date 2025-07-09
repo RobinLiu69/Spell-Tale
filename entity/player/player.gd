@@ -5,7 +5,7 @@ class_name Player
 @onready var cooldown_component := $CooldownComponent
 @onready var health_bar := $HealthBar
 @onready var health_component := $HealthComponent
-@onready var effect_manager_component := $EffectManagerComponent
+@onready var effect_component := $EffectComponent
 @onready var camera_2d := $Camera2D
 @onready var player_sprite := $PlayerSprite
 @onready var spell_con := $SpellConComponent
@@ -72,6 +72,7 @@ func _physics_process(delta: float) -> void:
 func got_hit(attack: Attack):
 	if health_component:
 		$Lantren.flash()
+		effect_component.applying_effect(attack.effect)
 		health_component.damage(attack)
 
 func component_handler(delta):
@@ -80,7 +81,7 @@ func component_handler(delta):
 		get_node_or_null("SpellConComponent"),
 		get_node_or_null("InputComponent"),
 		get_node_or_null("CameraComponent"),
-		get_node_or_null("EffectManagerComponent")
+		get_node_or_null("EffectComponent")
 	]
 	for component in components:
 		if is_instance_valid(component):

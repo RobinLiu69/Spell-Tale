@@ -1,8 +1,10 @@
 class_name Effect
 extends Node
 
-@export var component: EffectManagerComponent
+@export var component: EffectComponent
 
+
+var effect_id: int = -1
 var is_stopped := false
 var duration := 1.0
 var level := 1.0

@@ -11,10 +11,10 @@ func get_new_id() -> int:
 func register_spell(spell_id: int, spell: Node):
 	spell_dict[spell_id] = spell
 
-func clear_spell_by_name(name: String):
+func clear_spell_by_name(_name: String):
 	for key in spell_dict.keys():
 		if is_instance_valid(spell_dict[key]):
-			if "TerraColumn" == SpellManager.spell_dict[key].name.split("-")[0]:
+			if  SpellManager.spell_dict[key].name.begins_with(_name):
 				print("spell_name")
 				spell_dict[key].request_remove()
 	

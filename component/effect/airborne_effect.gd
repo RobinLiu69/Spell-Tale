@@ -4,6 +4,7 @@ class_name AirborneEffect
 func apply():
 	var behavior_comp = component.entity.get_node("BehaviorComponent")
 	if behavior_comp:
+		print("start")
 		old_behavior = behavior_comp.current_behavior
 		behavior_comp.change_behavior("AirborneBehavior")
 
@@ -14,4 +15,5 @@ func update(delta: float):
 func remove():
 	var behavior_comp = component.entity.get_node("BehaviorComponent")
 	if behavior_comp and old_behavior:
+		print("stops")
 		behavior_comp.set_behavior(old_behavior)

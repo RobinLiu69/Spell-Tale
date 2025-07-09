@@ -15,7 +15,7 @@ func _ready():
 func hit(hurtbox):
 	var attack = Attack.new()
 	attack.damage = damage
+	#attack.effect = {"airborne": [1.5, 4]}
 	hurtbox.damage.rpc(attack.serialize())
 
 	
-	hurtbox.entity.effect_manager_component.request_add_effect("airborne_effect", 1.5, 4)
