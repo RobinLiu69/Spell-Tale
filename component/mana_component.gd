@@ -1,7 +1,6 @@
 extends Component
 class_name ManaComponent
 
-# 每種 mana 上限與目前值
 var max_mana: Dictionary = {
 	"fire": 10,
 	"water": 10,
@@ -11,7 +10,7 @@ var max_mana: Dictionary = {
 	"light": 10,
 	"dark": 10,
 }
-var current_mana: Dictionary = {
+@export var current_mana: Dictionary = {
 	"fire": 10,
 	"water": 10,
 	"earth": 0,
@@ -21,12 +20,10 @@ var current_mana: Dictionary = {
 	"dark": 10,
 }
 
-# 回復設定
 @export var regen_elements: Array[String] = []
 @export var regen_interval: float = 2.0
 @export var regen_enabled: bool = true
 
-# 獲得 mana 的順序記錄（紅黑紅黑）
 var gain_log: Array[String] = []
 @export var gain_log_max_len: int = 20
 
@@ -59,7 +56,6 @@ func update_component(delta: float) -> void:
 			gain_mana(element, 1)
 			_regen_timers[element] = 0.0
 
-# 獲得 mana 並記錄順序
 func gain_mana(element: String, amount: int) -> void:
 	if not current_mana.has(element) or not max_mana.has(element):
 		return
@@ -78,7 +74,6 @@ func has_enough_multi(cost_dict: Dictionary) -> bool:
 			return false
 	return true
 
-# 消耗多種 mana
 func use_mana_multi(cost_dict: Dictionary) -> bool:
 	if not has_enough_multi(cost_dict):
 		return false
@@ -106,7 +101,6 @@ func set_mana_limit(element: String, max_value: int, current_value: int = -1) ->
 	max_mana[element] = max_value
 	current_mana[element] = current_value if current_value >= 0 else max_value
 
-# 加入記錄陣列
 func _add_to_gain_log(element: String) -> void:
 	gain_log.append(element)
 	if gain_log.size() > gain_log_max_len:

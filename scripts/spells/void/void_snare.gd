@@ -24,4 +24,4 @@ func hit(hurtbox: HurtboxComponent) -> void:
 		hurtbox.damage.rpc(attack.serialize())
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	remove_self()
+	request_remove()

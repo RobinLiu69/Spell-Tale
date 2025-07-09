@@ -262,14 +262,14 @@ func kick_from_full_room():
 @rpc("any_peer", "call_local")
 func start_countdown():
 	for player in players:
-		player.can_move = false
-		player.can_cast = false
+		player.disable_input = true
+		player.disable_skill = true
 	
 	show_countdown_ui(3)
 	await get_tree().create_timer(3).timeout
 
 	for player in players:
-		player.can_move = true
-		player.can_cast = true
+		player.disable_input = false
+		player.disable_skill = false
 
 		hide_countdown_ui()

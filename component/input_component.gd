@@ -3,9 +3,7 @@ extends Component
 @export var entity: CharacterBody2D
 
 func update_component(delta):	
-	#entity.lefttex.visible = Input.is_action_pressed("left")
-	#entity.righttex.visible = Input.is_action_pressed("right")
-	if not entity.can_move:
+	if entity.disable_input:
 		entity.movement_direction = 0
 		entity.jump = false
 	else:
@@ -18,7 +16,7 @@ func update_component(delta):
 		
 		entity.jump = Input.is_action_pressed("jump")
 	
-	if entity.can_cast:
+	if !entity.disable_skill:
 		if Input.is_action_just_pressed("special_1"):
 			entity.request_cast(entity.spell_1, entity.mouse_pos)
 		elif Input.is_action_just_pressed("special_2"):

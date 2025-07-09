@@ -20,8 +20,7 @@ func change_behavior(new_behavior_name: String):
 	var new_behavior = get_node_or_null(new_behavior_name)
 	if !is_instance_valid(new_behavior):
 		if not new_behavior_name:
-			print("Error changing to ", new_behavior_name, " in ",
-			entity.name, " at ", self.name, ".")
+			print("Error changing to ", new_behavior_name, " in ",entity.name, " at ", self.name, ".")
 
 		change_behavior(default_behavior.name)
 		return
