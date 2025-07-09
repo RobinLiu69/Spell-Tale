@@ -123,6 +123,3 @@ position = Vector2(-820, -205)
 scale = Vector2(1.6, 1.6)
 texture = ExtResource("3_lbhrr")
 flip_h = true
-
-[node name="Player" parent="." instance=ExtResource("2_lnu2h")]
-position = Vector2(-618, -327)
