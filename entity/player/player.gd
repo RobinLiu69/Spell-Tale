@@ -74,7 +74,7 @@ func got_hit(attack: Attack):
 		$Lantren.flash()
 		if is_multiplayer_authority():
 			effect_component.applying_effect(attack.effect)
-			health_component.damage(attack)
+		health_component.damage(attack)
 
 func component_handler(delta):
 	var components = [
