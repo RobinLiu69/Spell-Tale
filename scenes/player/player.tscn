@@ -93,6 +93,7 @@ libraries = {
 position_smoothing_enabled = true
 
 [node name="HealthBar" parent="." instance=ExtResource("3_gmlin")]
+visible = false
 offset_left = -52.0
 offset_top = -89.0
 offset_right = 48.0

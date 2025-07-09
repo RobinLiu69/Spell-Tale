@@ -107,7 +107,22 @@ func update_movement_timer(delta: float):
 	else:
 		time_moving = 0.0
 
+func reset_state():
+	if has_node("HealthComponent"):
+		$HealthComponent.reset()
 
+	if has_node("ManaComponent"):
+		$ManaComponent.reset()
+
+func die():
+	if is_multiplayer_authority():
+		var match_manager = get_node("/root/MatchManager")
+		if multiplayer.is_server():
+			match_manager._on_player_died(multiplayer.get_unique_id())
+		else:
+			match_manager.rpc_id(1, "_on_player_died", multiplayer.get_unique_id())
+		
+		
 func request_cast(spell_name, target_pos):
 	if disable_skill:
 		return 

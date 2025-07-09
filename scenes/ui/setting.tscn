@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://1ry85xqrtjd3"]
+[gd_scene load_steps=20 format=3 uid="uid://1ry85xqrtjd3"]
 
 [ext_resource type="Script" uid="uid://cuqvtw5gpc55k" path="res://scripts/UI/setting.gd" id="1_kq500"]
 [ext_resource type="Texture2D" uid="uid://cyk7oraywdkgj" path="res://resources/images/backgrounds/settingbackground.png" id="2_hqymk"]
 [ext_resource type="Script" uid="uid://cvpo88lsv4uxc" path="res://scripts/UI/ButtonAction.gd" id="3_q4yat"]
 [ext_resource type="Script" uid="uid://b4wukebhqcyfu" path="res://scripts/UI/setting/video_setting.gd" id="4_jo7xi"]
 [ext_resource type="Script" uid="uid://sdjcnxccvfe" path="res://scripts/UI/setting/audio_setting.gd" id="5_nl25k"]
+[ext_resource type="Script" uid="uid://da3eywgycxvti" path="res://scripts/UI/setting/control_setting.gd" id="6_hqymk"]
 [ext_resource type="AudioStream" uid="uid://bkkqc35v4lfmk" path="res://resources/sounds/buttons/button-305770.mp3" id="6_q5xb5"]
 [ext_resource type="AudioStream" uid="uid://bvslftlpc5wj3" path="res://resources/sounds/buttons/button-click-289742.mp3" id="7_oemk0"]
 
@@ -26,6 +27,12 @@ grow_begin = -5.0
 grow_end = -5.0
 thickness = 5
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_oemk0"]
+color = Color(0.054902, 0.541176, 1, 1)
+grow_begin = -2.0
+grow_end = 5.0
+thickness = 10
+
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_scrng"]
 color = Color(0.0555849, 0.539981, 1, 1)
 grow_begin = -2.0
@@ -38,6 +45,12 @@ grow_begin = -5.0
 grow_end = -5.0
 thickness = 5
 
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_bax16"]
+color = Color(0.054902, 0.541176, 1, 1)
+grow_begin = -2.0
+grow_end = 5.0
+thickness = 10
+
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_jo7xi"]
 color = Color(0.054902, 0.541176, 1, 1)
 grow_begin = -2.0
@@ -49,6 +62,12 @@ color = Color(1, 1, 1, 1)
 grow_begin = -5.0
 grow_end = -5.0
 thickness = 5
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_hthpg"]
+color = Color(0.054902, 0.541176, 1, 1)
+grow_begin = -2.0
+grow_end = 5.0
+thickness = 10
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_q5xb5"]
 color = Color(0.054902, 0.541176, 1, 1)
@@ -116,11 +135,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 25
 text = "Audio"
 
-[node name="MISCButton" type="Button" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
+[node name="ControlButton" type="Button" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
-text = "MISC"
+text = "Control"
 
 [node name="VideoAction" type="Node" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
 script = ExtResource("3_q4yat")
@@ -130,9 +149,9 @@ button_path = NodePath("../VideoButton")
 script = ExtResource("3_q4yat")
 button_path = NodePath("../AudioButton")
 
-[node name="MISCAction" type="Node" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
+[node name="ControlAction" type="Node" parent="SettingBackground/VBoxContainer/HBoxContainer/HBoxContainer"]
 script = ExtResource("3_q4yat")
-button_path = NodePath("../MISCButton")
+button_path = NodePath("../ControlButton")
 
 [node name="VideoSetting" type="HBoxContainer" parent="SettingBackground/VBoxContainer"]
 visible = false
@@ -223,11 +242,13 @@ popup/item_5/id = 5
 layout_mode = 2
 
 [node name="Brightness" type="Label" parent="SettingBackground/VBoxContainer/VideoSetting/Container"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Brightness"
 
 [node name="BrightnessSlider" type="HSlider" parent="SettingBackground/VBoxContainer/VideoSetting/Container"]
+visible = false
 custom_minimum_size = Vector2(400, 20)
 layout_mode = 2
 theme_override_styles/slider = SubResource("StyleBoxLine_kq500")
@@ -236,6 +257,7 @@ max_value = 1.0
 step = 0.01
 
 [node name="AudioSetting" type="HBoxContainer" parent="SettingBackground/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 215
 script = ExtResource("5_nl25k")
@@ -255,6 +277,7 @@ theme_override_font_sizes/font_size = 30
 custom_minimum_size = Vector2(400, 20)
 layout_mode = 2
 theme_override_styles/slider = SubResource("StyleBoxLine_31ui4")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_oemk0")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_scrng")
 max_value = 1.0
 step = 0.01
@@ -269,6 +292,7 @@ theme_override_font_sizes/font_size = 30
 [node name="MusicVolumeBar" type="HSlider" parent="SettingBackground/VBoxContainer/AudioSetting/Container"]
 layout_mode = 2
 theme_override_styles/slider = SubResource("StyleBoxLine_q4yat")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_bax16")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_jo7xi")
 max_value = 1.0
 step = 0.01
@@ -283,15 +307,157 @@ theme_override_font_sizes/font_size = 30
 [node name="EffectVolumeBar" type="HSlider" parent="SettingBackground/VBoxContainer/AudioSetting/Container"]
 layout_mode = 2
 theme_override_styles/slider = SubResource("StyleBoxLine_nl25k")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_hthpg")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_q5xb5")
 max_value = 1.0
 step = 0.01
 
-[node name="GraphSetting" type="HBoxContainer" parent="SettingBackground/VBoxContainer"]
+[node name="ControlSetting" type="HBoxContainer" parent="SettingBackground/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 215
+script = ExtResource("6_hqymk")
+
+[node name="Control" type="Control" parent="SettingBackground/VBoxContainer/ControlSetting"]
 layout_mode = 2
 
-[node name="MiscSetting" type="HBoxContainer" parent="SettingBackground/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingBackground/VBoxContainer/ControlSetting"]
 layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="RebindLeft" type="HBoxContainer" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer/RebindLeft"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Move Left   "
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer/RebindLeft"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="ResultLabel" type="Label" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer/RebindLeft"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="RebindRight" type="HBoxContainer" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer/RebindRight"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Move Right"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer/RebindRight"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="ResultLabel" type="Label" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer/RebindRight"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="RebindJump" type="HBoxContainer" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer/RebindJump"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Jump          "
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer/RebindJump"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="ResultLabel" type="Label" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer/RebindJump"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="RebindSpecial1" type="HBoxContainer" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer/RebindSpecial1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Cast Spell-1"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer/RebindSpecial1"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="ResultLabel" type="Label" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer/RebindSpecial1"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="RebindSpecial2" type="HBoxContainer" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer/RebindSpecial2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Cast Spell-2"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer/RebindSpecial2"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="ResultLabel" type="Label" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer/RebindSpecial2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="RebindSpecial3" type="HBoxContainer" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer/RebindSpecial3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Cast Spell-3"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer/RebindSpecial3"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="ResultLabel" type="Label" parent="SettingBackground/VBoxContainer/ControlSetting/VBoxContainer/RebindSpecial3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+
+[node name="SaveButton" type="Button" parent="SettingBackground"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 554.0
+offset_top = 357.0
+offset_right = 754.0
+offset_bottom = 432.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Save"
+
+[node name="SaveAction" type="Node" parent="SettingBackground"]
+script = ExtResource("3_q4yat")
+button_path = NodePath("../SaveButton")
 
 [node name="ButtonEffect" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_q5xb5")
