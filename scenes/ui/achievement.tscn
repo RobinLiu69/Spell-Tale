@@ -42,7 +42,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 size_flags_horizontal = 8
-text = "Leave"
+text = "Back"
 
 [node name="LeaveAction" type="Node" parent="MainScrren/ScreenTexture/Maincontainer/VBoxContainer"]
 script = ExtResource("2_rnxx6")

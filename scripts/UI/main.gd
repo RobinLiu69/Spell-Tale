@@ -4,9 +4,9 @@ extends Node2D
 @export var full_screen: bool = true
 
 func _ready() -> void:
-	if !Global.fullscreen_status and full_screen:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-		Global.fullscreen_status = true
+	Global.apply_keybindings()
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+	Global.fullscreen_status = true
 		
 	main_menu.visible = true
 	AudioManager.play_bgm()

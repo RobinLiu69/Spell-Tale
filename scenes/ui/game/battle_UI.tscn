@@ -61,4 +61,5 @@ custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
 [node name="SkillGroup" type="HBoxContainer" parent="MarginContainer/EnemyPanel"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2

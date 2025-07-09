@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://1ry85xqrtjd3" path="res://scenes/ui/setting.tscn" id="2_7xe4g"]
 [ext_resource type="PackedScene" uid="uid://bp1th31aar6d4" path="res://scenes/games/game.tscn" id="2_k5emf"]
 
+
 [node name="TrainingRoom" type="Node2D"]
 script = ExtResource("1_r1ea3")
 setting_scene = ExtResource("2_7xe4g")

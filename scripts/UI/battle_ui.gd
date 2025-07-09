@@ -9,11 +9,13 @@ extends Control
 @onready var enemy_mana_bar := $MarginContainer/EnemyPanel/ManaBar
 @onready var enemy_skill_container := $MarginContainer/EnemyPanel/SkillGroup
 @onready var enemy_name_label := $MarginContainer/EnemyPanel/Label
+@onready var enemy_panel := $MarginContainer/EnemyPanel
+
 
 var local_player: Node = null
 var remote_player: Node = null
 var enemy_skill_icons := []
-var revealed_spell_ids := []
+
 
 # 自定義屬性顏色
 var element_colors = {
@@ -39,7 +41,7 @@ func _ready():
 	connect_mana_signals()
 	init_player_ui()
 	init_enemy_ui()
-
+	
 func init_player_ui():
 	player_name_label.text = "You"
 	if player_hp_bar:
@@ -59,15 +61,22 @@ func init_player_ui():
 func init_enemy_ui():
 	enemy_name_label.text = "Opponent"
 	if enemy_hp_bar:
-		enemy_hp_bar.init_health(10)  # 固定最大血量為 10
+		enemy_hp_bar.init_health(10)  
 	if Global.enemy_mana_component:
 		var mana = Global.enemy_mana_component
 		var element = Global.enemy_element
 		enemy_mana_bar.init_mana(mana.max_mana.get(element, 10))
 		mana.mana_changed.connect(update_enemy_mana)
 		enemy_mana_bar.set_bar_color(element_colors.get(element, Color.WHITE))
-
-	enemy_skill_icons = build_skill_ui(["?", "?", "?"], enemy_skill_container, false)
+	
+	if Global.revealed_spell_ids.size() > 0:
+		var filled_spells := Global.revealed_spell_ids.duplicate()
+		while filled_spells.size() < 3:
+			filled_spells.append("?")
+		enemy_skill_icons = build_skill_ui(filled_spells, enemy_skill_container, false)
+	else:
+		enemy_skill_icons = build_skill_ui(["?", "?", "?"], enemy_skill_container, false)
+		
 	print("Enemy Mana:", Global.enemy_mana_component," enemy element: ", Global.enemy_element)
 
 func build_mp_ui(mana_component: Dictionary, container: Node):
@@ -119,15 +128,13 @@ func build_skill_ui(spell_ids: Array[String], container: Node, is_player: bool) 
 	return skill_boxes
 
 func update_enemy_skill(index: int, spell_id: String):
-	# 如果這個 spell 已經顯示過，就跳過
-	if revealed_spell_ids.has(spell_id):
+	if Global.revealed_spell_ids.has(spell_id):
 		return
-	revealed_spell_ids.append(spell_id)
+	Global.revealed_spell_ids.append(spell_id)
 
 	var info = SpellRegistry.get_spell_info(spell_id)
 	var new_text := "%s" % [info.get("name")]
 
-	# 如果 index 合法，直接指定欄位更新
 	if index >= 0 and index < enemy_skill_icons.size():
 		var icon = enemy_skill_icons[index]["icon"]
 		var label = enemy_skill_icons[index]["label"]
@@ -135,7 +142,6 @@ func update_enemy_skill(index: int, spell_id: String):
 		label.text = new_text
 		return
 
-	# 否則自動找第一個 "???" 欄位更新
 	for skill in enemy_skill_icons:
 		if skill["label"].text == "???":
 			skill["icon"].texture = load(info.get("icon", ""))
@@ -191,3 +197,10 @@ func connect_mana_signals():
 		enemy_mana_bar.set_bar_color(element_colors.get(element, Color.WHITE))
 		mc.mana_changed.connect(update_enemy_mana)
 		update_enemy_mana(mc.current_mana)
+		
+func reset_ui():
+	init_player_ui()
+	init_enemy_ui()
+
+func hide_enemy_ui():
+	enemy_panel.visible = false

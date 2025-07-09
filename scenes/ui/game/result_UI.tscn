@@ -1,0 +1,129 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8mfkhy5mpnum"]
+
+[ext_resource type="Script" uid="uid://ssnicvwx6b3p" path="res://scripts/UI/game/result_ui.gd" id="1_0gtob"]
+[ext_resource type="Script" uid="uid://cvpo88lsv4uxc" path="res://scripts/UI/ButtonAction.gd" id="2_ijhmy"]
+
+[node name="ResultUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0gtob")
+
+[node name="WinPanel" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="WinPanel"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.851482, 0.627968, 0.0243676, 1)
+theme_override_font_sizes/font_size = 50
+text = "You Won the Fight !!!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DeathPanel" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DeadLabel" type="Label" parent="DeathPanel"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.6, 0, 0, 1)
+theme_override_font_sizes/font_size = 50
+text = "You Dead !!!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreDisplay" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -450.0
+offset_right = 450.0
+offset_bottom = 23.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScoreDisplay"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/separation = 300
+
+[node name="Player1ScoreLabel" type="Label" parent="ScoreDisplay/HBoxContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Player2ScoreLabel" type="Label" parent="ScoreDisplay/HBoxContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="MatchResultPanel" type="PanelContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(700, 500)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MatchResultPanel"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ResultLabel" type="Label" parent="MatchResultPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 40
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MatchResultPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 80
+
+[node name="RematchButton" type="Button" parent="MatchResultPanel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Rematch"
+
+[node name="RematchAction" type="Node" parent="MatchResultPanel/VBoxContainer/HBoxContainer"]
+script = ExtResource("2_ijhmy")
+button_path = NodePath("../RematchButton")
+
+[node name="QuitButton" type="Button" parent="MatchResultPanel/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Quit"
+
+[node name="QuitAction" type="Node" parent="MatchResultPanel/VBoxContainer/HBoxContainer"]
+script = ExtResource("2_ijhmy")
+button_path = NodePath("../QuitButton")

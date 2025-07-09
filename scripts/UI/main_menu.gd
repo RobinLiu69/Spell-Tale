@@ -18,4 +18,5 @@ func _go_to_store():
 	get_tree().change_scene_to_file("res://scenes/ui/achievement.tscn")
 
 func _quit_game():
+	Global.save_config()
 	get_tree().quit()

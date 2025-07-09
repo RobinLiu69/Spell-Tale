@@ -132,7 +132,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 25
+theme_override_constants/separation = 50
 
 [node name="PlayButton" type="Button" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(225, 75)
@@ -151,6 +151,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_8ln24")
 theme_override_styles/normal = SubResource("StyleBoxTexture_ekxnf")
 
 [node name="StoreButton" type="Button" parent="HomePage/HomePageBackground/VBoxContainer/HBoxContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(225, 75)
 layout_mode = 2
 theme_override_styles/hover = SubResource("StyleBoxTexture_jk1qb")
