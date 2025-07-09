@@ -72,8 +72,9 @@ func _physics_process(delta: float) -> void:
 func got_hit(attack: Attack):
 	if health_component:
 		$Lantren.flash()
-		effect_component.applying_effect(attack.effect)
-		health_component.damage(attack)
+		if is_multiplayer_authority():
+			effect_component.applying_effect(attack.effect)
+			health_component.damage(attack)
 
 func component_handler(delta):
 	var components = [
