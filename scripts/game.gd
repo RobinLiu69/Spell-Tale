@@ -291,6 +291,7 @@ func kick_from_full_room():
 	get_tree().change_scene_to_packed(modechoice_scene)
 
 @rpc("any_peer", "call_local")
+
 func start_battle():
 	show_countdown_ui(3)
 	hide_countdown_ui()

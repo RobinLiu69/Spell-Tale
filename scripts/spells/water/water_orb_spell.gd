@@ -2,7 +2,6 @@ extends Spell
 class_name WaterOrbSpell
 
 @export var fire_interval := 0.5
-@export var waterball_scene: PackedScene
 @export var orb_sprite_scene: PackedScene
 @export var orb_radius := 40.0
 
@@ -45,13 +44,6 @@ func start_cast():
 	timer = 0.0
 	balls_fired = 0
 
-	if spell_factory == null:
-		var player = PlayerManager.get_player(caster_pid)
-		if player:
-			spell_factory = player.get_node("SpellFactoryComponent")
-		else:
-			push_error("Can't find the targeting player, pid: ", caster_pid)
-		
 func _process(delta):
 	if !is_casting:
 		return
@@ -88,25 +80,25 @@ func _fire_waterball():
 	var orb_sprite = fire_order[balls_fired]
 	var orb_name = orb_sprite.name
 	var spawn_pos = orb_sprite.global_position
-	var rotation = self.global_rotation
+	rotation = self.global_rotation
 
 	rpc("remove_orb_sprite", orb_name)
 	remove_orb_sprite(orb_name)
 
-	var spell_id = SpellManager.get_new_id()
-	rpc("spawn_waterball", spawn_pos, rotation, spell_id)
-	spawn_waterball(spawn_pos, rotation, spell_id)
+	var new_spell_id = SpellManager.get_new_id()
+	rpc("spawn_waterball", spawn_pos, rotation, new_spell_id)
+	spawn_waterball(spawn_pos, rotation, new_spell_id)
 
 @rpc("any_peer")
-func remove_orb_sprite(name: String):
+func remove_orb_sprite(_name: String):
 	for orb in fire_order:
-		if is_instance_valid(orb) and orb.name == name:
+		if is_instance_valid(orb) and orb.name == _name:
 			orb.queue_free()
 			break
 
 
 @rpc("any_peer")
-func spawn_waterball(pos: Vector2, rot: float, spell_id: int):
+func spawn_waterball(pos: Vector2, rot: float, _spell_id: int):
 	if spell_factory == null:
 		var player = PlayerManager.get_player(caster_pid)
 		if player:
@@ -115,6 +107,6 @@ func spawn_waterball(pos: Vector2, rot: float, spell_id: int):
 			printerr("Can't find player whose caster_pid is ", caster_pid)
 			return
 
-	var spell = spell_factory.spawn_spell("water_orb", pos, caster_pid, spell_id)
+	var spell = spell_factory.spawn_spell("water_orb", pos, caster_pid, _spell_id)
 	spell.rotation = rot
 	

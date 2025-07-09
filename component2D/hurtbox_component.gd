@@ -11,7 +11,7 @@ func _ready() -> void:
 func damage(_attack: Dictionary):
 	var attack: Attack = Attack.deserialize(_attack)
 	#print(Attack.deserialize(attack).damage)
-	if entity:
+	if entity and is_multiplayer_authority():
 		entity.got_hit(attack)
 	
 func take_damage(attack: Dictionary):

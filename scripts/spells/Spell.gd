@@ -17,11 +17,19 @@ func _ready():
 		SpellManager.register_spell(spell_id, self)
 
 
-func cast():
-	pass
+func cast() -> bool:
+	return true
 
 func hit(hurtbox: HurtboxComponent):
 	pass
 
 func hit_body(body: Node2D):
 	pass
+
+func request_remove():
+	if is_multiplayer_authority():
+		rpc("_request_remove", spell_id)
+
+@rpc("any_peer", "call_local")
+func _request_remove(_spell_id: int):
+	SpellManager.request_remove(_spell_id)

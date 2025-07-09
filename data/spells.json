@@ -55,6 +55,23 @@
 	"mana_cost": {"water": 0},
 	"cooldown": 0.0,
 	"scene": "res://scenes/spells/water/water_orb.tscn"
+  },
+  "terra_column_spell": {
+	"name": "Terra Column",
+	"description": "?",
+	"icon": "res://resources/icons/terra_column.png",
+	"cast_at": "target_pos",
+	"category": "earth",
+	"mana_cost": {"earth": 0},
+	"cooldown": 0.0,
+	"scene": "res://scenes/spells/earth/terra_column_spell.tscn"
+  },
+  "terra_column": {
+	"name": "Terra Column",
+	"cast_at": "target_pos",
+	"mana_cost": {"earth": 0},
+	"cooldown": 0.0,
+	"scene": "res://scenes/spells/earth/terra_column.tscn"
   }
 }
   

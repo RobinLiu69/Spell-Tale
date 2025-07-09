@@ -17,25 +17,17 @@ func _physics_process(delta):
 	timer += delta
 	
 	if timer >= lifetime:
-		_request_remove()
+		request_remove()
 
 func hit(hurtbox: HurtboxComponent):
 	if hurtbox:
 		var attack = Attack.new()
 		attack.damage = damage
 		hurtbox.damage.rpc(attack.serialize())
-		_request_remove()
+		request_remove()
 
 func _on_exisiting_timer_timeout() -> void:
-	_request_remove()
+	request_remove()
 
-func hit_body(body):
-	_request_remove()
-
-func _request_remove():
-	if is_multiplayer_authority():
-		rpc("request_remove", spell_id)
-
-@rpc("any_peer", "call_local")
-func request_remove(spell_id: int):
-	SpellManager.request_remove(spell_id)
+func hit_body(_body):
+	request_remove()

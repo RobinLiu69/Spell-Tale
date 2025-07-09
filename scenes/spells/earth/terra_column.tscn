@@ -1,0 +1,267 @@
+[gd_scene load_steps=13 format=3 uid="uid://basd3wm2byt2f"]
+
+[ext_resource type="Script" uid="uid://b4vk0ok4obqav" path="res://scripts/spells/earth/terra_column.gd" id="1_g1srf"]
+[ext_resource type="Texture2D" uid="uid://8h8j6t4g4m8x" path="res://resources/images/spells/earth/terra_column/terra_column_1.png" id="1_g461d"]
+[ext_resource type="Script" uid="uid://cm8jpnxk4eqex" path="res://component2D/hitbox_component.gd" id="2_g1srf"]
+[ext_resource type="Texture2D" uid="uid://de0m1ynqq015h" path="res://resources/images/spells/earth/terra_column/terra_column_2.png" id="3_0ek41"]
+[ext_resource type="Texture2D" uid="uid://y1w1c4lirre8" path="res://resources/images/spells/earth/terra_column/terra_column_3.png" id="4_cr11e"]
+
+[sub_resource type="Animation" id="Animation_8i1oq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_g461d")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/Button:shape:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(49, 38)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StaticBody2D/Button:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, -39)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("StaticBody2D/Top:shape:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(49, 31)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StaticBody2D/Top:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.5, -100.5)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("HitboxComponent/Hitbox/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("HitboxComponent/Hitbox/CollisionShape2D:shape:size")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(35.5638, 61.22)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("HitboxComponent/Hitbox/CollisionShape2D:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-0.542849, -17.9575)]
+}
+
+[sub_resource type="Animation" id="Animation_cr11e"]
+resource_name = "raise"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("1_g461d"), ExtResource("3_0ek41"), ExtResource("4_cr11e")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody2D/Button:shape:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(69.5, 12.25), Vector2(74, 45), Vector2(78, 91.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("StaticBody2D/Button:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 1.125), Vector2(1, -16.5), Vector2(1, -39)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("StaticBody2D/Top:shape:size")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(49, 26.5), Vector2(49, 30), Vector2(49, 30.5)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StaticBody2D/Top:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -18.75), Vector2(0, -54), Vector2(0, -100.25)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("HitboxComponent/Hitbox/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("HitboxComponent/Hitbox/CollisionShape2D:shape:size")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(35.5638, 61.22), Vector2(35.5638, 61.22), Vector2(35.5638, 61.22)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("HitboxComponent/Hitbox/CollisionShape2D:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-0.542849, -17.9575), Vector2(0, -56), Vector2(0, -102)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4pwkg"]
+_data = {
+&"RESET": SubResource("Animation_8i1oq"),
+&"raise": SubResource("Animation_cr11e")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cr11e"]
+size = Vector2(35.5638, 61.22)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_g1srf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g1srf"]
+size = Vector2(49, 38)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8i1oq"]
+size = Vector2(49, 31)
+
+[node name="TerraColumn" type="Node2D"]
+script = ExtResource("1_g1srf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -57)
+texture = ExtResource("1_g461d")
+
+[node name="ExisitingTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4pwkg")
+}
+
+[node name="HitboxComponent" type="Node2D" parent="." node_paths=PackedStringArray("spell", "hitbox")]
+script = ExtResource("2_g1srf")
+spell = NodePath("..")
+hitbox = NodePath("Hitbox")
+
+[node name="Hitbox" type="Area2D" parent="HitboxComponent"]
+collision_layer = 18
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent/Hitbox"]
+position = Vector2(-0.542849, -17.9575)
+rotation = 1.57933
+shape = SubResource("RectangleShape2D_cr11e")
+disabled = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_g1srf")
+
+[node name="Button" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1, -39)
+shape = SubResource("RectangleShape2D_g1srf")
+
+[node name="Top" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0.5, -100.5)
+shape = SubResource("RectangleShape2D_8i1oq")
