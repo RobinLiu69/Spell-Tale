@@ -60,7 +60,7 @@ properties/6/spawn = true
 properties/6/replication_mode = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gx1jg"]
-size = Vector2(30, 100.5)
+size = Vector2(30, 108.25)
 
 [node name="Player" type="CharacterBody2D"]
 physics_interpolation_mode = 1
@@ -134,6 +134,7 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent/Hurtbox"]
+position = Vector2(0, 10.125)
 shape = SubResource("RectangleShape2D_gx1jg")
 
 [node name="BehaviorComponent" type="Node" parent="." node_paths=PackedStringArray("entity", "default_behavior")]

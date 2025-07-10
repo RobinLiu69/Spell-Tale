@@ -6,13 +6,15 @@ var spell_factory: SpellFactoryComponent = null
 var ground_pos: Vector2
 
 func cast() -> bool:
+	if !multiplayer.is_server():
+		return false
+	
 	ground_pos = find_ground_below(global_position)
 	if ground_pos == Vector2.ZERO:
 		request_remove()
 		return false
 	
-	if is_multiplayer_authority():
-		_fire()
+	_fire()
 	
 	request_remove()
 	return true
@@ -34,7 +36,7 @@ func find_ground_below(mouse_pos: Vector2) -> Vector2:
 		return Vector2.ZERO
 
 
-@rpc("any_peer")
+@rpc("any_peer", "call_local")
 func spawn_column(pos: Vector2, spell_id: int, caster_pid: int):
 	if spell_factory == null:
 		var player = PlayerManager.get_player(caster_pid)
@@ -48,9 +50,6 @@ func spawn_column(pos: Vector2, spell_id: int, caster_pid: int):
 
 
 func _fire():
-	if !is_multiplayer_authority():
-		return
-
 	if spell_factory == null:
 		var player = PlayerManager.get_player(caster_pid)
 		if player:
@@ -59,8 +58,8 @@ func _fire():
 			printerr("Can't find player whose caster_pid is ", caster_pid)
 			return
 	
-	SpellManager.clear_spell_by_name("TerraColumn")
+	SpellManager.clear_spell_by_name("TerraColumn", caster_pid)
 
 	var new_spell_id = SpellManager.get_new_id()
 	rpc("spawn_column", ground_pos, new_spell_id, caster_pid)
-	spawn_column(ground_pos, new_spell_id, caster_pid)
+	

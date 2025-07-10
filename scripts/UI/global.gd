@@ -41,9 +41,9 @@ var brightness_value: float = 0.0
 
 
 #spell
-var spell_1: String = "fireball"
-var spell_2: String = "fire_aura"
-var spell_3: String = "terra_column_spell"
+var spell_1: String = "fire_aura"
+var spell_2: String = "terra_column_spell"
+var spell_3: String = "water_orb_spell"
 
 
 #mana
@@ -68,7 +68,7 @@ var revealed_spell_ids:Array[String] = []
 var fullscreen_status = false
 
 func _ready():
-	load_config()
+	#load_config()
 	apply_keybindings()
 	AudioServer.set_bus_volume_db(0, linear_to_db(master_volume))
 	
@@ -108,6 +108,7 @@ func load_config():
 		return
 	
 	var file = FileAccess.open("user://config.json", FileAccess.READ)
+
 	var content = file.get_as_text()
 	file.close()
 

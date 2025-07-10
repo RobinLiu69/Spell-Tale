@@ -22,7 +22,7 @@ func _generate_orbs():
 	for i in count:
 		var angle = deg_to_rad(120 * i)
 		var pos = Vector2(cos(angle), sin(angle)) * orb_radius
-
+		
 		var orb = orb_sprite_scene.instantiate() as Sprite2D
 		orb.name = "WaterSprite" + str(i)
 		orb.position = pos
@@ -30,16 +30,6 @@ func _generate_orbs():
 		fire_order.append(orb)
 
 func cast():
-	if is_multiplayer_authority():
-		is_casting = true
-		timer = 0.0
-		balls_fired = 0
-		rpc("start_cast")
-	else:
-		pass
-
-@rpc("any_peer")
-func start_cast():
 	is_casting = true
 	timer = 0.0
 	balls_fired = 0
@@ -52,8 +42,7 @@ func _process(delta):
 	timer += delta
 
 	if timer >= fire_interval and balls_fired < fire_order.size():
-		if is_multiplayer_authority():
-			_fire_waterball()
+		_fire_waterball()
 		timer = 0.0
 		balls_fired += 1
 		fire_interval -= 0.1
@@ -63,7 +52,7 @@ func _process(delta):
 		queue_free()
 
 func _fire_waterball():
-	if !is_multiplayer_authority():
+	if !multiplayer.is_server():
 		return
 	
 	if balls_fired >= fire_order.size():
@@ -81,23 +70,21 @@ func _fire_waterball():
 	var orb_name = orb_sprite.name
 	var spawn_pos = orb_sprite.global_position
 	rotation = self.global_rotation
-
-	rpc("remove_orb_sprite", orb_name)
-	remove_orb_sprite(orb_name)
+	
+	print(fire_order)
+	
+	remove_orb_sprite.rpc(balls_fired)
 
 	var new_spell_id = SpellManager.get_new_id()
-	rpc("spawn_waterball", spawn_pos, rotation, new_spell_id)
-	spawn_waterball(spawn_pos, rotation, new_spell_id)
+	spawn_waterball.rpc(spawn_pos, rotation, new_spell_id)
 
-@rpc("any_peer")
-func remove_orb_sprite(_name: String):
-	for orb in fire_order:
-		if is_instance_valid(orb) and orb.name == _name:
-			orb.queue_free()
-			break
+@rpc("any_peer", "call_local")
+func remove_orb_sprite(_index: int):
+	if is_instance_valid(fire_order[_index]):
+		fire_order[_index].queue_free()
 
 
-@rpc("any_peer")
+@rpc("any_peer", "call_local")
 func spawn_waterball(pos: Vector2, rot: float, _spell_id: int):
 	if spell_factory == null:
 		var player = PlayerManager.get_player(caster_pid)

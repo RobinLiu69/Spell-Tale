@@ -5,8 +5,11 @@ class_name SpellCastNetworkComponent
 @export var spell_factory: SpellFactoryComponent
 @export var mana_component: ManaComponent
 
-@rpc("authority")
+@rpc("any_peer")
 func server_cast(spell_name: String, target_pos: Vector2, caster_pid: int):
+	if !multiplayer.is_server():
+		return
+	
 	var spell_info = SpellRegistry.get_spell_info(spell_name)
 	var mana_cost = spell_info.get("mana_cost", 0)
 
@@ -21,8 +24,8 @@ func server_cast(spell_name: String, target_pos: Vector2, caster_pid: int):
 @rpc("any_peer", "call_local")
 func spawn_spell(spell_name: String, target_pos: Vector2, caster_pid: int, spell_id: int):
 	var spell = spell_factory.spawn_spell(spell_name, target_pos, caster_pid, spell_id)
-	if is_multiplayer_authority():
-		spell.cast()
+
+	spell.cast()
   
 	if caster_pid != multiplayer.get_unique_id():
 		var battle_ui := get_tree().get_root().get_node("Game/UI/Battle_UI")

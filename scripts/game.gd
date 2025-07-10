@@ -31,7 +31,6 @@ func _ready() -> void:
 		result_scene.game_scene_ref = self
 		$UI.add_child(multiplayer_screen)
 		$MultiplayerSpawner.spawn_function = add_player
-		setup_menu_player_reference()
 		MatchManager.game_scene_ref = self
 	else:
 		peer.create_server(randi_range(1,9999))
@@ -41,11 +40,6 @@ func _ready() -> void:
 		$MultiplayerSpawner.spawn(multiplayer.get_unique_id())
 		show_setup_battle_UI(Global.is_multiplayer_mode)
 		Global.multiplayer_ui_status = false
-
-func setup_menu_player_reference():
-	esc_menu.player = $Player
-	$Player/MultiplayerSynchronizer.queue_free()
-	$Player/HealthBar/MultiplayerSynchronizer.queue_free()
 
 func port_manifest() -> void:
 	port_display.visible = true

@@ -10,12 +10,10 @@ func _ready():
 	damage = 2
 	anim.play("raise")
 	await anim.animation_finished
-	hitbox_enabled = true
 
 func hit(hurtbox):
 	var attack = Attack.new()
 	attack.damage = damage
-	#attack.effect = {"airborne": [1.5, 4]}
 	hurtbox.damage.rpc(attack.serialize())
 
 	

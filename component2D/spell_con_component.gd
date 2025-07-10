@@ -34,8 +34,9 @@ func request_cast(spell_name: String, target_pos: Vector2) -> bool:
 		if global_cd > 0:
 			cooldown_component.set_global_cooldown(global_cd)
 
-	if is_multiplayer_authority():
+	if multiplayer.is_server():
 		entity.get_node("SpellCastNetworkComponent").server_cast(spell_name, target_pos, my_id)
 	else:
 		entity.get_node("SpellCastNetworkComponent").rpc_id(1, "server_cast", spell_name, target_pos, my_id)
+
 	return true

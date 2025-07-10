@@ -27,7 +27,7 @@ func hit_body(body: Node2D):
 	pass
 
 func request_remove():
-	if is_multiplayer_authority():
+	if multiplayer.is_server():
 		rpc("_request_remove", spell_id)
 
 @rpc("any_peer", "call_local")

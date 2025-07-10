@@ -8,12 +8,13 @@ func get_new_id() -> int:
 	next_id += 1
 	return id
 
+
 func register_spell(spell_id: int, spell: Node):
 	spell_dict[spell_id] = spell
 
-func clear_spell_by_name(_name: String):
+func clear_spell_by_name(_name: String, _caster_pid: int):
 	for key in spell_dict.keys():
-		if is_instance_valid(spell_dict[key]):
+		if is_instance_valid(spell_dict[key]) and spell_dict[key].caster_pid == _caster_pid:
 			if  SpellManager.spell_dict[key].name.begins_with(_name):
 				print("spell_name")
 				spell_dict[key].request_remove()
@@ -26,7 +27,6 @@ func register_spell_on_clients(spell_id: int, spell: Node):
 @rpc("authority")
 func request_remove(spell_id: int):
 	remove_spell(spell_id)
-	rpc("remove_on_client", spell_id)
 
 @rpc("any_peer", "call_local")
 func remove_on_client(spell_id: int):
