@@ -11,13 +11,13 @@ var max_mana: Dictionary = {
 	"dark": 10,
 }
 @export var current_mana: Dictionary = {
-	"fire": 10,
-	"water": 10,
+	"fire": 0,
+	"water": 0,
 	"earth": 0,
 	"grass": 0,
 	"electric": 0,
 	"light": 0,
-	"dark": 10,
+	"dark": 0,
 }
 
 @export var regen_elements: Array[String] = []

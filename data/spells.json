@@ -14,9 +14,9 @@
 	"description": "Traps enemies with dark energy.",
 	"icon": "res://resources/icons/void_snare.png",
 	"cast_at": "target_pos",
-	"category": "void",
-	"mana_cost": {"void": 1},
-	"cooldown": 1.0,
+	"category": "dark",
+	"mana_cost": {"dark": 2},
+	"cooldown": 2.0,
 	"scene": "res://scenes/spells/void/void_snare.tscn"
   },
   "void_laser": {
@@ -24,8 +24,8 @@
 	"description": "Fires a piercing beam of void.",
 	"icon": "res://resources/icons/laser_end.png",
 	"cast_at": "marker",
-	"category": "void",
-	"mana_cost": {"void": 1},
+	"category": "dark",
+	"mana_cost": {"dark": 1},
 	"cooldown": 1.0,
 	"scene": "res://scenes/spells/void/void_laser.tscn"
   },
@@ -35,7 +35,7 @@
 	"icon": "res://resources/icons/fire_aura.png",
 	"cast_at": "player_pos",
 	"category": "fire",
-	"mana_cost": {"fire": 1},
+	"mana_cost": {"fire": 3},
 	"cooldown": 5.0,
 	"scene": "res://scenes/spells/fire/fire_aura.tscn"
   },
@@ -45,7 +45,7 @@
 	"icon": "res://resources/icons/water_orb.png",
 	"cast_at": "marker_dir+player_pos",
 	"category": "water",
-	"mana_cost": {"water": 0},
+	"mana_cost": {"water": 2},
 	"cooldown": 2.0,
 	"scene": "res://scenes/spells/water/water_orb_spell.tscn"
   },
@@ -62,8 +62,8 @@
 	"icon": "res://resources/icons/terra_column.png",
 	"cast_at": "target_pos",
 	"category": "earth",
-	"mana_cost": {"earth": 0},
-	"cooldown": 0.0,
+	"mana_cost": {"earth": 3},
+	"cooldown": 4.0,
 	"scene": "res://scenes/spells/earth/terra_column_spell.tscn"
   },
   "terra_column": {

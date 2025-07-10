@@ -28,11 +28,11 @@ func _physics_process(delta: float) -> void:
 
 func hit(hurtbox: HurtboxComponent):	
 	if hurtbox.entity not in collider_list:
-		var slow = SlowEffect.new(timer.wait_time+10)
-		slow.slow_multiplier = 0.5
-		hurtbox.entity.status_effect_manager.add_effect(slow, hurtbox.entity)
+		#var slow = SlowEffect.new(timer.wait_time+10)
+		#slow.slow_multiplier = 0.5
+		#hurtbox.entity.status_effect_manager.add_effect(slow, hurtbox.entity)
 		collider_list.append(hurtbox.entity)
-		print("add slow")
+		#print("add slow")
 
 func _process(delta: float) -> void:
 	if source:
