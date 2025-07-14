@@ -171,15 +171,20 @@ func update_player_mana(current_mana: Dictionary):
 	if player_mana_bar:
 		var val = current_mana.get(element, 0)
 		player_mana_bar.current_mana = val
-		print("player mana updated: ", val)
+		print("player mana updated: ", val, " element is: ",element)
 		
 
 func update_enemy_mana(current_mana: Dictionary):
 	var element = Global.enemy_element
+	
+	if element == null or element == "":
+		print("enemy_element 尚未初始化，跳過更新")
+		return
+		
 	if enemy_mana_bar:
 		var val = current_mana.get(element, 0)
 		enemy_mana_bar.set_mana(val)
-		print("enemy mana updated:", val)
+		print("enemy mana updated:", val, " element is: ",element)
 		
 func connect_mana_signals():
 	if local_player and local_player.has_node("ManaComponent"):

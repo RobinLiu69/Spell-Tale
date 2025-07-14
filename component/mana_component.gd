@@ -34,6 +34,8 @@ signal mana_changed(current_mana)
 func _ready():
 	for element in regen_elements:
 		_regen_timers[element] = 0.0
+	var element_array: Array[String] = [Global.selected_element]
+	set_regen_elements(element_array)
 
 func _process(delta: float) -> void:
 	update_component(delta)

@@ -6,7 +6,7 @@ extends ProgressBar
 @onready var timer := $Timer
 
 var max_mana := 10.0
-var current_mana := 10.0 : set = _set_mana
+var current_mana := 0.0 : set = _set_mana
 
 func _set_mana(new_mana: float):
 	var prev = current_mana
@@ -21,8 +21,6 @@ func _set_mana(new_mana: float):
 		delay_bar.value = current_mana
 
 func init_mana(max_val: float):
-	max_mana = max_val
-	current_mana = max_val
 	max_value = max_val
 	value = current_mana
 	delay_bar.max_value = max_val

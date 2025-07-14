@@ -3,6 +3,9 @@ class_name ResultUI
 
 var game_scene_ref
 var player: Player
+var has_requested_rematch: bool = false
+var has_received_rematch_request: bool = false
+
 
 func _ready() -> void:
 	MatchManager.result_ui = self
@@ -41,12 +44,53 @@ func is_local_player(player_pid: int) -> bool:
 	return multiplayer.get_unique_id() == player_pid
 
 func _on_RematchButton_pressed() -> void:
-	MatchManager.reset_match()
-	game_scene_ref.reset_game_state()
-	update_score_display(Global.player_1_score,Global.player_2_score)
-	$MatchResultPanel.visible = false
+	if has_requested_rematch:
+		print("Rematch already requested, ignoring click")
+		return
+
+	has_requested_rematch = true
+
+	if has_received_rematch_request:
+		if multiplayer.is_server():
+			rpc("start_rematch_for_both") 
+		else:
+			rpc_id(1, "start_rematch_for_both") 
+	else:
+		print("waiting for Rematch")
+		$MatchResultPanel/VBoxContainer/ResultLabel.text = "waiting for Rematch..."
+		rpc("receive_rematch_request")
+
 
 func _on_ExitRoomButton_pressed() -> void:
 	MatchManager.reset_match()
 	game_scene_ref.exit_game(multiplayer.get_unique_id())
-	get_tree().change_scene_to_file("res://scenes/ui/modechoice.tscn")	
+	get_tree().change_scene_to_file("res://scenes/ui/modechoice.tscn")
+	
+@rpc("any_peer")
+func receive_rematch_request():
+	has_received_rematch_request = true
+	print("received Rematch request")
+	$MatchResultPanel/VBoxContainer/ResultLabel.text = "opponent requests rematch, press rematch to start a new fight!"
+
+@rpc("any_peer", "call_local")
+func start_rematch_for_both():
+	rpc("reset_rematch_flags")
+	print("successfully rematch, start a new game")
+	$MatchResultPanel.visible = false
+	MatchManager.reset_match()
+	game_scene_ref.reset_game_state()
+	update_score_display(Global.player_1_score,Global.player_2_score)
+	game_scene_ref.show_countdown_ui(3)
+	await game_scene_ref.hide_countdown_ui()
+	
+	
+@rpc("any_peer", "call_local")
+func reset_rematch_flags():
+	print("Resetting rematch flags")
+	has_requested_rematch = false
+	has_received_rematch_request = false
+	MatchManager.reset_match()
+	game_scene_ref.reset_game_state()
+	update_score_display(Global.player_1_score,Global.player_2_score)
+	if is_instance_valid($MatchResultPanel):
+		$MatchResultPanel.visible = false

@@ -43,6 +43,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="EnemyPanel" type="VBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(225, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
