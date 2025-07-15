@@ -1,9 +1,8 @@
 extends Behavior
 class_name StunnedBehavior
 
-func initialize():
+func enter():
 	component.entity.velocity = Vector2.ZERO
-	component.entity.acceleration = Vector2.ZERO
 	component.entity.disable_input = true
 	component.entity.disable_skill = true
 

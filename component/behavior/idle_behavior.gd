@@ -1,8 +1,5 @@
 extends Behavior
 
-func initialize():
-	pass
-
 func behavior_changes(entity):
 	if entity.jump:
 		component.change_behavior("JumpBehavior")

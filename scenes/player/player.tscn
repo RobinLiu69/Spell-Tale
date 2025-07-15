@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://baeupmwvx1kib"]
+[gd_scene load_steps=31 format=3 uid="uid://baeupmwvx1kib"]
 
 [ext_resource type="Texture2D" uid="uid://buxqa7rdfotov" path="res://resources/images/players/rabbit/idle/player.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://dlvhwpsrbw6mc" path="res://entity/player/player.gd" id="1_g2els"]
@@ -19,10 +19,12 @@
 [ext_resource type="Script" uid="uid://skmlnsw3bj2h" path="res://component2D/hurtbox_component.gd" id="13_fcs02"]
 [ext_resource type="Script" uid="uid://bwlxtoi3sbpvw" path="res://component/camera_component.gd" id="13_gx1jg"]
 [ext_resource type="Script" uid="uid://0wr81ghqcj5e" path="res://component/behavior/airborne_behavior.gd" id="14_ioxgp"]
+[ext_resource type="Script" uid="uid://7jsak3heup1i" path="res://component/behavior/stunned_behavior.gd" id="15_cnsyf"]
 [ext_resource type="Script" uid="uid://diftt7f120wan" path="res://component/spell_factory_component.gd" id="17_kvlxm"]
 [ext_resource type="Script" uid="uid://jidkrk5exi40" path="res://component/spell_cast_network_component.gd" id="17_uf5tr"]
 [ext_resource type="Script" uid="uid://cij41253djisl" path="res://component/cooldown_component.gd" id="18_8ydkj"]
 [ext_resource type="Script" uid="uid://el7wfd00roc4" path="res://component/mana_component.gd" id="18_lgqa7"]
+[ext_resource type="Script" uid="uid://cxjg4c7qn3kk0" path="res://component/behavior/float_behavior.gd" id="25_007i1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
 radius = 16.0
@@ -165,6 +167,15 @@ component = NodePath("..")
 [node name="AirborneBehavior" type="Node" parent="BehaviorComponent" node_paths=PackedStringArray("component")]
 script = ExtResource("14_ioxgp")
 component = NodePath("..")
+
+[node name="StunnedBehavior" type="Node" parent="BehaviorComponent"]
+script = ExtResource("15_cnsyf")
+metadata/_custom_type_script = "uid://7jsak3heup1i"
+
+[node name="FloatBehavior" type="Node" parent="BehaviorComponent" node_paths=PackedStringArray("component")]
+script = ExtResource("25_007i1")
+component = NodePath("..")
+metadata/_custom_type_script = "uid://cxjg4c7qn3kk0"
 
 [node name="Lantren" parent="." node_paths=PackedStringArray("rabbit") instance=ExtResource("13_3j4b4")]
 rabbit = NodePath("../PlayerSprite")

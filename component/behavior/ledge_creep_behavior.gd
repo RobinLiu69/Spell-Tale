@@ -1,8 +1,5 @@
 extends Behavior
 
-func initialize():
-	pass
-
 func update_behavior(delta):
 	var entity = component.entity
 

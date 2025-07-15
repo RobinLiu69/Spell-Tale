@@ -12,8 +12,11 @@ func _ready():
 	await anim.animation_finished
 
 func hit(hurtbox):
+	var pid = hurtbox.get_multiplayer_authority()
 	var attack = Attack.new()
-	attack.damage = damage
+	attack.damage = 0
 	hurtbox.damage.rpc(attack.serialize())
-
 	
+	print("atk")
+	#hurtbox.owner.position.y -= 300
+	EffectManager.request_add_effect(pid, "airborne", 0.5, 1)

@@ -14,7 +14,9 @@ func update_component(delta):
 		current_behavior.update_behavior(delta)
 
 func set_behavior(new_behavior):
+	current_behavior.exit()
 	current_behavior = new_behavior
+	current_behavior.enter()
 
 func change_behavior(new_behavior_name: String):
 	var new_behavior = get_node_or_null(new_behavior_name)

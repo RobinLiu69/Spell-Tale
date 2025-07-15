@@ -5,7 +5,7 @@ func apply():
 	var behavior_comp = component.entity.get_node("BehaviorComponent")
 	if behavior_comp:
 		old_behavior = behavior_comp.current_behavior
-		behavior_comp.change_behavior("stunned")
+		behavior_comp.change_behavior("StunnedBehavior")
 
 func remove():
 	var behavior_comp = component.entity.get_node("BehaviorComponent")

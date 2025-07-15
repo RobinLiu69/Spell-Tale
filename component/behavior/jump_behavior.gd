@@ -1,8 +1,5 @@
 extends Behavior
 
-func initialize():
-	pass
-
 func component_changes(entity):
 	if !entity.is_on_floor():
 		component.change_behavior("FallBehavior")

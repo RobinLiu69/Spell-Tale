@@ -13,7 +13,7 @@ var max_mana: Dictionary = {
 @export var current_mana: Dictionary = {
 	"fire": 0,
 	"water": 0,
-	"earth": 0,
+	"earth": 100,
 	"grass": 0,
 	"electric": 0,
 	"light": 0,
@@ -68,12 +68,14 @@ func gain_mana(element: String, amount: int) -> void:
 			_add_to_gain_log(element)
 		emit_signal("mana_changed", current_mana)
 
+@rpc("authority")
 func has_enough_multi(cost_dict: Dictionary) -> bool:
 	for element in cost_dict.keys():
 		if current_mana.get(element, 0) < cost_dict[element]:
 			return false
 	return true
 
+@rpc("any_peer", "call_local")
 func use_mana_multi(cost_dict: Dictionary) -> bool:
 	if not has_enough_multi(cost_dict):
 		return false
@@ -82,6 +84,7 @@ func use_mana_multi(cost_dict: Dictionary) -> bool:
 		
 	emit_signal("mana_changed", current_mana)
 	rpc("sync_mana", current_mana)
+	
 	return true
 	
 @rpc("any_peer", "call_local")

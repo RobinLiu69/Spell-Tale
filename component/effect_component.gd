@@ -13,34 +13,28 @@ var effect_registry := {
 	"airborne": preload("res://component/effect/airborne_effect.gd"),
 }
 
-func applying_effect(effects: Dictionary):
-	for key in effects.keys():
-		if effect_registry.has(key):
-			var effect_info = effects[key]
-			request_effect(key, effect_info[0], effect_info[1])
-		else:
-			printerr("No effect named:", effects[key])
-
-
 func request_effect(effect_name: String, duration: float, level: float):
-	var pid = entity.get_multiplayer_authority()
-	
-	if multiplayer.is_server():
-		if has_node("/root/EffectManager"):
-			EffectManager.apply_effect_on_all.rpc(pid, effect_name, duration, level)
-	else:
-		if has_node("/root/EffectManager"):
-			EffectManager.rpc_id(1, "request_add_effect", pid, effect_name, duration, level)
+	if is_multiplayer_authority():
+		var pid = entity.get_multiplayer_authority()
+		EffectManager.rpc_id(1, "request_add_effect", pid, effect_name, duration, level)
 
 func apply_effect(effect_name: String, duration: float, level: float, effect_id: int):
-	var effect_scene = effect_registry[effect_name]
-	var effect = effect_scene.new(duration, level)
+	if not effect_registry.has(effect_name):
+		push_error("Effect not found in registry: " + effect_name)
+		return
+
+	var effect = effect_registry[effect_name].new(duration, level)
+	effect.name = "effect_%d" % effect_id
 	effect.effect_id = effect_id
-	effect.name = "effect_" + str(effect_id)
 	effect.component = self
 	add_child(effect)
-	effect.apply(entity)
+	effect.apply()
 
+func remove_effect(effect_id: int):
+	var effect = get_node_or_null("effect_%d" % effect_id)
+	if effect:
+		effect.remove()
+		effect.queue_free()
 
 func update_component(delta):
 	for effect in get_children():
@@ -48,4 +42,4 @@ func update_component(delta):
 		if effect.is_finished():
 			if is_multiplayer_authority():
 				var pid = entity.get_multiplayer_authority()
-				EffectManager.rpc("remove_effect_on_all", pid, effect.effect_id)
+				EffectManager.rpc_id(1, "request_remove_effect", pid, effect.effect_id)
