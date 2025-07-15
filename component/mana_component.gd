@@ -109,9 +109,8 @@ func _add_to_gain_log(element: String) -> void:
 		gain_log.pop_front()
 
 func reset():
-	for element in max_mana.keys():
-		current_mana[element] = max_mana[element]
+	#for element in max_mana.keys():
+		#current_mana[element] = max_mana[element]
 	emit_signal("mana_changed", current_mana)
-
 	for element in regen_elements:
 		_regen_timers[element] = 0.0

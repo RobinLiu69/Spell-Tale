@@ -105,6 +105,7 @@ func exit_game(pid):
 		cleanup_multiplayer()
 	else:
 		cleanup_multiplayer()
+		
 
 	for player in players:
 		if is_instance_valid(player):
@@ -127,11 +128,21 @@ func _on_peer_connected(pid):
 	var player = $MultiplayerSpawner.spawn(pid)
 	Global.achivement1_status = true
 	if players.size() == MAX_PLAYERS and multiplayer.is_server():
-		rpc("start_battle")
+		if result_scene.auto_rematch_on_rejoin:
+			print("Auto rematch triggered due to client rejoin.")
+			result_scene.auto_rematch_on_rejoin = false
+			result_scene.start_rematch_for_both()
+		else:
+			MatchManager.reset_match()
+			reset_game_state()
+			rpc("start_battle")
 
 func _on_peer_disconnected(pid):
 	print("delete player")
 	del_player(pid)
+
+	if multiplayer.is_server():
+		announce_host_win()
 
 func _on_server_disconnected():
 	print("Disconnected from server")
@@ -255,6 +266,17 @@ func show_setup_battle_UI(multiplayer_status: bool):
 		battle_UI_scene.init_player_ui()
 		battle_UI_scene.connect_health_signals()
 		battle_UI_scene.connect_mana_signals()
+
+func announce_host_win():
+	var winner = "Host"
+	result_scene.visible = true
+	result_scene.show_client_exit_result(winner)
+	
+	
+	esc_menu.visible = false
+	port_display_in_game.visible = false
+	
+	print("Host wins due to opponent disconnect")
 
 
 @rpc("any_peer","call_local")
