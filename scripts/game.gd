@@ -98,7 +98,7 @@ func join_room() -> void:
 		rpc_id(1, "send_selected_element_to_host", Global.selected_element)
 	
 	
-func exit_game(pid):
+func exit_game():
 	if multiplayer.is_server():
 		rpc("notify_clients_game_ending")
 		await get_tree().create_timer(0.1).timeout

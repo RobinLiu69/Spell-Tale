@@ -10,7 +10,7 @@ func _ready() -> void:
 
 func _leave_menu() -> void:
 	if Global.is_multiplayer_mode:
-		owner.exit_game(player.name)
+		owner.exit_game()
 	get_tree().change_scene_to_file("res://scenes/ui/modechoice.tscn")
 	AudioManager.play_bgm()
 	
