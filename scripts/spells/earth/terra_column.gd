@@ -14,7 +14,7 @@ func _ready():
 func hit(hurtbox):
 	var pid = hurtbox.get_multiplayer_authority()
 	var attack = Attack.new()
-	attack.damage = 0
+	attack.damage = damage
 	hurtbox.damage.rpc(attack.serialize())
 	
 	print("atk")
