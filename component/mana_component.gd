@@ -34,6 +34,8 @@ signal mana_changed(current_mana)
 func _ready():
 	for element in regen_elements:
 		_regen_timers[element] = 0.0
+	var element_array: Array[String] = [Global.selected_element]
+	set_regen_elements(element_array)
 
 func _process(delta: float) -> void:
 	update_component(delta)
@@ -110,9 +112,8 @@ func _add_to_gain_log(element: String) -> void:
 		gain_log.pop_front()
 
 func reset():
-	for element in max_mana.keys():
-		current_mana[element] = max_mana[element]
+	#for element in max_mana.keys():
+		#current_mana[element] = max_mana[element]
 	emit_signal("mana_changed", current_mana)
-
 	for element in regen_elements:
 		_regen_timers[element] = 0.0

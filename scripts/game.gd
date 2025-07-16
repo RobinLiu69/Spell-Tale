@@ -93,6 +93,9 @@ func join_room() -> void:
 	Global.multiplayer_ui_status = false
 	Global.achivement1_status = true
 	get_node("UI/ResultUI").update_score_display(Global.player_1_score,Global.player_2_score)
+	if not multiplayer.is_server():
+		print("Client sending element to host:", Global.selected_element)
+		rpc_id(1, "send_selected_element_to_host", Global.selected_element)
 	
 	
 func exit_game(pid):
@@ -102,6 +105,7 @@ func exit_game(pid):
 		cleanup_multiplayer()
 	else:
 		cleanup_multiplayer()
+		
 
 	for player in players:
 		if is_instance_valid(player):
@@ -124,11 +128,21 @@ func _on_peer_connected(pid):
 	var player = $MultiplayerSpawner.spawn(pid)
 	Global.achivement1_status = true
 	if players.size() == MAX_PLAYERS and multiplayer.is_server():
-		rpc("start_battle")
+		if result_scene.auto_rematch_on_rejoin:
+			print("Auto rematch triggered due to client rejoin.")
+			result_scene.auto_rematch_on_rejoin = false
+			result_scene.start_rematch_for_both()
+		else:
+			MatchManager.reset_match()
+			reset_game_state()
+			rpc("start_battle")
 
 func _on_peer_disconnected(pid):
 	print("delete player")
 	del_player(pid)
+
+	if multiplayer.is_server():
+		announce_host_win()
 
 func _on_server_disconnected():
 	print("Disconnected from server")
@@ -179,25 +193,21 @@ func add_player(pid) -> Node2D:
 		var mc = player.get_node("ManaComponent")
 		if pid == multiplayer.get_unique_id():
 			Global.player_mana_component = mc
-			Global.selected_element = player.get_selected_element() if player.has_method("get_selected_element") else "fire"
-
 			if is_instance_valid(battle_UI_scene):
 				mc.mana_changed.connect(battle_UI_scene.update_player_mana)
 		else:
-			Global.enemy_mana_component = mc		
-			if player.has_method("get_selected_element"):
-				Global.enemy_element = player.get_selected_element()
-			else:
-				var element = player.get("selected_element")
-				if element != null and typeof(element) == TYPE_STRING:
-					Global.enemy_element = element
-				else:
-					Global.enemy_element = "fire"  
-
+			Global.enemy_mana_component = mc
+			
+			
 			if is_instance_valid(battle_UI_scene):
 				battle_UI_scene.remote_player = player
 				mc.mana_changed.connect(battle_UI_scene.update_enemy_mana)
-				battle_UI_scene.init_enemy_ui()
+	
+	if pid == multiplayer.get_unique_id():
+		rpc("receive_enemy_element", Global.selected_element)
+	else:
+		rpc_id(pid, "receive_enemy_element", Global.selected_element)
+
 	return player
 
 func show_countdown_ui(duration: int):
@@ -257,6 +267,17 @@ func show_setup_battle_UI(multiplayer_status: bool):
 		battle_UI_scene.connect_health_signals()
 		battle_UI_scene.connect_mana_signals()
 
+func announce_host_win():
+	var winner = "Host"
+	result_scene.visible = true
+	result_scene.show_client_exit_result(winner)
+	
+	
+	esc_menu.visible = false
+	port_display_in_game.visible = false
+	
+	print("Host wins due to opponent disconnect")
+
 
 @rpc("any_peer","call_local")
 func _del_player(pid):
@@ -285,7 +306,29 @@ func kick_from_full_room():
 	get_tree().change_scene_to_packed(modechoice_scene)
 
 @rpc("any_peer", "call_local")
-
 func start_battle():
 	show_countdown_ui(3)
 	hide_countdown_ui()
+	
+	
+@rpc("any_peer")
+func receive_enemy_element(element: String) -> void:
+	Global.enemy_element = element
+	if is_instance_valid(battle_UI_scene):
+		battle_UI_scene.init_enemy_ui()
+	
+		if Global.enemy_mana_component:
+			element = Global.enemy_element
+			var mana = Global.enemy_mana_component.current_mana.get(element, 0)
+			battle_UI_scene.update_enemy_mana(Global.enemy_mana_component.current_mana)
+
+@rpc("any_peer")
+func send_selected_element_to_host(element: String) -> void:
+	Global.enemy_element = element
+	print("Host received client's element:", element)
+
+	if is_instance_valid(battle_UI_scene):
+		battle_UI_scene.init_enemy_ui()
+		if Global.enemy_mana_component:
+			var mana = Global.enemy_mana_component.current_mana.get(element, 0)
+			battle_UI_scene.update_enemy_mana(Global.enemy_mana_component.current_mana)
