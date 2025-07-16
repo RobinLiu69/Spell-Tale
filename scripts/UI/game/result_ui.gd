@@ -80,7 +80,7 @@ func _on_RematchButton_pressed() -> void:
 
 func _on_ExitRoomButton_pressed() -> void:
 	MatchManager.reset_match()
-	game_scene_ref.exit_game(multiplayer.get_unique_id())
+	game_scene_ref.exit_game()
 	get_tree().change_scene_to_file("res://scenes/ui/modechoice.tscn")
 	
 @rpc("any_peer")
