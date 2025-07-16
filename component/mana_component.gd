@@ -13,7 +13,7 @@ var max_mana: Dictionary = {
 @export var current_mana: Dictionary = {
 	"fire": 0,
 	"water": 0,
-	"earth": 100,
+	"earth": 0,
 	"grass": 0,
 	"electric": 0,
 	"light": 0,

@@ -21,5 +21,5 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 	var hurtbox = area.get_parent()
 	
 	if hurtbox is HurtboxComponent:
-		#if hurtbox.get_multiplayer_authority() != spell.get_multiplayer_authority():
+		if hurtbox.get_multiplayer_authority() != spell.get_multiplayer_authority():
 			spell.hit(hurtbox)
